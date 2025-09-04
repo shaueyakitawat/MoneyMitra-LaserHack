@@ -1,0 +1,26 @@
+[
+  {
+    "id": "investing-basics",
+    "title": "Investing Basics",
+    "description": "Learn the fundamentals of investing",
+    "content": {
+      "original": "Investing is the act of allocating money with the expectation of generating returns over time...",
+      "simplified": "Investing means putting your money to work to grow it over time...",
+      "vernacular": "निवेश का मतलब है अपने पैसे को समय के साथ बढ़ाने के लिए काम में लगाना..."
+    },
+    "videoId": "dFAjNGsBMp0",
+    "pdfUrl": "/demo.pdf"
+  },
+  {
+    "id": "stock-analysis",
+    "title": "Stock Analysis",
+    "description": "Learn how to evaluate stocks",
+    "content": {
+      "original": "Stock analysis involves evaluating a company's financial health and prospects...",
+      "simplified": "Stock analysis helps you pick good companies to invest in...",
+      "vernacular": "स्टॉक एनालिसिस आपको अच्छी कंपनियों में निवेश करने में मदद करता है..."
+    },
+    "videoId": "dFAjNGsBMp0",
+    "pdfUrl": "/demo.pdf"
+  }
+]
