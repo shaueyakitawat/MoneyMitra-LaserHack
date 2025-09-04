@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { getMarketData, getOHLCData } from '../lib/market';
@@ -7,6 +8,7 @@ import Card from '../components/Card';
 
 const Market = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [marketData, setMarketData] = useState(null);
   const [selectedSymbol, setSelectedSymbol] = useState('NIFTY 50');
   const [chartData, setChartData] = useState([]);
@@ -73,8 +75,31 @@ const Market = () => {
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
             <h1>{t('market.title')}</h1>
-            <div style={{ background: 'var(--warning)', color: 'white', padding: '8px 16px', borderRadius: 'var(--radius)', fontSize: '12px', fontWeight: '600' }}>
-              {t('market.delayNotice')}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <button
+                onClick={() => navigate('/get-report')}
+                style={{
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'transform 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
+                onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
+              >
+                📊 Get Financial Report
+              </button>
+              <div style={{ background: 'var(--warning)', color: 'white', padding: '8px 16px', borderRadius: 'var(--radius)', fontSize: '12px', fontWeight: '600' }}>
+                {t('market.delayNotice')}
+              </div>
             </div>
           </div>
 

@@ -4,12 +4,12 @@ from ai_agent import get_agent_response, get_financial_report_json
 
 app = Flask(__name__)
 
-# Configure CORS properly
-CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"], 
+# Configure CORS properly - allow both React dev servers
+CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5174", "http://127.0.0.1:5174"], 
      methods=["GET", "POST", "OPTIONS"],
      allow_headers=["Content-Type", "Authorization"])
 
-# Add a preflight handler
+# Add a preflight handler for all origins during development
 @app.before_request
 def handle_preflight():
     if request.method == "OPTIONS":
