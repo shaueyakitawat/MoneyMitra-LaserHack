@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import './getReport.css';
+import './GetReport.css';
 
 const GetReport = () => {
   const [stockSymbol, setStockSymbol] = useState('');

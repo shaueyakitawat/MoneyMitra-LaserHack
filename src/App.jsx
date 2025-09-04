@@ -19,6 +19,7 @@ import Backtest from './pages/Backtest';
 import Admin from './pages/Admin';
 import Analyze from './pages/Analyze';
 import Assistance from './pages/Assistance';   // ✅ new page
+import GetReport from './pages/GetReport';     // ✅ AI Financial Report page
 
 function App() {
   const user = getCurrentUser();
@@ -112,6 +113,15 @@ function App() {
               element={
                 <ProtectedRoute requiredRole="learner">
                   <Assistance />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/get-report"
+              element={
+                <ProtectedRoute requiredRole="learner">
+                  <GetReport />
                 </ProtectedRoute>
               }
             />

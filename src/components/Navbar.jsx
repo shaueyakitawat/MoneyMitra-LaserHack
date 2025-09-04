@@ -20,7 +20,8 @@ const Navbar = () => {
     { path: '/portfolio', label: t('nav.portfolio') },
     { path: '/backtest', label: t('nav.backtest') },
     { path: '/analyze', label: t('nav.analyze') },
-    { path: '/assistance', label: t('nav.assistance') }   // ✅ new page
+    { path: '/assistance', label: t('nav.assistance') },   // ✅ existing page
+    { path: '/get-report', label: '📊 Financial Report' }  // ✅ new AI agent page
   ];
 
   // Add admin link for admin/reviewer roles
