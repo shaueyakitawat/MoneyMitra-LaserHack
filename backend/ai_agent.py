@@ -285,16 +285,17 @@ When generating reports, always:
 Focus on creating reports that are both technically accurate and educationally valuable."""
 
 from langgraph.prebuilt import create_react_agent
+from langchain_core.messages import SystemMessage
 
 # Create enhanced agent with financial tools
 agent = create_react_agent(
-    model=groq_llm,
-    tools=[search_tool, get_stock_data, generate_financial_report],
-    state_modifier=financial_system_prompt
+    groq_llm,
+    [search_tool, get_stock_data, generate_financial_report]
 )
 
 def get_agent_response(query):
-    state = {"messages": query}
+    # Include system prompt in the messages
+    state = {"messages": [SystemMessage(content=financial_system_prompt), {"role": "user", "content": query}]}
     response = agent.invoke(state)
     messages = response.get("messages")
     ai_messages = [message.content for message in messages if isinstance(message, AIMessage)]

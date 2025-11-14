@@ -1,6 +1,12 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ai_agent import get_agent_response, get_financial_report_json
+from content_aggregator import get_aggregated_content, LANGUAGES
+from risk_assessment import (
+    get_risk_questions, calculate_risk_score, analyze_portfolio_risk,
+    suggest_asset_allocation, get_risk_profiles
+)
+from algo_backtest import backtest_strategy, get_indian_stocks
 
 app = Flask(__name__)
 
@@ -127,9 +133,20 @@ def generate_comprehensive_report():
         print(f"Processing report for symbol: {symbol}, benchmark: {benchmark}")
         
         # Generate comprehensive financial report
-        report_data = get_financial_report_json(symbol.upper(), benchmark)
+        try:
+            report_data = get_financial_report_json(symbol.upper(), benchmark)
+        except Exception as report_error:
+            print(f"Error generating report: {str(report_error)}")
+            import traceback
+            traceback.print_exc()
+            return jsonify({
+                "success": False,
+                "error": f"Failed to generate report: {str(report_error)}",
+                "code": "ANALYSIS_ERROR"
+            }), 500
         
         if "error" in report_data:
+            print(f"Report contains error: {report_data['error']}")
             return jsonify({
                 "success": False,
                 "error": report_data["error"],
@@ -265,9 +282,13 @@ def generate_comprehensive_report():
             }
         }
         
+        print(f"✅ Successfully generated report for {symbol}")
         return jsonify(financial_report)
         
     except Exception as e:
+        print(f"❌ Exception in generate_report endpoint: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return jsonify({
             "success": False,
             "error": f"Internal server error: {str(e)}",
@@ -392,9 +413,268 @@ def health_check():
     """Health check endpoint"""
     return jsonify({"status": "healthy", "message": "Financial AI Agent API is running"})
 
+@app.route('/sebi_content', methods=['GET', 'POST', 'OPTIONS'])
+def sebi_content():
+    """
+    Get aggregated SEBI/NISM/NSE content with AI summarization and vernacular translation
+    Query params: language (en, hi, mr, gu, ta, te, bn, kn, ml), summary (true/false)
+    """
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        # Get parameters
+        if request.method == 'POST':
+            data = request.get_json() or {}
+            language = data.get('language', 'en')
+            include_summary = data.get('summary', True)
+        else:
+            language = request.args.get('language', 'en')
+            include_summary = request.args.get('summary', 'true').lower() == 'true'
+        
+        # Validate language
+        if language not in ['en'] + list(LANGUAGES.keys()):
+            response = jsonify({
+                "success": False,
+                "error": f"Unsupported language. Supported: en, {', '.join(LANGUAGES.keys())}"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"📚 Fetching SEBI content in {language}...")
+        
+        # Get aggregated content
+        result = get_aggregated_content(language=language, include_summary=include_summary)
+        
+        response = jsonify(result)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"Error in sebi_content endpoint: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({
+            "success": False,
+            "error": f"Failed to fetch content: {str(e)}"
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/supported_languages', methods=['GET', 'OPTIONS'])
+def supported_languages():
+    """Get list of supported vernacular languages"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    response = jsonify({
+        "success": True,
+        "languages": [{"code": "en", "name": "English"}] + [
+            {"code": code, "name": name} for code, name in LANGUAGES.items()
+        ]
+    })
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
+@app.route('/risk_questions', methods=['GET', 'OPTIONS'])
+def risk_questions():
+    """Get risk assessment questionnaire"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        questions = get_risk_questions()
+        response = jsonify({
+            "success": True,
+            "questions": questions
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        response = jsonify({"success": False, "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/calculate_risk_profile', methods=['POST', 'OPTIONS'])
+def calculate_risk_profile():
+    """Calculate risk profile from questionnaire answers"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json()
+        answers = data.get('answers', [])
+        age = data.get('age', 30)
+        investment_horizon = data.get('investment_horizon', 5)
+        
+        # Calculate risk score
+        risk_result = calculate_risk_score(answers)
+        
+        # Suggest asset allocation using actual answers
+        allocation = suggest_asset_allocation(
+            risk_result['risk_profile'],
+            age,
+            investment_horizon,
+            risk_result.get('answer_dict', {})
+        )
+        
+        response = jsonify({
+            "success": True,
+            "risk_assessment": risk_result,
+            "asset_allocation": allocation
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        print(f"Error in risk profile calculation: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({"success": False, "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/analyze_portfolio_risk', methods=['POST', 'OPTIONS'])
+def portfolio_risk():
+    """Analyze portfolio risk metrics"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json()
+        holdings = data.get('holdings', [])
+        
+        analysis = analyze_portfolio_risk(holdings)
+        
+        response = jsonify({
+            "success": True,
+            "analysis": analysis
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        print(f"Error in portfolio risk analysis: {str(e)}")
+        response = jsonify({"success": False, "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/risk_profiles', methods=['GET', 'OPTIONS'])
+def risk_profiles():
+    """Get all risk profile definitions"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        profiles = get_risk_profiles()
+        response = jsonify({
+            "success": True,
+            "profiles": profiles
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        response = jsonify({"success": False, "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+# ===== ALGO BUILDER ENDPOINTS =====
+
+@app.route('/algo_stocks', methods=['GET', 'OPTIONS'])
+def algo_stocks():
+    """Get list of Indian stocks for algo trading"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        stocks = get_indian_stocks()
+        response = jsonify({
+            "success": True,
+            "stocks": stocks
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        response = jsonify({"success": False, "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/algo_backtest', methods=['POST', 'OPTIONS'])
+def algo_backtest():
+    """Run backtest on real market data with user's strategy"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json()
+        symbol = data.get('symbol', 'RELIANCE.NS')
+        strategy_blocks = data.get('strategy_blocks', [])
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+        initial_capital = data.get('initial_capital', 100000)
+        
+        if not strategy_blocks:
+            response = jsonify({
+                "success": False,
+                "error": "Strategy blocks are required"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"Running backtest for {symbol} with {len(strategy_blocks)} blocks")
+        
+        result = backtest_strategy(
+            symbol=symbol,
+            strategy_blocks=strategy_blocks,
+            start_date=start_date,
+            end_date=end_date,
+            initial_capital=initial_capital
+        )
+        
+        response = jsonify(result)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        print(f"Error in algo backtest: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({"success": False, "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
 if __name__ == "__main__":
     print("🚀 Starting JainVest Financial Analysis API...")
-    print("🌐 Server will be available at: http://localhost:5000")
+    print("🌐 Server will be available at: http://localhost:5001")
     print("🔧 Debug mode: ON")
     print("📊 Available endpoints:")
     print("  - GET  /health")
@@ -403,4 +683,10 @@ if __name__ == "__main__":
     print("  - POST /financial_report")
     print("  - POST /stock_data")
     print("  - POST /get_response")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print("  - GET/POST /sebi_content (SEBI/NISM content aggregator)")
+    print("  - GET  /supported_languages (Vernacular language support)")
+    print("  - GET  /risk_questions (Risk assessment questionnaire)")
+    print("  - POST /calculate_risk_profile (Calculate investor risk profile)")
+    print("  - POST /analyze_portfolio_risk (Portfolio risk analysis)")
+    print("  - GET  /risk_profiles (Risk profile definitions)")
+    app.run(debug=True, host='0.0.0.0', port=5001)

@@ -34,27 +34,12 @@ const GetReport = () => {
     try {
       setLoading(true);
       setError('');
+      setReportData(null); // Clear previous report
       
       console.log(`Fetching report for ${symbol} with benchmark ${benchmarkIndex}`);
       
-      // First test connectivity
-      const testResponse = await fetch('http://localhost:5000/test', {
-        method: 'GET',
-        mode: 'cors',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      });
-      
-      console.log('Test response status:', testResponse.status);
-      
-      if (!testResponse.ok) {
-        throw new Error('Cannot connect to backend server');
-      }
-      
       // Now fetch the actual report
-      const response = await fetch('http://localhost:5000/generate_report', {
+      const response = await fetch('http://localhost:5001/generate_report', {
         method: 'POST',
         mode: 'cors',
         headers: { 
@@ -68,19 +53,29 @@ const GetReport = () => {
       });
       
       console.log('Report response status:', response.status);
-      console.log('Report response headers:', response.headers);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Server error: ${response.status}`);
+      }
       
       const data = await response.json();
-      console.log('Report data:', data);
+      console.log('Report data received:', data);
       
       if (data.success) {
         setReportData(data);
+        console.log('Report successfully loaded');
       } else {
-        setError(data.error || 'Failed to generate report');
+        throw new Error(data.error || 'Failed to generate report');
       }
     } catch (err) {
       console.error('Error details:', err);
-      setError(`Network error: ${err.message}. Please ensure the backend server is running on http://localhost:5000`);
+      
+      if (err.message.includes('Failed to fetch')) {
+        setError('Cannot connect to backend server. Please ensure the Flask server is running on http://localhost:5001');
+      } else {
+        setError(`Error: ${err.message}`);
+      }
     } finally {
       setLoading(false);
     }

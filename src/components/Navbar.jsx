@@ -19,9 +19,12 @@ const Navbar = () => {
     { path: '/market', label: t('nav.market') },
     { path: '/portfolio', label: t('nav.portfolio') },
     { path: '/backtest', label: t('nav.backtest') },
+    { path: '/algo-builder', label: '🎨 Algo Builder' },
     { path: '/analyze', label: t('nav.analyze') },
-    { path: '/assistance', label: t('nav.assistance') },   // ✅ existing page
-    { path: '/get-report', label: '📊 Financial Report' }  // ✅ new AI agent page
+    { path: '/assistance', label: t('nav.assistance') },
+    { path: '/get-report', label: '📊 Financial Report' },
+    { path: '/resources', label: '📚 Official Resources' },
+    { path: '/risk-assessment', label: '🛡️ Risk Assessment' }
   ];
 
   // Add admin link for admin/reviewer roles

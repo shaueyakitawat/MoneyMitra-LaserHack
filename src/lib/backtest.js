@@ -1,11 +1,34 @@
 export const runBacktest = async (strategy) => {
   const { symbol, startDate, endDate, rules } = strategy;
   
+  // Validate inputs
+  if (!symbol || !startDate || !endDate) {
+    throw new Error('Symbol, start date, and end date are required');
+  }
+  
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  if (start >= end) {
+    throw new Error('Start date must be before end date');
+  }
+  
+  if (end > new Date()) {
+    throw new Error('End date cannot be in the future');
+  }
+  
+  console.log('Running backtest for:', symbol, 'from', startDate, 'to', endDate);
+  
   // Simulate backtesting with mock data
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const results = generateBacktestResults(symbol, startDate, endDate, rules);
-      resolve(results);
+      try {
+        const results = generateBacktestResults(symbol, startDate, endDate, rules);
+        console.log('Generated results:', results);
+        resolve(results);
+      } catch (error) {
+        reject(error);
+      }
     }, 2000);
   });
 };
