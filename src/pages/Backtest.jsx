@@ -7,10 +7,21 @@ import Card from '../components/Card';
 
 const Backtest = () => {
   const { t } = useTranslation();
+  const getDefaultDates = () => {
+    const end = new Date();
+    end.setDate(end.getDate() - 1); // Yesterday
+    const start = new Date();
+    start.setFullYear(start.getFullYear() - 1); // One year ago
+    
+    return {
+      startDate: start.toISOString().split('T')[0],
+      endDate: end.toISOString().split('T')[0]
+    };
+  };
+
   const [strategy, setStrategy] = useState({
     symbol: 'RELIANCE',
-    startDate: '2024-01-01',
-    endDate: '2024-12-31',
+    ...getDefaultDates(),
     rules: 'Simple Moving Average Crossover'
   });
   const [results, setResults] = useState(null);
@@ -21,10 +32,13 @@ const Backtest = () => {
     setLoading(true);
     
     try {
+      console.log('Starting backtest with strategy:', strategy);
       const backtestResults = await runBacktest(strategy);
+      console.log('Backtest results:', backtestResults);
       setResults(backtestResults);
     } catch (error) {
       console.error('Backtest failed:', error);
+      alert('Backtest failed: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -124,6 +138,15 @@ const Backtest = () => {
               </button>
             </form>
           </Card>
+
+          {/* No results message */}
+          {!results && !loading && (
+            <Card style={{ textAlign: 'center', padding: '40px' }}>
+              <p style={{ color: 'var(--textMuted)', fontSize: '16px' }}>
+                Configure your strategy above and click "Run Backtest" to see results
+              </p>
+            </Card>
+          )}
 
           {/* Results */}
           {results && (

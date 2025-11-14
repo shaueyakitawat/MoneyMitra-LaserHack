@@ -20,6 +20,9 @@ import Admin from './pages/Admin';
 import Analyze from './pages/Analyze';
 import Assistance from './pages/Assistance';   // ✅ new page
 import GetReport from './pages/GetReport';     // ✅ AI Financial Report page
+import OfficialResources from './pages/OfficialResources';  // ✅ SEBI/NISM content
+import RiskAssessment from './pages/RiskAssessment';  // ✅ Risk profiling
+import AlgoBuilder from './pages/AlgoBuilder';  // ✅ Visual strategy builder
 
 function App() {
   const user = getCurrentUser();
@@ -131,6 +134,33 @@ function App() {
               element={
                 <ProtectedRoute requiredRole="reviewer">
                   <Admin />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/resources"
+              element={
+                <ProtectedRoute requiredRole="learner">
+                  <OfficialResources />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/risk-assessment"
+              element={
+                <ProtectedRoute requiredRole="learner">
+                  <RiskAssessment />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/algo-builder"
+              element={
+                <ProtectedRoute requiredRole="learner">
+                  <AlgoBuilder />
                 </ProtectedRoute>
               }
             />

@@ -76,6 +76,13 @@ const Home = () => {
       color: 'var(--warning)'
     },
     {
+      title: '🎨 Algo Builder',
+      description: 'Visual drag-and-drop strategy builder - no coding required!',
+      icon: <Activity size={48} strokeWidth={1.5} />,
+      path: '/algo-builder',
+      color: '#8b5cf6'
+    },
+    {
       title: t('nav.analyze'),
       description: 'AI-powered portfolio and document analysis',
       icon: <Bot size={48} strokeWidth={1.5} />,

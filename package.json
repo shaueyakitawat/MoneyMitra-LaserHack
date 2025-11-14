@@ -12,6 +12,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.11.2",
     "framer-motion": "^12.23.12",
     "html2canvas": "^1.4.1",
     "i18next": "^25.4.2",
@@ -21,6 +22,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.7.3",
+    "react-is": "^19.2.0",
     "react-parallax-tilt": "^1.7.307",
     "react-router-dom": "^7.8.2",
     "react-youtube": "^10.1.0",
