@@ -45,9 +45,9 @@ const Sidebar = () => {
         {open.practice && (
           <div className={styles.submenu}>
             <Link className={location.pathname === "/market" ? styles.active : null} to="/market">📊 Market Hub</Link>
-            <Link className={location.pathname === "/portfolio" ? styles.active : null} to="/portfolio">💰 Virtual Portfolio</Link>
-            <Link className={location.pathname === "/algo-builder" ? styles.active : null} to="/algo-builder">🧩 Strategy Builder</Link>
-            <Link className={location.pathname === "/backtest" ? styles.active : null} to="/backtest">📉 Backtesting Engine</Link>
+            <Link className={location.pathname === "/strategy-builder" ? styles.active : null} to="/strategy-builder">🛠️ Strategy Builder</Link>
+            <Link className={location.pathname === "/backtest-results" ? styles.active : null} to="/backtest-results">📈 Backtest Results</Link>
+            <Link className={location.pathname === "/virtual-portfolio" ? styles.active : null} to="/virtual-portfolio">💼 Virtual Simulator</Link>
           </div>
         )}
       </div>
@@ -61,7 +61,7 @@ const Sidebar = () => {
           <div className={styles.submenu}>
             <Link className={location.pathname === "/resources" ? styles.active : null} to="/resources">📚 Official Resources</Link>
             <Link className={location.pathname === "/news-insights" ? styles.active : null} to="/news-insights">📣 News Insights</Link>
-            <Link to="#">⚠️ SEBI Alerts</Link>
+          
           </div>
         )}
       </div>

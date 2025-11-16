@@ -1,0 +1,482 @@
+[
+  {
+    "id": "module-1-basics",
+    "title": "Introduction to Investing",
+    "difficulty": "beginner",
+    "duration": "3-4 hours",
+    "description": "Master the fundamentals of investing and build a strong foundation for your financial journey.",
+    "objectives": [
+      "Understand what investing is and why it matters",
+      "Learn different types of investments",
+      "Master the concept of risk and return",
+      "Understand inflation and time value of money",
+      "Learn about diversification and asset allocation"
+    ],
+    "prerequisites": [],
+    "lessons": [
+      {
+        "id": "lesson-1-1",
+        "title": "What is Investing?",
+        "videoId": "G4VzS5qyNqY",
+        "duration": "15 min",
+        "content": {
+          "original": "Investing is the process of allocating money with the expectation of generating returns over time. Unlike saving, which focuses on preserving capital, investing aims to grow wealth through appreciation, dividends, or interest. The fundamental principle is that money today is worth more than the same amount in the future due to inflation and opportunity cost.",
+          "simplified": "Investing means putting your money to work so it grows over time. It's different from just saving money in a bank. When you invest, you buy things like stocks or bonds that can increase in value and earn you more money.",
+          "vernacular": "निवेश का मतलब है अपने पैसे को ऐसी जगह लगाना जहां वह समय के साथ बढ़े। यह सिर्फ बैंक में पैसा रखने से अलग है। जब आप निवेश करते हैं, तो आप शेयर या बॉन्ड खरीदते हैं जो बढ़कर आपको ज्यादा पैसा दे सकते हैं।"
+        },
+        "aiSummary": "Investing = Making your money grow by buying assets. Key difference from saving: Saving preserves money, investing multiplies it.",
+        "keyTakeaways": [
+          "Investing aims to grow wealth, not just preserve it",
+          "Time value of money: ₹100 today > ₹100 tomorrow",
+          "Inflation erodes purchasing power over time",
+          "Investing helps beat inflation"
+        ],
+        "commonMistakes": [
+          "Thinking investing = gambling (it's strategic, not random)",
+          "Waiting for 'perfect time' to start (time in market > timing market)",
+          "Keeping all money in savings account (loses value to inflation)"
+        ]
+      },
+      {
+        "id": "lesson-1-2",
+        "title": "Types of Investments",
+        "videoId": "dFAjNGsBMp0",
+        "duration": "18 min",
+        "content": {
+          "original": "Investment vehicles include stocks (equity ownership), bonds (debt instruments), mutual funds (pooled investments), ETFs (exchange-traded funds), real estate, commodities, and alternative investments. Each asset class has distinct risk-return profiles, liquidity characteristics, and tax implications.",
+          "simplified": "There are many ways to invest: stocks (own part of a company), bonds (lend money to companies/government), mutual funds (professionals invest for you), real estate (property), and gold. Each has different risks and rewards.",
+          "vernacular": "निवेश के कई तरीके हैं: शेयर (कंपनी का हिस्सा), बॉन्ड (कंपनी/सरकार को उधार), म्यूचुअल फंड (प्रोफेशनल आपके लिए निवेश करते हैं), रियल एस्टेट (संपत्ति), और सोना। हर एक में अलग जोखिम और फायदे हैं।"
+        },
+        "aiSummary": "Main investment types: Stocks (high risk, high return), Bonds (low risk, steady income), Mutual Funds (diversified), Real Estate (tangible asset), Gold (hedge against inflation).",
+        "keyTakeaways": [
+          "Stocks = Ownership in companies",
+          "Bonds = Lending money for interest",
+          "Mutual Funds = Professional management + diversification",
+          "Each asset class serves different goals"
+        ],
+        "commonMistakes": [
+          "Putting all money in one type of investment",
+          "Choosing investments without understanding them",
+          "Ignoring liquidity needs (how fast you can convert to cash)"
+        ]
+      },
+      {
+        "id": "lesson-1-3",
+        "title": "Risk and Return Relationship",
+        "videoId": "8fPwV5c72hA",
+        "duration": "20 min",
+        "content": {
+          "original": "The risk-return tradeoff is fundamental: higher potential returns come with higher risk. Risk encompasses market risk, credit risk, liquidity risk, and inflation risk. Return includes capital gains, dividends, and interest. Risk tolerance varies by age, financial goals, and personal circumstances.",
+          "simplified": "Higher returns usually mean higher risk. If someone promises guaranteed high returns, be careful - it might be a scam. Your age and goals determine how much risk you should take. Young investors can take more risk.",
+          "vernacular": "ज्यादा रिटर्न का मतलब ज्यादा जोखिम। अगर कोई गारंटीड ज्यादा रिटर्न का वादा करे, सावधान रहें। आपकी उम्र और लक्ष्य तय करते हैं कि आप कितना जोखिम ले सकते हैं। युवा निवेशक ज्यादा जोखिम ले सकते हैं।"
+        },
+        "aiSummary": "Risk-Return Rule: Want more profit? Accept more risk. No investment is 'risk-free high return'. Your risk capacity depends on age, income, goals.",
+        "keyTakeaways": [
+          "Higher return = Higher risk (always)",
+          "Diversification reduces overall portfolio risk",
+          "Risk tolerance decreases with age",
+          "Never invest in what you don't understand"
+        ],
+        "commonMistakes": [
+          "Chasing high returns without assessing risk",
+          "Panic selling during market downturns",
+          "Not matching investments to risk tolerance"
+        ]
+      },
+      {
+        "id": "lesson-1-4",
+        "title": "Power of Compounding",
+        "videoId": "G4VzS5qyNqY",
+        "duration": "16 min",
+        "content": {
+          "original": "Compound interest is earning returns on your returns. Einstein called it the 'eighth wonder of the world'. The formula: A = P(1 + r/n)^(nt). Starting early dramatically amplifies wealth accumulation due to exponential growth over time.",
+          "simplified": "Compounding means your money earns money, and then that earned money also earns money. Example: ₹10,000 at 10% yearly becomes ₹25,937 in 10 years without adding anything. Start early to get huge benefits.",
+          "vernacular": "कंपाउंडिंग का मतलब आपका पैसा पैसा कमाता है, और वह कमाया हुआ पैसा फिर से पैसा कमाता है। उदाहरण: ₹10,000 को 10% सालाना पर 10 साल में ₹25,937 हो जाता है। जल्दी शुरू करें तो बहुत फायदा मिलता है।"
+        },
+        "aiSummary": "Compounding = Money making money. The earlier you start, the more you earn. Even small amounts grow huge over 20-30 years.",
+        "keyTakeaways": [
+          "Start investing early - even small amounts",
+          "Time is more important than timing",
+          "₹5,000/month for 30 years @ 12% = ₹1.76 crores",
+          "Reinvesting dividends accelerates compounding"
+        ],
+        "commonMistakes": [
+          "Waiting to start until you have 'enough money'",
+          "Withdrawing investment earnings early",
+          "Not reinvesting dividends/interest"
+        ]
+      },
+      {
+        "id": "lesson-1-5",
+        "title": "Inflation and Purchasing Power",
+        "videoId": "4JZXQJ4dPos",
+        "duration": "14 min",
+        "content": {
+          "original": "Inflation erodes the purchasing power of money over time. At 6% inflation, money loses half its value in 12 years. Real return = Nominal return - Inflation rate. Investments must beat inflation to preserve and grow wealth.",
+          "simplified": "Inflation means prices increase every year. What costs ₹100 today will cost ₹180 in 10 years at 6% inflation. Your investments must grow faster than inflation, otherwise you're actually losing money.",
+          "vernacular": "महंगाई का मतलब हर साल चीजें महंगी होती हैं। जो आज ₹100 का है, वह 6% महंगाई पर 10 साल में ₹180 का हो जाएगा। आपका निवेश महंगाई से ज्यादा बढ़ना चाहिए, नहीं तो आप असल में पैसा खो रहे हैं।"
+        },
+        "aiSummary": "Inflation = Silent wealth killer. Savings account at 3-4% loses to 6% inflation. Need investments that give 10-12% to actually grow wealth.",
+        "keyTakeaways": [
+          "Inflation in India averages 5-7% annually",
+          "Real return matters, not nominal return",
+          "Fixed deposits barely beat inflation",
+          "Equity historically beats inflation over long term"
+        ],
+        "commonMistakes": [
+          "Keeping everything in savings account/FD",
+          "Ignoring inflation when calculating returns",
+          "Not accounting for tax on returns"
+        ]
+      },
+      {
+        "id": "lesson-1-6",
+        "title": "Diversification Strategy",
+        "videoId": "kkLZPkCzW1c",
+        "duration": "17 min",
+        "content": {
+          "original": "Diversification spreads risk across multiple assets, sectors, and geographies. The principle: don't put all eggs in one basket. Asset allocation determines 90% of portfolio returns. Rebalancing maintains desired risk levels.",
+          "simplified": "Diversification means spreading your money across different investments. If one fails, others protect you. Mix stocks, bonds, gold based on your age and goals. Don't invest everything in one company or sector.",
+          "vernacular": "विविधीकरण का मतलब अपना पैसा अलग-अलग निवेशों में बांटना। अगर एक में नुकसान हो, तो दूसरे बचाते हैं। शेयर, बॉन्ड, सोना - अपनी उम्र और लक्ष्यों के हिसाब से मिलाएं। सब पैसा एक कंपनी या सेक्टर में न लगाएं।"
+        },
+        "aiSummary": "Diversification = Risk management. Spread money across stocks, bonds, gold, real estate. Within stocks: different sectors. Key rule: 60% equity + 40% debt for balanced risk.",
+        "keyTakeaways": [
+          "Never invest >10-15% in single stock",
+          "Mix large cap, mid cap, small cap stocks",
+          "Include debt for stability",
+          "International diversification reduces country risk"
+        ],
+        "commonMistakes": [
+          "Over-diversification (too many similar funds)",
+          "Investing in one sector heavily",
+          "Forgetting to rebalance portfolio annually"
+        ]
+      },
+      {
+        "id": "lesson-1-7",
+        "title": "Setting Financial Goals",
+        "videoId": "13m3Xq4XK_s",
+        "duration": "15 min",
+        "content": {
+          "original": "SMART goals: Specific, Measurable, Achievable, Relevant, Time-bound. Categorize as short-term (<3 years), medium-term (3-7 years), long-term (>7 years). Match investment vehicles to goal timelines. Emergency fund comes first.",
+          "simplified": "Write down your financial goals: buying a house, retirement, child's education. Set target amount and timeline. Short-term goals need safe investments, long-term can handle more risk. Always keep 6-month emergency fund first.",
+          "vernacular": "अपने वित्तीय लक्ष्य लिखें: घर खरीदना, रिटायरमेंट, बच्चे की पढ़ाई। टार्गेट राशि और समय तय करें। छोटे लक्ष्यों के लिए सुरक्षित निवेश, लंबे लक्ष्यों के लिए ज्यादा जोखिम ले सकते हैं। पहले 6 महीने का आपातकालीन फंड रखें।"
+        },
+        "aiSummary": "Goal-based investing > Random investing. Emergency fund → Short-term goals (FD) → Medium-term (balanced funds) → Long-term (equity). Calculate exact amount needed using inflation.",
+        "keyTakeaways": [
+          "Emergency fund = 6 months expenses (highest priority)",
+          "Short-term: Debt funds, FDs",
+          "Long-term: Equity mutual funds, stocks",
+          "Review goals annually and adjust"
+        ],
+        "commonMistakes": [
+          "Investing without clear goals",
+          "Using long-term money for short-term needs",
+          "Not adjusting for inflation in goal planning"
+        ]
+      },
+      {
+        "id": "lesson-1-8",
+        "title": "Tax Implications of Investments",
+        "videoId": "p7HKvqRI_Bo",
+        "duration": "19 min",
+        "content": {
+          "original": "Understanding tax treatment maximizes post-tax returns. Long-term capital gains (LTCG) on equity held >1 year: 10% above ₹1 lakh. Short-term: 15%. Debt funds LTCG if held >3 years. Tax-saving instruments: ELSS, PPF, NPS under Section 80C.",
+          "simplified": "Taxes reduce your profit. If you sell stocks within 1 year: 15% tax. After 1 year: 10% tax only on profit above ₹1 lakh. Some investments like ELSS, PPF save tax under Section 80C (up to ₹1.5 lakh).",
+          "vernacular": "टैक्स आपके मुनाफे को कम करता है। अगर आप 1 साल के अंदर शेयर बेचते हैं: 15% टैक्स। 1 साल बाद: ₹1 लाख से ज्यादा मुनाफे पर सिर्फ 10% टैक्स। ELSS, PPF जैसे निवेश Section 80C में टैक्स बचाते हैं (₹1.5 लाख तक)।"
+        },
+        "aiSummary": "Tax planning = More money in pocket. Hold stocks >1 year for lower tax. Use ELSS, PPF, NPS to save tax under 80C. TDS applies on dividends/interest.",
+        "keyTakeaways": [
+          "LTCG on equity after 1 year: 10% (above ₹1L)",
+          "STCG on equity: 15% flat",
+          "Section 80C deduction: up to ₹1.5 lakh",
+          "Dividend income is taxable at slab rate"
+        ],
+        "commonMistakes": [
+          "Selling winners too early (losing LTCG benefit)",
+          "Not utilizing 80C deductions",
+          "Forgetting to file capital gains in ITR"
+        ]
+      }
+    ],
+    "preQuiz": [
+      {
+        "id": "pre-q1",
+        "question": "What is the primary difference between saving and investing?",
+        "options": [
+          "Saving is for short-term, investing is for long-term",
+          "Saving preserves money, investing grows money",
+          "Saving has no risk, investing has risk",
+          "All of the above"
+        ],
+        "correct": 3,
+        "explanation": "All statements are true. Saving focuses on preservation with minimal risk for short-term needs, while investing aims to grow wealth over the long term with calculated risk."
+      },
+      {
+        "id": "pre-q2",
+        "question": "If inflation is 6% and your FD gives 5% interest, what is your real return?",
+        "options": [
+          "+1%",
+          "-1%",
+          "0%",
+          "+5%"
+        ],
+        "correct": 1,
+        "explanation": "Real return = Nominal return - Inflation = 5% - 6% = -1%. You're actually losing purchasing power despite earning interest."
+      },
+      {
+        "id": "pre-q3",
+        "question": "Which investment typically has the highest long-term returns?",
+        "options": [
+          "Fixed Deposits",
+          "Gold",
+          "Equity (Stocks)",
+          "Savings Account"
+        ],
+        "correct": 2,
+        "explanation": "Historically, equity has delivered 12-15% returns over 15-20 years, beating all other asset classes in India."
+      },
+      {
+        "id": "pre-q4",
+        "question": "What does 'diversification' mean in investing?",
+        "options": [
+          "Investing in many similar stocks",
+          "Spreading money across different asset types",
+          "Investing only in large companies",
+          "Keeping money in multiple bank accounts"
+        ],
+        "correct": 1,
+        "explanation": "Diversification means spreading investments across different asset classes (stocks, bonds, gold) and sectors to reduce risk."
+      },
+      {
+        "id": "pre-q5",
+        "question": "How much emergency fund should you maintain before investing?",
+        "options": [
+          "1-2 months of expenses",
+          "3-4 months of expenses",
+          "6-12 months of expenses",
+          "No emergency fund needed"
+        ],
+        "correct": 2,
+        "explanation": "Financial experts recommend 6-12 months of expenses as emergency fund before aggressive investing. This protects you from forced liquidation during emergencies."
+      },
+      {
+        "id": "pre-q6",
+        "question": "What is compound interest?",
+        "options": [
+          "Interest on principal only",
+          "Interest on interest earned",
+          "Double the simple interest",
+          "Interest paid twice a year"
+        ],
+        "correct": 1,
+        "explanation": "Compound interest is earning returns on both your principal and previously earned returns. It's the 'interest on interest' effect that accelerates wealth growth."
+      },
+      {
+        "id": "pre-q7",
+        "question": "For a 25-year-old planning retirement at 60, what should be the primary investment focus?",
+        "options": [
+          "100% Fixed Deposits",
+          "100% Gold",
+          "Majority in Equity (70-80%)",
+          "Only Real Estate"
+        ],
+        "correct": 2,
+        "explanation": "With 35 years horizon, a young investor should focus on equity for wealth creation. Time allows riding out market volatility for superior long-term returns."
+      },
+      {
+        "id": "pre-q8",
+        "question": "Which of these is a tax-saving investment under Section 80C?",
+        "options": [
+          "Regular Mutual Funds",
+          "ELSS (Equity Linked Savings Scheme)",
+          "Direct Stocks",
+          "Cryptocurrency"
+        ],
+        "correct": 1,
+        "explanation": "ELSS mutual funds qualify for Section 80C deduction up to ₹1.5 lakh. They have a 3-year lock-in and invest in equity markets."
+      },
+      {
+        "id": "pre-q9",
+        "question": "What is the lock-in period for ELSS mutual funds?",
+        "options": [
+          "No lock-in",
+          "1 year",
+          "3 years",
+          "5 years"
+        ],
+        "correct": 2,
+        "explanation": "ELSS has the shortest lock-in (3 years) among all 80C instruments. After 3 years, you can redeem without penalty."
+      },
+      {
+        "id": "pre-q10",
+        "question": "₹10,000 invested at 10% annual compound interest for 10 years becomes approximately:",
+        "options": [
+          "₹20,000",
+          "₹25,937",
+          "₹15,000",
+          "₹30,000"
+        ],
+        "correct": 1,
+        "explanation": "Using compound interest formula: A = P(1+r)^n = 10,000(1.1)^10 = ₹25,937. This demonstrates the power of compounding over time."
+      }
+    ],
+    "postQuiz": [
+      {
+        "id": "post-q1",
+        "question": "Calculate the real return if you earn 12% on stocks and inflation is 6%.",
+        "options": [
+          "6%",
+          "18%",
+          "12%",
+          "2%"
+        ],
+        "correct": 0,
+        "explanation": "Real return = 12% - 6% = 6%. This is your actual wealth increase after accounting for inflation."
+      },
+      {
+        "id": "post-q2",
+        "question": "You have ₹1 lakh to invest for 20 years. Which gives highest returns historically?",
+        "options": [
+          "Bank FD at 6%",
+          "Equity mutual funds at 12%",
+          "Gold at 8%",
+          "PPF at 7.1%"
+        ],
+        "correct": 1,
+        "explanation": "At 12% for 20 years: ₹1L becomes ₹9.65L. FD at 6% becomes ₹3.21L. Equity significantly outperforms over long periods."
+      },
+      {
+        "id": "post-q3",
+        "question": "Your portfolio is 100% in IT stocks. What's the primary risk?",
+        "options": [
+          "Market risk",
+          "Concentration risk",
+          "Inflation risk",
+          "Liquidity risk"
+        ],
+        "correct": 1,
+        "explanation": "Concentration risk - if IT sector crashes, your entire portfolio suffers. Diversification across sectors is crucial."
+      },
+      {
+        "id": "post-q4",
+        "question": "Long-term capital gains tax on equity held for >1 year is:",
+        "options": [
+          "15% on all gains",
+          "10% on gains above ₹1 lakh",
+          "No tax",
+          "30% flat"
+        ],
+        "correct": 1,
+        "explanation": "LTCG on equity: 10% tax applies only on gains exceeding ₹1 lakh per financial year. First ₹1 lakh is tax-free."
+      },
+      {
+        "id": "post-q5",
+        "question": "Why should younger investors take more equity exposure?",
+        "options": [
+          "They have more money",
+          "They have time to recover from volatility",
+          "They understand stocks better",
+          "Tax benefits are higher"
+        ],
+        "correct": 1,
+        "explanation": "Time horizon matters most. Young investors have 30-40 years to ride out market cycles and benefit from compounding in high-return equity."
+      },
+      {
+        "id": "post-q6",
+        "question": "Asset allocation of 60% equity, 30% debt, 10% gold is suitable for:",
+        "options": [
+          "Retired person (65 years)",
+          "Conservative investor",
+          "Moderate investor (35-45 years)",
+          "Aggressive young investor (25 years)"
+        ],
+        "correct": 2,
+        "explanation": "This balanced allocation suits moderate risk investors in mid-career with 15-20 year horizon. Young investors can go 80% equity; retirees need more debt."
+      },
+      {
+        "id": "post-q7",
+        "question": "₹5,000/month SIP in equity fund at 12% for 25 years accumulates approximately:",
+        "options": [
+          "₹15 lakhs",
+          "₹50 lakhs",
+          "₹95 lakhs",
+          "₹1.5 crores"
+        ],
+        "correct": 2,
+        "explanation": "Using SIP calculator: ₹5,000 × 12 × 25 = ₹15L invested becomes ₹95L at 12% CAGR. Power of systematic investing + compounding."
+      },
+      {
+        "id": "post-q8",
+        "question": "Which statement about mutual funds is TRUE?",
+        "options": [
+          "Returns are guaranteed",
+          "No risk involved",
+          "Professional management with diversification",
+          "Cannot lose money"
+        ],
+        "correct": 2,
+        "explanation": "Mutual funds offer professional management and built-in diversification, but returns are NOT guaranteed and there is market risk."
+      },
+      {
+        "id": "post-q9",
+        "question": "Emergency fund should be kept in:",
+        "options": [
+          "Equity stocks",
+          "Liquid funds or savings account",
+          "Real estate",
+          "Long-term FDs"
+        ],
+        "correct": 1,
+        "explanation": "Emergency fund needs instant liquidity without loss. Liquid funds or high-interest savings accounts are ideal - accessible within 24 hours."
+      },
+      {
+        "id": "post-q10",
+        "question": "What's the ideal first step before investing?",
+        "options": [
+          "Buy stocks immediately",
+          "Set clear financial goals",
+          "Take a loan to invest",
+          "Follow friends' tips"
+        ],
+        "correct": 1,
+        "explanation": "Goal-based investing is most effective. Define what you're investing FOR (retirement, house, education) with clear timelines before choosing investments."
+      },
+      {
+        "id": "post-q11",
+        "question": "Systematic Investment Plan (SIP) works best because:",
+        "options": [
+          "It times the market perfectly",
+          "It averages cost through rupee-cost averaging",
+          "It guarantees profits",
+          "It has no fees"
+        ],
+        "correct": 1,
+        "explanation": "SIP uses rupee-cost averaging - you buy more units when prices are low, fewer when high. This reduces average cost and removes timing pressure."
+      },
+      {
+        "id": "post-q12",
+        "question": "If you need money in 2 years for a down payment, where should you invest?",
+        "options": [
+          "Small-cap equity funds",
+          "Debt funds or FD",
+          "Cryptocurrency",
+          "Penny stocks"
+        ],
+        "correct": 1,
+        "explanation": "Short-term goals (<3 years) need capital protection. Debt instruments (FD, liquid funds, short-term debt funds) ensure your money is safe and accessible."
+      }
+    ],
+    "documentation": {
+      "pdfUrl": "/docs/module-1-investing-basics.pdf",
+      "sections": [
+        "Complete glossary of investment terms",
+        "Formulas: Compound interest, CAGR, Real return",
+        "Tax calculation examples",
+        "Asset allocation templates by age",
+        "Common investment mistakes to avoid",
+        "Checklist before making first investment"
+      ]
+    }
+  }
+]

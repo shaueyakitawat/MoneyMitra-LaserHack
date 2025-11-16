@@ -23,7 +23,7 @@ const resources = {
         newsAnalysis: "News & Analysis",
         officialResources: "Official Resources",
         newsInsights: "News Insights",
-        sebiAlerts: "SEBI Alerts",
+        
 
         // My Analysis
         myAnalysis: "My Analysis",

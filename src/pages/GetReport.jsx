@@ -137,7 +137,7 @@ const GetReport = () => {
       };
 
       // Header
-      addText('JAINVEST FINANCIAL ANALYSIS REPORT', 16, true, [0, 0, 0]);
+      addText('MONEYMITRA FINANCIAL ANALYSIS REPORT', 16, true, [0, 0, 0]);
       addText(`Generated on: ${new Date().toLocaleDateString()}`, 10, false, [100, 100, 100]);
       yPosition += 10;
 
@@ -232,7 +232,7 @@ const GetReport = () => {
       }
 
       // Save the PDF
-      const filename = `JainVest_${reportData.stock_symbol}_Financial_Report_${new Date().toISOString().split('T')[0]}.pdf`;
+      const filename = `MoneyMitra_${reportData.stock_symbol}_Financial_Report_${new Date().toISOString().split('T')[0]}.pdf`;
       pdf.save(filename);
 
     } catch (error) {
@@ -266,7 +266,7 @@ const GetReport = () => {
   return (
     <div className="report-container">
       <header className="report-header">
-        <h1>🚀 JainVest Financial Analysis</h1>
+        <h1>🚀 MoneyMitra Financial Analysis</h1>
         <p>Get comprehensive financial reports with AI-powered insights</p>
       </header>
 
