@@ -1,0 +1,378 @@
+{
+  "id": "module-10-building-wealth",
+  "title": "Building Long-term Wealth",
+  "difficulty": "intermediate",
+  "duration": "3-4 hours",
+  "description": "Master wealth creation strategies, retirement planning, financial independence, estate planning, and achieving long-term financial goals.",
+  "objectives": [
+    "Understand power of compounding and long-term thinking",
+    "Learn retirement planning and corpus calculation",
+    "Master financial independence and FIRE movement concepts",
+    "Create comprehensive financial plan for life goals",
+    "Understand estate planning and wealth transfer"
+  ],
+  "prerequisites": ["module-1-basics", "module-6-portfolio-management", "module-8-risk-management"],
+  "icon": "💰",
+  "lessons": [
+    {
+      "id": "lesson-10-1",
+      "title": "Power of Compounding",
+      "videoTopic": "Time Value of Money and Compound Interest Magic",
+      "videoId": "PLACEHOLDER",
+      "duration": "20 min",
+      "content": {
+        "original": "Compound interest = Earning interest on interest. Albert Einstein: 'Compound interest is 8th wonder of world'. Formula: A = P(1+r)^n. Example: ₹10,000/month SIP for 30 years at 12% CAGR = ₹3.5 Crores (invested ₹36L). Same for 20 years = ₹1 Cr only. Extra 10 years = 3.5x wealth. Rule of 72: Money doubles in 72/rate years. At 12%, doubles in 6 years. Starting early is more important than amount. 25-year-old investing ₹5,000/month beats 35-year-old investing ₹15,000/month. Time is your biggest asset. Consistency beats timing. Don't break SIP during market falls - rupee cost averaging maximizes compounding.",
+        "simplified": "Compounding = Your money makes money, then that money makes more money, and so on. Snowball effect. Real example: Start investing ₹5,000/month at age 25, stop at 35 (invested ₹6L total). At 60, you have ₹3.3 Cr (12% return). Your friend starts at 35, invests same ₹5,000/month till 60 (invested ₹15L total). At 60, he has ₹2.4 Cr. You invested LESS but earned MORE - that's power of starting early. Key insight: First 10 years you build foundation, next 20 years compounding does magic. Most wealth created in last 10 years of 30-year journey. Moral: Start NOW, even with small amount. Every year delayed costs lakhs in final corpus.",
+        "hindi": "Compounding = आपका पैसा पैसा कमाता है, फिर वो पैसा और पैसा कमाता है, और ऐसे चलता रहता है। Snowball effect। Real example: 25 साल की उम्र में ₹5,000/महीना invest करना शुरू करें, 35 पर रोक दें (कुल ₹6L invested)। 60 पर, आपके पास ₹3.3 Cr (12% return)। आपका दोस्त 35 पर शुरू करता है, same ₹5,000/महीना 60 तक (कुल ₹15L invested)। 60 पर, उसके पास ₹2.4 Cr। आपने कम invested लेकिन ज्यादा earned - यही early start की power। Key insight: पहले 10 साल foundation build होती है, अगले 20 साल compounding magic करती है। ज्यादातर wealth 30-साल journey के आखिरी 10 सालों में बनती है। Moral: अभी start करें, भले छोटी amount से।"
+      },
+      "aiSummary": "Compound interest = 8th wonder. Formula: A=P(1+r)^n. Starting early > investing more. 10-year delay = 50-60% less final corpus. Rule of 72 for doubling. Consistency and time are key. SIP + Time = Wealth creation.",
+      "keyTakeaways": [
+        "Starting 10 years early beats investing 3x more later",
+        "Rule of 72: Doubling time = 72/annual return rate",
+        "80% of wealth created in last 1/3rd of investment journey",
+        "₹10K/month for 30 years @ 12% = ₹3.5 Cr (invested only ₹36L)"
+      ],
+      "commonMistakes": [
+        "Waiting for 'right time' to start (biggest mistake - time lost forever)",
+        "Stopping SIP during market fall (breaks compounding)",
+        "Withdrawing from long-term investments (resets compounding clock)",
+        "Starting late and trying to compensate with risky bets"
+      ]
+    },
+    {
+      "id": "lesson-10-2",
+      "title": "Retirement Planning Essentials",
+      "videoTopic": "Calculating Retirement Corpus and Building Strategy",
+      "videoId": "PLACEHOLDER",
+      "duration": "24 min",
+      "content": {
+        "original": "Retirement planning steps: (1) Calculate current monthly expenses, inflate by 6% for retirement year. (2) Multiply by 300 for corpus (25x annual expenses, assuming 4% withdrawal rate). (3) Calculate SIP needed using future value calculator. Example: Current expenses ₹50K/month. Retire in 25 years. Inflated expenses = ₹2.15L/month. Annual = ₹25.8L. Corpus needed = ₹6.45 Cr. To achieve: ₹35,000/month SIP @ 12% for 25 years. Asset allocation shifts with age: Young (80-20 equity-debt) → Retirement (40-60). Bucket strategy: 3 years expenses in debt (stable), 5-10 years in hybrid, rest in equity. NPS tax benefits + returns. EPF, PPF for debt allocation. Don't rely only on EPF - insufficient for comfortable retirement.",
+        "simplified": "How to plan retirement in 5 steps: (1) How much you spend monthly now? Say ₹40,000. (2) When will you retire? Say 30 years. Your expenses then will be ₹2.3L/month (inflation). (3) Total corpus needed: ₹2.3L × 12 × 25 = ₹6.9 Cr. (4) Start SIP calculator: ₹25,000/month for 30 years @ 12% = ₹7 Cr. Done! (5) As you near retirement, shift money from stocks to safe debt. At retirement: Keep 3 years expenses in liquid funds/FD (₹83L). Keep 5 years in debt funds (₹1.4 Cr). Rest in equity for growth. Every month, transfer one month's expense from debt to liquid. This way your money keeps growing while you have safe cash for expenses. Don't depend on EPF alone - it gives maybe ₹50L-1Cr, not enough for 30-year retirement.",
+        "hindi": "5 steps में retirement plan करें: (1) अभी महीने में कितना खर्च करते हैं? मान लें ₹40,000। (2) कब retire करेंगे? मान लें 30 साल में। तब आपका खर्च होगा ₹2.3L/महीना (inflation)। (3) Total corpus चाहिए: ₹2.3L × 12 × 25 = ₹6.9 Cr। (4) SIP calculator शुरू करें: ₹25,000/महीना 30 साल के लिए @ 12% = ₹7 Cr। Done! (5) Retirement के करीब, stocks से पैसा safe debt में shift करें। Retirement पर: 3 साल का खर्च liquid funds/FD में रखें (₹83L)। 5 साल का debt funds में (₹1.4 Cr)। बाकी equity में growth के लिए। हर महीने, एक महीने का खर्च debt से liquid में transfer करें। इस तरह आपका पैसा grow करता रहता है और safe cash भी है expenses के लिए।"
+      },
+      "aiSummary": "Retirement corpus = 25x annual expenses (4% withdrawal rule). Calculate with inflation (6%). SIP amount with future value calculator. Bucket strategy: 3yr liquid, 5-10yr debt, rest equity. Asset allocation shifts with age. NPS, EPF insufficient alone.",
+      "keyTakeaways": [
+        "4% withdrawal rule: Corpus = 25x annual retirement expenses",
+        "Inflate current expenses by 6% annually to retirement year",
+        "Bucket strategy ensures liquidity + growth in retirement",
+        "Start retirement planning at 25-30, not 50 (too late then)"
+      ],
+      "commonMistakes": [
+        "Underestimating retirement corpus (not accounting for inflation)",
+        "Relying only on EPF (insufficient for comfortable retirement)",
+        "Not adjusting asset allocation as retirement nears",
+        "Withdrawing retirement corpus too fast (running out of money)"
+      ]
+    },
+    {
+      "id": "lesson-10-3",
+      "title": "Financial Independence and FIRE",
+      "videoTopic": "Early Retirement and Financial Freedom Strategies",
+      "videoId": "PLACEHOLDER",
+      "duration": "22 min",
+      "content": {
+        "original": "FIRE = Financial Independence, Retire Early. Achieve financial independence where passive income covers expenses. Types: Lean FIRE (minimal lifestyle), Fat FIRE (luxurious lifestyle), Barista FIRE (part-time work). Key metrics: Savings rate (aim 50%+), FI number (25x annual expenses). Path: (1) Increase income (skills, side hustles), (2) Reduce expenses (live below means), (3) Invest difference aggressively (equity-heavy), (4) Track progress (net worth, passive income). Passive income sources: Dividends, Rental income, Business income. 4% rule: If corpus = 25x expenses, withdraw 4% annually, money lasts 30+ years. Coast FIRE: Save aggressively early, then coast (let compounding work). Not for everyone - requires discipline, high savings rate, long-term thinking.",
+        "simplified": "FIRE = Retire early by building enough money where your investments pay all your expenses. Not science fiction - thousands doing it. Formula: Need 25x your annual expenses. Example: Annual expenses = ₹6L. Need ₹1.5 Cr corpus. Then 6-7% returns = ₹9-10L/year, covers your ₹6L expenses + inflation adjustment. How to achieve? (1) Save 50-60% of income (live on 40-50%). (2) Invest all savings in equity-heavy portfolio. (3) In 10-15 years, you're financially free. Real example: Earning ₹1L/month, spending ₹40K, investing ₹60K for 15 years @ 12% = ₹2.6 Cr. That generates ₹18L/year passive income. You can quit job at 40 and do what you love. Not easy - requires discipline and sacrifices. But gives ultimate freedom - work becomes choice, not necessity.",
+        "hindi": "FIRE = Early retire करें enough पैसा build करके जहां आपके investments सारे expenses pay करें। Science fiction नहीं - हजारों लोग कर रहे हैं। Formula: Annual expenses का 25 गुना चाहिए। Example: Annual expenses = ₹6L। ₹1.5 Cr corpus चाहिए। फिर 6-7% returns = ₹9-10L/साल, आपके ₹6L expenses + inflation adjustment cover करता है। कैसे achieve करें? (1) Income का 50-60% save करें (40-50% पर जीएं)। (2) सारी savings equity-heavy portfolio में invest करें। (3) 10-15 सालों में, आप financially free। Real example: ₹1L/महीना earn कर रहे हैं, ₹40K खर्च कर रहे हैं, ₹60K 15 साल के लिए invest @ 12% = ₹2.6 Cr। वो ₹18L/साल passive income generate करता है। 40 पर job छोड़ सकते हैं और जो पसंद करें करें।"
+      },
+      "aiSummary": "FIRE = Financial Independence Retire Early. FI number = 25x annual expenses. 4% withdrawal rule. High savings rate (50%+), aggressive investing, passive income. Types: Lean, Fat, Barista, Coast FIRE. Requires discipline but gives freedom. Work becomes optional.",
+      "keyTakeaways": [
+        "50%+ savings rate accelerates path to FIRE dramatically",
+        "FI number = 25x annual expenses (4% safe withdrawal rate)",
+        "Focus on increasing income AND decreasing expenses",
+        "Typical FIRE journey: 10-20 years depending on savings rate"
+      ],
+      "commonMistakes": [
+        "Underestimating healthcare costs in early retirement",
+        "Not having backup plan if markets crash early in retirement",
+        "Extreme frugality leading to burnout (balance needed)",
+        "Not accounting for inflation in withdrawal strategy"
+      ]
+    },
+    {
+      "id": "lesson-10-4",
+      "title": "Goal-Based Financial Planning",
+      "videoTopic": "Planning for Life Goals: Home, Education, Wedding",
+      "videoId": "PLACEHOLDER",
+      "duration": "23 min",
+      "content": {
+        "original": "Goal-based investing = Align investments with specific life goals. Steps: (1) List all goals with timeline and amount. (2) Prioritize (essential vs aspirational). (3) Calculate required SIP/lumpsum. (4) Choose appropriate asset allocation based on timeline. (5) Review and adjust annually. Common goals: Emergency fund (6 months expenses in liquid fund), House down payment (3-5 years → debt/hybrid funds), Child's education (10-15 years → equity funds), Child's marriage (15-20 years → equity funds), Retirement (25-30 years → equity-heavy). Separate portfolio for each goal - mental accounting helps. Automate investments to goals. As goal nears, shift to safer assets. Goal achieved = Don't redeploy for other goal, use as planned. Avoid goal overlap - creates pressure.",
+        "simplified": "Smart way to invest: Don't just invest randomly, invest FOR something specific. Make goal list: (1) Emergency fund: ₹5L in liquid fund (build first). (2) House down payment: ₹20L in 5 years → ₹27K/month in debt funds. (3) Child's college: ₹50L in 15 years → ₹10K/month in equity funds. (4) Retirement: ₹5 Cr in 30 years → ₹20K/month in equity funds. Total SIP = ₹57K/month. Seems lot? Start with what you can, increase 10% every year when salary increases. Key trick: Separate account/folio for each goal. When you see 'Child Education' fund growing, you feel motivated and don't touch it for random expenses. As goal approaches (2 years away), move money from equity to debt for safety. Goal achieved? Use money for THAT goal only, don't divert. This discipline builds wealth.",
+        "hindi": "Smart तरीके से invest करें: बस randomly invest मत करें, किसी specific चीज के लिए invest करें। Goal list बनाएं: (1) Emergency fund: ₹5L liquid fund में (पहले build करें)। (2) घर का down payment: ₹20L 5 साल में → ₹27K/महीना debt funds में। (3) बच्चे का college: ₹50L 15 साल में → ₹10K/महीना equity funds में। (4) Retirement: ₹5 Cr 30 साल में → ₹20K/महीना equity funds में। Total SIP = ₹57K/महीना। बहुत लग रहा है? जितना कर सकते हैं उससे start करें, हर साल 10% बढ़ाएं जब salary बढ़े। Key trick: हर goal के लिए अलग account/folio। जब आप 'Child Education' fund को grow होते देखते हैं, तो motivated feel होते हैं और random expenses के लिए touch नहीं करते।"
+      },
+      "aiSummary": "Goal-based investing = Match investments to specific life goals. List goals, prioritize, calculate SIP needed, choose right allocation by timeline. Emergency fund first. Separate portfolios per goal. Shift to debt as goal nears. Automate. Don't divert achieved goal money.",
+      "keyTakeaways": [
+        "Emergency fund is goal #1 - 6 months expenses in liquid fund",
+        "Short-term goals (<5yr) → Debt, Long-term (>10yr) → Equity",
+        "Separate mental accounting per goal increases success rate",
+        "Increase SIP by 10% annually as income grows"
+      ],
+      "commonMistakes": [
+        "Single portfolio for all goals (gets confusing, loses discipline)",
+        "Using long-term goal money for short-term needs",
+        "Not adjusting asset allocation as goal deadline approaches",
+        "Setting unrealistic goals (creates pressure and disappointment)"
+      ]
+    },
+    {
+      "id": "lesson-10-5",
+      "title": "Estate Planning and Wealth Transfer",
+      "videoTopic": "Wills, Nomination, Succession Planning",
+      "videoId": "PLACEHOLDER",
+      "duration": "21 min",
+      "content": {
+        "original": "Estate planning = Ensuring smooth wealth transfer after death. Components: (1) Will - legal document specifying asset distribution. Get it registered. (2) Nomination - in demat, bank, MF accounts. Nominee is custodian, not owner (assets go per will). (3) Joint holding - Survivorship mode (Either or Survivor). (4) Term insurance - replace income, not investment. (5) Health insurance - family protection. (6) Power of Attorney - if incapacitated. Estate planning not just for rich - anyone with assets needs it. Without will/nomination, legal battle for heirs, assets frozen. Hindu Succession Act applies if no will. Nomination ≠ Legal heir. Will supersedes nomination. Review every 5 years or life event (marriage, child, divorce). Use professional help for complex estates. Communicate plan with family to avoid disputes.",
+        "simplified": "Estate planning = Making sure your family gets your money smoothly if something happens to you. Must-dos: (1) Make a Will: Write who gets what (house, investments, gold, etc.). Get two witnesses, register it (₹500). Update when major life changes. (2) Add Nominee everywhere: Demat account, bank account, mutual funds, insurance. Without nominee, family waits years in courts to access YOUR money. (3) Buy Term Insurance: If you're earning member, buy cover of 10-15x annual income. Costs ₹10-15K/year, gives ₹1 Cr if you die. Family doesn't struggle financially. (4) Health Insurance: ₹10-15L cover for family. Medical emergency shouldn't drain all savings. Real story: Man died without will or nominations. His ₹50L mutual funds locked for 3 years while family fought legal battle. Don't let this happen. Spend 2 hours, protect family's future.",
+        "hindi": "Estate planning = सुनिश्चित करें कि अगर आपको कुछ हो जाए तो family को आपका पैसा smoothly मिले। Must-dos: (1) Will बनाएं: लिखें कौन क्या लेगा (घर, investments, सोना, आदि)। दो witnesses लें, register करें (₹500)। Major life changes पर update करें। (2) हर जगह Nominee add करें: Demat account, bank account, mutual funds, insurance। Nominee के बिना, family सालों courts में wait करती है आपके पैसे के लिए। (3) Term Insurance खरीदें: अगर आप earning member हैं, तो annual income का 10-15 गुना cover लें। ₹10-15K/साल cost, ₹1 Cr देता है अगर आप die करें। Family financially struggle नहीं करती। (4) Health Insurance: Family के लिए ₹10-15L cover। Medical emergency से सारी savings drain नहीं होनी चाहिए। Real story: एक आदमी died बिना will या nominations के। उनका ₹50L mutual funds 3 साल locked रहा जबकि family legal battle लड़ी।"
+      },
+      "aiSummary": "Estate planning = Smooth wealth transfer. Will (asset distribution), Nomination (custodian), Term insurance (income replacement), Health insurance (medical protection), Joint holding, POA. Without planning, legal battles, frozen assets. Review every 5 years. Communicate with family.",
+      "keyTakeaways": [
+        "Will is must - specifies exact distribution, prevents family disputes",
+        "Nomination everywhere - avoids years of legal battles for family",
+        "Term insurance = 10-15x annual income (₹1 Cr cover costs ₹12-15K/year)",
+        "Review estate plan every major life event (marriage, child, divorce)"
+      ],
+      "commonMistakes": [
+        "No will - biggest mistake (family faces legal nightmare)",
+        "Not adding nominees in financial accounts",
+        "Confusing nomination with inheritance (will supersedes)",
+        "Buying insufficient term insurance or investment-cum-insurance (ULIPs)"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "Compound interest means:",
+      "options": [
+        "Simple interest calculation",
+        "Earning interest on interest",
+        "Fixed returns",
+        "One-time gain"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "Rule of 72 calculates:",
+      "options": [
+        "Total returns",
+        "Time to double money",
+        "Tax amount",
+        "Risk level"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q3",
+      "question": "Retirement corpus calculation uses:",
+      "options": [
+        "Current expenses only",
+        "Inflated future expenses × 25",
+        "Double current expenses",
+        "Random estimate"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q4",
+      "question": "4% withdrawal rule means:",
+      "options": [
+        "Withdraw 4% daily",
+        "Corpus = 25x annual expenses",
+        "Save 4% of income",
+        "4% tax rate"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "FIRE stands for:",
+      "options": [
+        "Fast Income Retirement Early",
+        "Financial Independence Retire Early",
+        "Fixed Interest Retirement Earnings",
+        "Future Investment Returns Estimate"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q6",
+      "question": "Emergency fund should cover:",
+      "options": [
+        "1 month expenses",
+        "6 months expenses",
+        "1 year expenses",
+        "5 years expenses"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q7",
+      "question": "Will is important because:",
+      "options": [
+        "Tax saving",
+        "Specifies asset distribution",
+        "Increases returns",
+        "Required by law"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q8",
+      "question": "Nominee in investment accounts is:",
+      "options": [
+        "Legal heir",
+        "Custodian (will supersedes)",
+        "Owner of assets",
+        "Tax beneficiary"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q9",
+      "question": "Term insurance cover should be:",
+      "options": [
+        "₹10 lakhs",
+        "10-15x annual income",
+        "Equal to age",
+        "₹1 crore always"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q10",
+      "question": "Goal-based investing means:",
+      "options": [
+        "Random investing",
+        "Investing for specific life goals",
+        "Only retirement focus",
+        "Short-term trading"
+      ],
+      "correct": 1
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "At 12% return, money doubles in how many years (Rule of 72)?",
+      "options": ["6 years", "8 years", "10 years", "12 years"],
+      "correct": 0
+    },
+    {
+      "id": "post-q2",
+      "question": "₹10K/month SIP for 30 years @ 12% CAGR results in approximately:",
+      "options": ["₹50L", "₹1 Cr", "₹3.5 Cr", "₹10 Cr"],
+      "correct": 2
+    },
+    {
+      "id": "post-q3",
+      "question": "Current expenses ₹50K/month. Retire in 25 years. Inflated expenses (6% inflation):",
+      "options": ["₹1L", "₹1.5L", "₹2.15L", "₹3L"],
+      "correct": 2
+    },
+    {
+      "id": "post-q4",
+      "question": "Annual retirement expenses ₹24L. Corpus needed (4% rule):",
+      "options": ["₹2.4 Cr", "₹4.8 Cr", "₹6 Cr", "₹10 Cr"],
+      "correct": 2
+    },
+    {
+      "id": "post-q5",
+      "question": "For FIRE, if annual expenses ₹6L, FI number is:",
+      "options": ["₹60L", "₹1 Cr", "₹1.5 Cr", "₹3 Cr"],
+      "correct": 2
+    },
+    {
+      "id": "post-q6",
+      "question": "Savings rate of 50% means retiring in approximately:",
+      "options": ["5 years", "10 years", "15-17 years", "30 years"],
+      "correct": 2
+    },
+    {
+      "id": "post-q7",
+      "question": "For goal 3 years away, best asset allocation:",
+      "options": [
+        "100% equity",
+        "80% equity, 20% debt",
+        "20% equity, 80% debt",
+        "100% debt"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q8",
+      "question": "Starting investing at 25 vs 35 (10-year difference) results in:",
+      "options": [
+        "10% more wealth",
+        "50% more wealth",
+        "3-5x more wealth",
+        "Same wealth"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q9",
+      "question": "Term insurance for person earning ₹10L/year should be:",
+      "options": ["₹10L", "₹50L", "₹1-1.5 Cr", "₹5 Cr"],
+      "correct": 2
+    },
+    {
+      "id": "post-q10",
+      "question": "Without will, assets are distributed per:",
+      "options": [
+        "Nominee",
+        "Hindu Succession Act",
+        "Bank decision",
+        "Government"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q11",
+      "question": "Bucket strategy in retirement: 3-year expenses should be in:",
+      "options": [
+        "Equity funds",
+        "Liquid funds/FD",
+        "Gold",
+        "Real estate"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q12",
+      "question": "Best time to start retirement planning:",
+      "options": [
+        "At 50 years",
+        "At 40 years",
+        "At 25-30 years",
+        "After retirement"
+      ],
+      "correct": 2
+    }
+  ],
+  "documentation": {
+    "title": "Building Long-term Wealth - Complete Guide",
+    "summary": "Comprehensive guide to wealth creation through compounding, retirement planning with corpus calculation, FIRE movement and financial independence, goal-based investing framework, and estate planning essentials including wills, nominations, and insurance.",
+    "sections": [
+      "Power of Compounding: Mathematics and Real Examples",
+      "Rule of 72 and Money Doubling Calculations",
+      "Starting Early vs Starting Late: Wealth Impact Analysis",
+      "Retirement Corpus Calculation: Step-by-Step",
+      "4% Withdrawal Rule and Bucket Strategy",
+      "Asset Allocation Shifts Through Life Stages",
+      "FIRE Movement: Financial Independence Strategies",
+      "Lean FIRE, Fat FIRE, Barista FIRE, Coast FIRE Explained",
+      "High Savings Rate: Achieving 50%+ Savings",
+      "Goal-Based Financial Planning Framework",
+      "Emergency Fund, Education, Wedding, Home Goals",
+      "SIP Calculations for Different Life Goals",
+      "Estate Planning: Will Creation and Registration",
+      "Nomination vs Legal Heir: Critical Differences",
+      "Term Insurance: Coverage Calculation and Selection",
+      "Health Insurance: Family Protection Strategy",
+      "Wealth Transfer and Succession Planning",
+      "Review Schedule and Life Event Updates"
+    ]
+  }
+}

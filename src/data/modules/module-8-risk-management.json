@@ -1,0 +1,387 @@
+{
+  "id": "module-8-risk-management",
+  "title": "Risk Management & Psychology",
+  "difficulty": "intermediate",
+  "duration": "3-4 hours",
+  "description": "Master risk assessment, behavioral finance, avoiding common psychological traps, and building disciplined investment approach.",
+  "objectives": [
+    "Understand different types of investment risks",
+    "Learn behavioral biases that affect investment decisions",
+    "Master risk measurement and management techniques",
+    "Develop emotional discipline and avoid common mistakes",
+    "Build systematic decision-making framework"
+  ],
+  "prerequisites": ["module-1-basics", "module-6-portfolio-management"],
+  "icon": "🛡️",
+  "lessons": [
+    {
+      "id": "lesson-8-1",
+      "title": "Types of Investment Risk",
+      "videoTopic": "Understanding Market, Credit, Liquidity, and Other Risks",
+      "videoId": "PLACEHOLDER",
+      "duration": "20 min",
+      "content": {
+        "original": "Investment risks: (1) Market risk (systematic) - affects all securities, cannot be diversified away. (2) Company-specific risk (unsystematic) - affects individual stock, diversifiable. (3) Liquidity risk - difficulty selling without loss. (4) Credit risk - borrower default. (5) Interest rate risk - bond prices fall when rates rise. (6) Inflation risk - purchasing power erosion. (7) Currency risk - forex fluctuations. (8) Political/Regulatory risk - government policy changes. Understand risk-return tradeoff: Higher return requires accepting higher risk. Risk cannot be eliminated, only managed.",
+        "simplified": "Different risks you face: (1) Market risk: Entire market falls, all stocks drop (2008, 2020). Can't avoid by diversification. (2) Company risk: One company's problems (fraud, bad management). Can avoid by owning many stocks. (3) Liquidity risk: Can't sell stock quickly without big loss (penny stocks). (4) Inflation risk: Your money's buying power decreases - ₹100 today worth ₹70 in 10 years. (5) Interest rate risk: When RBI increases rates, bond values fall. Key rule: Want higher returns? Must accept higher risk. No high return without risk - anyone promising that is lying.",
+        "hindi": "अलग-अलग risks जिनका आप सामना करते हैं: (1) Market risk: पूरा market गिरता है, सभी stocks drop (2008, 2020)। Diversification से avoid नहीं कर सकते। (2) Company risk: एक कंपनी की problems (fraud, बुरा management)। कई stocks रखकर avoid कर सकते हैं। (3) Liquidity risk: Stock को जल्दी बड़े loss के बिना नहीं बेच सकते (penny stocks)। (4) Inflation risk: आपके पैसे की buying power घटती है - ₹100 आज worth ₹70 10 साल में। मुख्य नियम: ज्यादा returns चाहिए? ज्यादा risk accept करना होगा।"
+      },
+      "aiSummary": "Risk types: Market (systematic, non-diversifiable), Company-specific (unsystematic, diversifiable), Liquidity, Credit, Interest rate, Inflation, Currency, Political. Risk-return tradeoff fundamental. Can't eliminate risk, only manage it.",
+      "keyTakeaways": [
+        "Market risk affects all stocks - bear markets are inevitable",
+        "Diversification eliminates company-specific risk only",
+        "Inflation is silent wealth destroyer (3-4% annually in India)",
+        "Risk tolerance must match investment choices"
+      ],
+      "commonMistakes": [
+        "Thinking diversification eliminates all risk (only unsystematic risk)",
+        "Ignoring inflation risk in fixed deposits (real returns often negative)",
+        "Taking on risk without understanding it (derivatives, penny stocks)",
+        "Confusing volatility with risk (short-term swings vs permanent loss)"
+      ]
+    },
+    {
+      "id": "lesson-8-2",
+      "title": "Behavioral Finance & Biases",
+      "videoTopic": "Common Psychological Traps in Investing",
+      "videoId": "PLACEHOLDER",
+      "duration": "24 min",
+      "content": {
+        "original": "Behavioral biases affecting investors: (1) Loss aversion - pain of loss 2x pleasure of gain, leads to holding losers too long. (2) Confirmation bias - seeking information supporting existing belief, ignoring contradicting data. (3) Recency bias - overweighting recent events (bull market makes you overconfident). (4) Anchoring - fixating on arbitrary reference point (purchase price). (5) Herd mentality - following crowd without analysis. (6) Overconfidence - overestimating abilities. (7) Mental accounting - treating money differently based on source/use. Awareness is first step to overcoming biases. Follow systematic process, not emotions.",
+        "simplified": "Psychological mistakes investors make: (1) Loss aversion: Losing ₹100 hurts more than gaining ₹100 feels good. Result: You hold losing stocks hoping they'll recover. (2) Confirmation bias: Stock you own - you only read positive news, ignore red flags. (3) Recency bias: Market goes up 6 months, you think it'll always go up. Then you invest at top. (4) Anchoring: Bought at ₹100, now ₹60. You wait for ₹100 even if company fundamentals changed. (5) Herd mentality: Everyone buying crypto, you buy too without research. (6) Overconfidence: 3 stocks go up, you think you're Warren Buffett. Solution: Follow written rules, not gut feelings.",
+        "hindi": "निवेशकों की Psychological गलतियां: (1) Loss aversion: ₹100 खोना ₹100 gain से ज्यादा दुख देता है। Result: आप losing stocks पकड़े रहते हैं उम्मीद में कि recover होंगे। (2) Confirmation bias: जो stock आपके पास है - सिर्फ positive news पढ़ते हैं, red flags ignore करते हैं। (3) Recency bias: Market 6 महीने बढ़ता है, आपको लगता है हमेशा बढ़ेगा। फिर top पर invest करते हैं। (4) Anchoring: ₹100 में खरीदा, अब ₹60। ₹100 का इंतजार करते हैं भले company fundamentals बदल गए। Solution: लिखे rules follow करें, gut feelings नहीं।"
+      },
+      "aiSummary": "Behavioral biases: Loss aversion (hold losers), Confirmation bias (selective data), Recency bias (extrapolate recent), Anchoring (fixate on price), Herd mentality (follow crowd), Overconfidence (overestimate skill). Awareness + systematic process overcome biases.",
+      "keyTakeaways": [
+        "Emotions are biggest enemy in investing",
+        "Having written Investment Policy Statement prevents emotional decisions",
+        "Best investors are disciplined, not necessarily smartest",
+        "Market exploits psychological weaknesses systematically"
+      ],
+      "commonMistakes": [
+        "Selling winners too early, holding losers too long (opposite of correct)",
+        "Panic selling at market bottom (recency bias + herd mentality)",
+        "Overtrading after few successful trades (overconfidence)",
+        "Not having decision-making framework (fully emotional)"
+      ]
+    },
+    {
+      "id": "lesson-8-3",
+      "title": "Risk Measurement & Assessment",
+      "videoTopic": "Standard Deviation, Beta, Sharpe Ratio, VaR",
+      "videoId": "PLACEHOLDER",
+      "duration": "22 min",
+      "content": {
+        "original": "Risk metrics: (1) Standard deviation - measures volatility of returns. Higher SD = more volatile. (2) Beta - measures stock's volatility relative to market. Beta >1 more volatile than market, <1 less volatile. (3) Sharpe ratio - risk-adjusted return. (Return - Risk-free rate) / SD. Higher is better. >1 is good, >2 is excellent. (4) Maximum drawdown - largest peak-to-trough decline. Important for psychological tolerance. (5) Value at Risk (VaR) - maximum expected loss at confidence level. Use these to compare investments and assess portfolio risk.",
+        "simplified": "How to measure risk: (1) Standard deviation: How much returns jump around. If average return is 12% but some years -20% and some +40%, high SD (risky). FD has low SD (always 6-7%). (2) Beta: Compares stock to market. Beta 1.5 means if market moves 10%, stock moves 15%. High beta = high risk, high potential return. (3) Sharpe ratio: Which investment gives best return for risk taken? Compares two funds - higher Sharpe ratio is better. (4) Maximum drawdown: Biggest fall from peak. Can you handle 50% drop mentally? Most can't - choose investments matching your psychology.",
+        "hindi": "Risk कैसे measure करें: (1) Standard deviation: Returns कितना उछलते हैं। अगर average return 12% है लेकिन कुछ साल -20% और कुछ +40%, तो high SD (risky)। FD में low SD (हमेशा 6-7%)। (2) Beta: Stock को market से compare करता है। Beta 1.5 मतलब अगर market 10% move करे, तो stock 15% move करता है। High beta = high risk, high potential return। (3) Sharpe ratio: कौन सी investment risk के लिए best return देती है? दो funds compare करें - higher Sharpe ratio बेहतर।"
+      },
+      "aiSummary": "Risk metrics: Standard deviation (volatility), Beta (relative to market), Sharpe ratio (risk-adjusted return, >1 good), Maximum drawdown (peak-to-trough), VaR (worst expected loss). Use to compare and construct portfolios.",
+      "keyTakeaways": [
+        "Volatility (SD) and risk are related but not identical",
+        "Beta helps understand how stock moves with market",
+        "Sharpe ratio best for comparing funds/strategies",
+        "Know your maximum drawdown tolerance (30%? 50%?)"
+      ],
+      "commonMistakes": [
+        "Equating volatility with risk (short-term swings vs permanent loss)",
+        "Ignoring maximum drawdown (can you psychologically handle it?)",
+        "Not understanding beta (high beta stocks in bull, low in bear)",
+        "Choosing investments exceeding risk tolerance (leads to panic selling)"
+      ]
+    },
+    {
+      "id": "lesson-8-4",
+      "title": "Building Investment Discipline",
+      "videoTopic": "Systematic Approach and Avoiding Mistakes",
+      "videoId": "PLACEHOLDER",
+      "duration": "21 min",
+      "content": {
+        "original": "Discipline fundamentals: (1) Have written plan (IPS) and follow it. (2) Invest regularly regardless of market conditions (SIP discipline). (3) Avoid checking portfolio daily - reduces emotional decisions. (4) Set review schedule (quarterly/annually), not continuous monitoring. (5) Use checklists for buy/sell decisions. (6) Maintain investment journal - record reason for each trade, review quarterly. (7) Separate speculation money from investment money. (8) Never invest borrowed money or emergency fund. (9) Accept that losses are part of process. (10) Focus on process, not outcomes (good process leads to good outcomes over time).",
+        "simplified": "How to build discipline: (1) Write your investing rules when calm, follow when market is crazy. (2) Start SIP and don't stop even if market falls (that's when you buy cheap). (3) Stop checking portfolio every day - makes you emotional and leads to bad decisions. Check monthly or quarterly. (4) Before buying stock, write down WHY. If it falls, read your reason - is it still valid? (5) Keep separate buckets: 80% serious long-term investing, 20% for trying new things/learning. Never mix. (6) Emergency fund separate - never invest money you might need in 2-3 years. (7) Remember: Even best investors are wrong 40% of time. It's normal.",
+        "hindi": "Discipline कैसे build करें: (1) अपने investing rules तब लिखें जब calm हों, तब follow करें जब market crazy हो। (2) SIP शुरू करें और बंद न करें भले market गिरे (तब आप सस्ता खरीदते हैं)। (3) हर दिन portfolio check करना बंद करें - emotional बनाता है और बुरे decisions लेते हैं। महीने या तिमाही में check करें। (4) Stock खरीदने से पहले, लिखें क्यों। अगर गिरे, तो अपना reason पढ़ें - क्या अभी भी valid है? (5) अलग buckets रखें: 80% serious long-term investing, 20% नई चीजें try करने के लिए। Never mix करें।"
+      },
+      "aiSummary": "Investment discipline: Written plan (IPS), Regular investing (SIP), Reduce monitoring frequency, Scheduled reviews, Decision checklists, Investment journal, Separate speculation from investment, No borrowed money, Accept losses, Process over outcomes.",
+      "keyTakeaways": [
+        "Discipline beats intelligence in investing",
+        "Daily portfolio checking increases bad decisions by 3-4x",
+        "Investment journal helps learn from mistakes",
+        "Best time to invest is when you're most scared"
+      ],
+      "commonMistakes": [
+        "No written plan (all reactive decisions)",
+        "Checking portfolio multiple times daily (anxiety and overtrading)",
+        "Not maintaining investment journal (repeating same mistakes)",
+        "Stopping SIP during market falls (opposite of what should do)"
+      ]
+    },
+    {
+      "id": "lesson-8-5",
+      "title": "Common Investor Mistakes to Avoid",
+      "videoTopic": "Learning from Others' Failures",
+      "videoId": "PLACEHOLDER",
+      "duration": "23 min",
+      "content": {
+        "original": "Top investor mistakes: (1) Trying to time market - studies show 90% fail. Time IN market beats timing market. (2) Chasing past performance - last year's winner often this year's loser. (3) Overtrading - each trade has costs and taxes. (4) Ignoring taxes - STCG vs LTCG makes huge difference. (5) Not diversifying - concentration can destroy wealth quickly. (6) Following tips without research - \"hot tips\" usually arrive after move is over. (7) Investing without emergency fund - forced to sell investments at loss. (8) Lifestyle inflation eating returns - earning more but saving less. (9) Not starting early - compound interest needs time. (10) Expecting quick riches - wealth building takes years, shortcuts lead to losses.",
+        "simplified": "Biggest mistakes to avoid: (1) Trying to predict tops and bottoms - impossible consistently. Better: Invest regularly through SIP. (2) Buying last year's top fund - it often underperforms next year. (3) Trading too much - every trade = brokerage + tax. Less is more. (4) Selling winners in 6 months (20% tax) instead of holding 1+ year (12.5% tax). Plan taxes. (5) Putting all money in one or two stocks - if they fail, you're finished. (6) Acting on WhatsApp tips - by time tip reaches you, smart money has already exited. (7) Starting to invest at 35 instead of 25 - you lose 10 years of compounding (massive difference). (8) Wanting to double money in 6 months - greed leads to scams and losses. Be patient.",
+        "hindi": "सबसे बड़ी गलतियां avoid करें: (1) Tops और bottoms predict करने की कोशिश - consistently impossible। Better: SIP से regularly invest करें। (2) Last year के top fund को खरीदना - अक्सर next year underperform करता है। (3) बहुत ज्यादा trading - हर trade = brokerage + tax। कम is more। (4) Winners को 6 महीने में बेचना (20% tax) बजाय 1+ साल hold करने के (12.5% tax)। Taxes plan करें। (5) सारा पैसा एक या दो stocks में - अगर fail हो जाएं, तो आप खत्म। (6) WhatsApp tips पर act करना - जब तक tip आप तक पहुंचे, smart money exit कर चुके। (7) 35 पर invest करना शुरू बजाय 25 पर - 10 साल की compounding खो देते हैं।"
+      },
+      "aiSummary": "Common mistakes: Market timing (impossible), Chasing performance (mean reversion), Overtrading (costs), Ignoring taxes (STCG vs LTCG), No diversification, Following tips, No emergency fund, Lifestyle inflation, Late start, Get-rich-quick mentality. Avoid these systematically.",
+      "keyTakeaways": [
+        "Time in market > Timing market (data-proven)",
+        "Starting 10 years early can mean 5-10x more wealth (compounding)",
+        "Most 'tips' are manipulation or arrive too late",
+        "Slow and steady beats get-rich-quick every time"
+      ],
+      "commonMistakes": [
+        "Waiting for 'right time' to start investing (time never perfect)",
+        "Selling good stocks in panic during corrections",
+        "Following friends/relatives investment advice without research",
+        "Lifestyle inflation (spending all raises instead of investing)"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "Market risk is also called:",
+      "options": [
+        "Unsystematic risk",
+        "Systematic risk",
+        "Company-specific risk",
+        "Credit risk"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "Which risk can be eliminated through diversification?",
+      "options": [
+        "Market risk",
+        "Systematic risk",
+        "Company-specific risk",
+        "Interest rate risk"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "pre-q3",
+      "question": "Loss aversion means:",
+      "options": [
+        "Fear of investing",
+        "Pain of loss exceeds pleasure of gain",
+        "Never taking losses",
+        "Avoiding volatile stocks"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q4",
+      "question": "Beta measures:",
+      "options": [
+        "Total returns",
+        "Volatility relative to market",
+        "Company profits",
+        "Tax efficiency"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "Sharpe ratio above 1 is considered:",
+      "options": ["Poor", "Good", "Excellent", "Impossible"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q6",
+      "question": "Investment Policy Statement should be updated:",
+      "options": [
+        "Daily",
+        "When market changes",
+        "When life circumstances change",
+        "Never"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "pre-q7",
+      "question": "Checking portfolio daily leads to:",
+      "options": [
+        "Better returns",
+        "More emotional decisions",
+        "Lower risk",
+        "Higher discipline"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q8",
+      "question": "Time in market beats:",
+      "options": [
+        "Timing market",
+        "Diversification",
+        "Stock picking",
+        "Nothing"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q9",
+      "question": "Maximum drawdown measures:",
+      "options": [
+        "Total return",
+        "Average loss",
+        "Largest peak-to-trough decline",
+        "Dividend yield"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "pre-q10",
+      "question": "Inflation risk affects:",
+      "options": [
+        "Only stocks",
+        "Only bonds",
+        "All investments",
+        "Only gold"
+      ],
+      "correct": 2
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "Stock has beta 1.5. Market rises 10%. Stock likely rises:",
+      "options": ["10%", "15%", "5%", "20%"],
+      "correct": 1
+    },
+    {
+      "id": "post-q2",
+      "question": "Fund A: 15% return, 10% SD. Fund B: 12% return, 5% SD. Risk-free 6%. Better Sharpe ratio:",
+      "options": [
+        "Fund A (0.9)",
+        "Fund B (1.2)",
+        "Equal",
+        "Cannot calculate"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q3",
+      "question": "You bought at ₹100, now ₹60. You wait for ₹100 to sell despite bad fundamentals. This is:",
+      "options": [
+        "Good strategy",
+        "Anchoring bias",
+        "Rational decision",
+        "Risk management"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q4",
+      "question": "Portfolio dropped from ₹10L to ₹6L. Maximum drawdown:",
+      "options": ["₹4L", "40%", "60%", "Cannot determine"],
+      "correct": 1
+    },
+    {
+      "id": "post-q5",
+      "question": "Best practice for SIP during market crash:",
+      "options": [
+        "Stop immediately",
+        "Continue (buying cheap)",
+        "Double the amount",
+        "Switch to FD"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q6",
+      "question": "Everyone buying cryptocurrency, you buy too without research. This is:",
+      "options": [
+        "Smart move",
+        "Herd mentality",
+        "Diversification",
+        "Risk management"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q7",
+      "question": "You read only positive news about your stock, ignore negative. This is:",
+      "options": [
+        "Optimism",
+        "Confirmation bias",
+        "Good research",
+        "Confidence"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q8",
+      "question": "Best frequency to check long-term investment portfolio:",
+      "options": [
+        "Daily",
+        "Weekly",
+        "Monthly/Quarterly",
+        "Hourly"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q9",
+      "question": "Starting investing at 25 vs 35 (10-year difference) results in:",
+      "options": [
+        "10% more wealth",
+        "50% more wealth",
+        "5-10x more wealth due to compounding",
+        "Same wealth"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q10",
+      "question": "Selling winners early, holding losers long is called:",
+      "options": [
+        "Smart strategy",
+        "Disposition effect",
+        "Tax planning",
+        "Risk management"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q11",
+      "question": "Emergency fund should NOT be invested in:",
+      "options": [
+        "Liquid funds",
+        "Savings account",
+        "Equity stocks",
+        "Short-term FD"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q12",
+      "question": "Data shows what % of investors fail at market timing?",
+      "options": ["50%", "70%", "90%", "30%"],
+      "correct": 2
+    }
+  ],
+  "documentation": {
+    "title": "Risk Management & Investment Psychology Guide",
+    "summary": "Comprehensive coverage of investment risks, behavioral biases, risk measurement metrics, building discipline, and avoiding common mistakes. Includes practical frameworks for systematic decision-making.",
+    "sections": [
+      "Types of Investment Risk: Systematic and Unsystematic",
+      "Market Risk, Liquidity Risk, Credit Risk Deep Dive",
+      "Behavioral Finance: Loss Aversion, Confirmation Bias, Recency Bias",
+      "Anchoring, Herd Mentality, Overconfidence Analysis",
+      "Risk Metrics: Standard Deviation, Beta, Sharpe Ratio, Maximum Drawdown",
+      "Building Investment Discipline: Written Plans and Checklists",
+      "Investment Journal and Review Process",
+      "Common Investor Mistakes and How to Avoid",
+      "Market Timing vs Time in Market (Data Analysis)",
+      "Tax Planning and Its Impact on Returns",
+      "Emergency Fund Importance and Sizing",
+      "Psychological Preparation for Market Volatility"
+    ]
+  }
+}

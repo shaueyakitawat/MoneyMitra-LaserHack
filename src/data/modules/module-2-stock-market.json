@@ -1,0 +1,358 @@
+{
+  "id": "module-2-stock-market",
+  "title": "Stock Market Fundamentals",
+  "difficulty": "beginner",
+  "duration": "2-3 hours",
+  "description": "Learn how stock markets work, how to read stock prices, and understand market mechanics.",
+  "objectives": [
+    "Understand how stock exchanges operate",
+    "Learn to read stock quotes and market data",
+    "Master order types and trading mechanics",
+    "Understand market indices and their significance",
+    "Learn about market participants and their roles"
+  ],
+  "prerequisites": ["module-1-basics"],
+  "icon": "📊",
+  "lessons": [
+    {
+      "id": "lesson-2-1",
+      "title": "How Stock Markets Work",
+      "videoTopic": "Stock Exchange Fundamentals",
+      "videoId": "PLACEHOLDER",
+      "duration": "18 min",
+      "content": {
+        "original": "Stock markets are platforms where buyers and sellers trade shares of publicly listed companies. In India, NSE and BSE are primary exchanges. Markets facilitate price discovery through demand-supply dynamics. SEBI regulates all market activities ensuring fair trading practices.",
+        "simplified": "Stock market is like a big shop where people buy and sell company shares. NSE and BSE are India's main stock markets. Prices go up when more people want to buy, and down when more want to sell. SEBI makes sure everyone follows the rules.",
+        "hindi": "शेयर बाजार एक बड़ी दुकान जैसा है जहां लोग कंपनियों के शेयर खरीदते और बेचते हैं। NSE और BSE भारत के मुख्य शेयर बाजार हैं। जब ज्यादा लोग खरीदना चाहते हैं तो कीमत बढ़ती है, और बेचना चाहें तो गिरती है। SEBI सुनिश्चित करता है कि सब नियमों का पालन करें।"
+      },
+      "aiSummary": "Stock markets = Organized platforms for buying/selling shares. NSE/BSE in India. Price moves based on demand-supply. SEBI = Regulator ensuring fair play.",
+      "keyTakeaways": [
+        "NSE and BSE are India's main stock exchanges",
+        "Trading happens electronically, not on physical floor",
+        "Market hours: 9:15 AM to 3:30 PM (Mon-Fri)",
+        "SEBI protects investor interests"
+      ],
+      "commonMistakes": [
+        "Thinking stock market = casino (it's regulated)",
+        "Trading without understanding mechanics",
+        "Ignoring market timings and holidays"
+      ]
+    },
+    {
+      "id": "lesson-2-2",
+      "title": "Reading Stock Quotes",
+      "videoTopic": "Understanding Stock Price Information",
+      "videoId": "PLACEHOLDER",
+      "duration": "16 min",
+      "content": {
+        "original": "Stock quotes display critical information: Current Price (CMP), Open, High, Low, Previous Close, Volume, Market Cap, P/E Ratio, 52-week High/Low. Green indicates price up, red indicates down. Volume shows liquidity. Market cap determines company size classification.",
+        "simplified": "Stock price screen shows: current price, today's highest and lowest price, yesterday's closing price, how many shares were traded, company's total value, and 52-week range. Green means profit, red means loss.",
+        "hindi": "शेयर की कीमत स्क्रीन पर दिखाई देती है: वर्तमान कीमत, आज की सबसे ऊंची और सबसे नीची कीमत, कल की बंद कीमत, कितने शेयर खरीदे-बेचे गए, कंपनी की कुल वैल्यू, और 52 हफ्ते की रेंज। हरा मतलब फायदा, लाल मतलब नुकसान।"
+      },
+      "aiSummary": "Stock quote elements: CMP (current price), Volume (trading activity), 52W H/L (yearly range), Market Cap (company size). Green = gain, Red = loss.",
+      "keyTakeaways": [
+        "CMP = Current Market Price (live price)",
+        "Volume indicates how actively stock is traded",
+        "52-week high/low shows price range over year",
+        "Market cap = Share price × Total shares"
+      ],
+      "commonMistakes": [
+        "Confusing face value with market price",
+        "Ignoring volume (low volume = hard to sell)",
+        "Not checking 52-week range before buying"
+      ]
+    },
+    {
+      "id": "lesson-2-3",
+      "title": "Order Types and Trading",
+      "videoTopic": "Market Orders, Limit Orders, Stop Loss",
+      "videoId": "PLACEHOLDER",
+      "duration": "20 min",
+      "content": {
+        "original": "Market order executes immediately at current price. Limit order executes only at specified price or better. Stop-loss triggers sale when price falls to set level. Good-till-cancelled (GTC) orders remain active until executed or cancelled. Understanding order types prevents costly mistakes.",
+        "simplified": "Market order: Buy/sell right now at any price. Limit order: Buy/sell only at your decided price. Stop-loss: Automatically sell if price drops below your limit. This protects you from big losses.",
+        "hindi": "मार्केट ऑर्डर: अभी किसी भी कीमत पर खरीदें/बेचें। लिमिट ऑर्डर: सिर्फ आपकी तय कीमत पर खरीदें/बेचें। स्टॉप-लॉस: अगर कीमत आपकी लिमिट से नीचे गिरे तो ऑटोमैटिक बेच दें। यह बड़े नुकसान से बचाता है।"
+      },
+      "aiSummary": "Order types: Market (instant at any price), Limit (only at your price), Stop-loss (auto-sell to limit loss). Use limit orders to control buy/sell price.",
+      "keyTakeaways": [
+        "Market order = Immediate execution, price uncertain",
+        "Limit order = Controlled price, execution uncertain",
+        "Always use stop-loss for risk management",
+        "GTC orders stay active across sessions"
+      ],
+      "commonMistakes": [
+        "Using market orders for illiquid stocks (price slippage)",
+        "Not setting stop-loss (unlimited downside risk)",
+        "Setting unrealistic limit prices (never executes)"
+      ]
+    },
+    {
+      "id": "lesson-2-4",
+      "title": "Market Indices Explained",
+      "videoTopic": "Understanding Nifty, Sensex, Bank Nifty",
+      "videoId": "PLACEHOLDER",
+      "duration": "17 min",
+      "content": {
+        "original": "Market indices track overall market performance. Nifty 50 represents top 50 companies on NSE. Sensex tracks 30 companies on BSE. Bank Nifty focuses on banking sector. Indices use free-float market capitalization methodology. They serve as benchmarks for fund performance.",
+        "simplified": "Indices are like report cards for the market. Nifty 50 shows how 50 big companies are doing. Sensex shows 30 big companies. If Nifty goes up, overall market is doing well. Fund managers compare their returns to these indices.",
+        "hindi": "इंडेक्स मार्केट का रिपोर्ट कार्ड है। Nifty 50 में 50 बड़ी कंपनियां हैं। Sensex में 30 बड़ी कंपनियां। अगर Nifty बढ़ता है, तो पूरा मार्केट अच्छा कर रहा है। फंड मैनेजर इन इंडेक्स से अपने रिटर्न की तुलना करते हैं।"
+      },
+      "aiSummary": "Indices = Market thermometer. Nifty 50 (NSE's top 50), Sensex (BSE's top 30), Bank Nifty (banking sector). Index up = Market positive. Used as benchmark.",
+      "keyTakeaways": [
+        "Nifty 50 = NSE's benchmark (50 largest companies)",
+        "Sensex = BSE's benchmark (30 companies)",
+        "Sectoral indices track specific industries",
+        "Index funds replicate index performance"
+      ],
+      "commonMistakes": [
+        "Thinking Nifty/Sensex move identically (slight differences)",
+        "Comparing small-cap stock to Nifty (wrong benchmark)",
+        "Not understanding free-float methodology"
+      ]
+    },
+    {
+      "id": "lesson-2-5",
+      "title": "Market Participants and Roles",
+      "videoTopic": "Brokers, Depositories, Regulators",
+      "videoId": "PLACEHOLDER",
+      "duration": "15 min",
+      "content": {
+        "original": "Key participants: Retail investors (individuals), Institutional investors (FIIs, DIIs), Brokers (facilitate trading), Depositories (NSDL, CDSL hold shares electronically), Market makers (provide liquidity), SEBI (regulates). Each plays vital role in market functioning.",
+        "simplified": "Market players: You (retail investor), big companies and foreign investors (institutions), broker (your agent to buy/sell), depository (holds your shares safely like a bank), SEBI (police of stock market). Everyone has a specific job.",
+        "hindi": "मार्केट के खिलाड़ी: आप (रिटेल निवेशक), बड़ी कंपनियां और विदेशी निवेशक (संस्थान), ब्रोकर (आपका एजेंट), डिपॉजिटरी (आपके शेयर सुरक्षित रखता है जैसे बैंक), SEBI (शेयर बाजार की पुलिस)। सबकी अपनी भूमिका है।"
+      },
+      "aiSummary": "Market participants: Retail investors (you), Institutions (FII/DII), Brokers (trading agents), Depositories (NSDL/CDSL - hold shares), SEBI (regulator). Ecosystem requires all players.",
+      "keyTakeaways": [
+        "Broker connects you to exchange (Zerodha, Groww, etc.)",
+        "Demat account holds shares electronically",
+        "FIIs bring foreign money, impact market significantly",
+        "SEBI monitors and penalizes violations"
+      ],
+      "commonMistakes": [
+        "Not understanding broker's role (thinking they guarantee profits)",
+        "Confusing demat and trading accounts",
+        "Not checking SEBI registration of advisors"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "What are India's two main stock exchanges?",
+      "options": ["NYSE and NASDAQ", "NSE and BSE", "LSE and TSE", "SSE and HKEX"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "What does green color typically indicate in stock price display?",
+      "options": ["Price decreased", "Price increased", "No change", "Market closed"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q3",
+      "question": "Which order type executes immediately at current market price?",
+      "options": ["Limit order", "Market order", "Stop-loss order", "GTC order"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q4",
+      "question": "How many companies does Nifty 50 index track?",
+      "options": ["30", "50", "100", "500"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "Who regulates Indian stock markets?",
+      "options": ["RBI", "SEBI", "IRDAI", "Ministry of Finance"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q6",
+      "question": "What are stock market trading hours in India?",
+      "options": [
+        "9:00 AM to 5:00 PM",
+        "9:15 AM to 3:30 PM",
+        "10:00 AM to 4:00 PM",
+        "24 hours"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q7",
+      "question": "What does 'Volume' in stock quote represent?",
+      "options": [
+        "Company's total value",
+        "Number of shares traded",
+        "Price change percentage",
+        "Dividend amount"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q8",
+      "question": "Which account holds your shares electronically?",
+      "options": ["Savings account", "Trading account", "Demat account", "Current account"],
+      "correct": 2
+    },
+    {
+      "id": "pre-q9",
+      "question": "What is a stop-loss order used for?",
+      "options": [
+        "To buy at lower price",
+        "To limit potential losses",
+        "To lock in profits",
+        "To increase gains"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q10",
+      "question": "Which depositories operate in India?",
+      "options": [
+        "NSDL and CDSL",
+        "SEBI and RBI",
+        "NSE and BSE",
+        "AMFI and CRISIL"
+      ],
+      "correct": 0
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "If Nifty opens at 19,000 and closes at 19,500, what's the percentage gain?",
+      "options": ["2.5%", "2.63%", "5%", "1.5%"],
+      "correct": 1
+    },
+    {
+      "id": "post-q2",
+      "question": "You place a limit buy order for ₹100. Stock is at ₹105. What happens?",
+      "options": [
+        "Executes immediately at ₹105",
+        "Waits until price drops to ₹100 or below",
+        "Order gets cancelled",
+        "Executes at ₹100 immediately"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q3",
+      "question": "Stock's 52-week range is ₹200-₹400. Current price ₹380. What does this indicate?",
+      "options": [
+        "Near yearly low",
+        "Near yearly high",
+        "At average price",
+        "Overvalued"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q4",
+      "question": "Which index would best track banking sector performance?",
+      "options": ["Nifty 50", "Sensex", "Bank Nifty", "Nifty IT"],
+      "correct": 2
+    },
+    {
+      "id": "post-q5",
+      "question": "You buy 100 shares at ₹50. Set stop-loss at ₹45. Price drops to ₹44. What happens?",
+      "options": [
+        "Nothing, you still hold shares",
+        "Shares sold automatically around ₹45",
+        "Order cancelled",
+        "You must manually sell"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q6",
+      "question": "Market cap = Share price × ______",
+      "options": [
+        "Face value",
+        "Total outstanding shares",
+        "Daily volume",
+        "Book value"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q7",
+      "question": "FII stands for:",
+      "options": [
+        "Foreign Institutional Investor",
+        "Fixed Income Investment",
+        "Financial Index Indicator",
+        "Fund Investment Institution"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "post-q8",
+      "question": "Stock shows 'No Delivery' for 1 lakh shares but 'Traded Volume' is 5 lakhs. This means:",
+      "options": [
+        "Error in data",
+        "80% were intraday trades",
+        "All were delivery trades",
+        "Stock is illiquid"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q9",
+      "question": "Circuit limit of 20% means stock cannot:",
+      "options": [
+        "Be traded that day",
+        "Move more than 20% up or down in a day",
+        "Be bought by retail investors",
+        "Pay dividends"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q10",
+      "question": "Pre-market session timing in India:",
+      "options": [
+        "9:00 AM to 9:15 AM",
+        "9:00 AM to 9:45 AM",
+        "8:00 AM to 9:00 AM",
+        "No pre-market session"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "post-q11",
+      "question": "T+2 settlement means:",
+      "options": [
+        "Trade settles in 2 hours",
+        "Shares credited 2 days after trade",
+        "Must hold for 2 days",
+        "2% transaction fee"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q12",
+      "question": "Best order type for illiquid stocks:",
+      "options": [
+        "Market order",
+        "Limit order",
+        "Stop-loss order",
+        "Doesn't matter"
+      ],
+      "correct": 1
+    }
+  ],
+  "documentation": {
+    "title": "Complete Guide to Stock Market Mechanics",
+    "summary": "Comprehensive notes on stock exchange functioning, reading stock quotes, order types, market indices, and roles of various market participants. Includes practical examples and trading mechanics.",
+    "sections": [
+      "Stock Exchange Infrastructure: NSE and BSE",
+      "Reading and Interpreting Stock Quotes",
+      "Order Types: Market, Limit, Stop-Loss, GTC",
+      "Understanding Market Indices: Nifty, Sensex, Sectoral",
+      "Market Participants: Roles and Responsibilities",
+      "Trading Mechanics and Settlement Process",
+      "Circuit Breakers and Market Safeguards",
+      "Practical Trading Tips and Best Practices"
+    ]
+  }
+}

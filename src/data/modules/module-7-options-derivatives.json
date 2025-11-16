@@ -1,0 +1,397 @@
+{
+  "id": "module-7-options-derivatives",
+  "title": "Options & Derivatives Trading",
+  "difficulty": "advanced",
+  "duration": "4-5 hours",
+  "description": "Advanced module covering options, futures, option strategies, Greeks, and derivatives for hedging and speculation.",
+  "objectives": [
+    "Understand options and futures contracts mechanics",
+    "Learn call and put options and when to use each",
+    "Master option Greeks (Delta, Gamma, Theta, Vega)",
+    "Implement basic to advanced option strategies",
+    "Use derivatives for portfolio hedging and income generation"
+  ],
+  "prerequisites": ["module-1-basics", "module-2-stock-market", "module-3-technical-analysis"],
+  "icon": "📉",
+  "lessons": [
+    {
+      "id": "lesson-7-1",
+      "title": "Introduction to Derivatives",
+      "videoTopic": "Futures and Options Basics",
+      "videoId": "PLACEHOLDER",
+      "duration": "22 min",
+      "content": {
+        "original": "Derivative = Financial instrument whose value derives from underlying asset (stock, index, commodity). Types: Futures (obligation to buy/sell), Options (right but not obligation). Used for: (1) Hedging (risk protection), (2) Speculation (leverage), (3) Arbitrage (risk-free profit). Derivatives magnify gains AND losses (leverage). Lot size: Nifty = 25, Bank Nifty = 15. Expiry: Last Thursday of month. Physical vs Cash settlement. High risk - only for experienced investors with risk capital.",
+        "simplified": "Derivative = Contract based on another asset's price. Two main types: Futures (you MUST buy/sell at future date), Options (you CAN choose to buy/sell). Why use? (1) Protection: Like insurance for your stocks, (2) Betting: Predict market direction with small money (leverage), (3) Income: Sell options to collect premium. Warning: Derivatives are powerful but dangerous - can lose more than invested. Beginners should avoid or start with very small amounts. Not for emergency or essential money.",
+        "hindi": "Derivative = Contract जो दूसरे asset की price पर based है। दो main types: Futures (आपको भविष्य में खरीदना/बेचना जरूरी है), Options (आप choose कर सकते हैं खरीदना/बेचना)। क्यों use करें? (1) सुरक्षा: आपके stocks के लिए insurance जैसा, (2) Betting: थोड़े पैसे से market direction predict करें (leverage), (3) आमदनी: Options बेचकर premium collect करें। चेतावनी: Derivatives powerful लेकिन खतरनाक - invested से ज्यादा loss हो सकता है।"
+      },
+      "aiSummary": "Derivative = Contract deriving value from underlying. Types: Futures (obligation), Options (right). Uses: Hedging, Speculation, Arbitrage. High leverage = High risk. Monthly expiry. Advanced investors only.",
+      "keyTakeaways": [
+        "Derivatives are zero-sum game (someone's profit = someone's loss)",
+        "Leverage magnifies both gains and losses exponentially",
+        "Expiry every last Thursday - time decay critical factor",
+        "95% of retail option buyers lose money (statistics)"
+      ],
+      "commonMistakes": [
+        "Trading derivatives without understanding (biggest mistake)",
+        "Using essential/emergency money for derivatives",
+        "Buying far OTM options hoping for lottery (usually expire worthless)",
+        "Not understanding margin requirements and MTM losses"
+      ]
+    },
+    {
+      "id": "lesson-7-2",
+      "title": "Call and Put Options Explained",
+      "videoTopic": "Understanding Calls, Puts, and Payoff Diagrams",
+      "videoId": "PLACEHOLDER",
+      "duration": "24 min",
+      "content": {
+        "original": "Call option = Right to BUY underlying at strike price. Buy call when bullish. Put option = Right to SELL underlying at strike price. Buy put when bearish. Premium = Price paid for option. Strike price = Agreed price. ITM (In The Money), ATM (At The Money), OTM (Out of The Money). Intrinsic value = Difference between spot and strike (if favorable). Time value = Premium - Intrinsic value. Options decay to zero at expiry if OTM. Payoff diagrams show profit/loss at different spot prices. Max loss for buyer = Premium paid. Max gain unlimited (call), limited to strike (put).",
+        "simplified": "Call option = You get right to buy stock at fixed price. Example: Stock at ₹100, you buy ₹105 call for ₹3. If stock goes to ₹115, you profit ₹7 (₹115-₹105-₹3). If stock stays below ₹105, you lose ₹3 premium. Put option = Right to sell at fixed price. Buy put if you think stock will fall. Example: Stock at ₹100, buy ₹95 put for ₹2. If stock falls to ₹85, profit ₹8 (₹95-₹85-₹2). Maximum you can lose = Premium you paid. But stock can go to zero, so put profit limited.",
+        "hindi": "Call option = आपको stock को fixed price पर खरीदने का अधिकार। Example: Stock ₹100 पर, आप ₹105 call ₹3 में खरीदते हैं। अगर stock ₹115 जाता है, तो आपका profit ₹7 (₹115-₹105-₹3)। अगर stock ₹105 से नीचे रहता है, तो आप ₹3 premium खोते हैं। Put option = Fixed price पर बेचने का अधिकार। Put तब खरीदें जब आपको लगता है stock गिरेगा। Maximum आप खो सकते हैं = Premium जो आपने दिया।"
+      },
+      "aiSummary": "Call = Right to buy (bullish). Put = Right to sell (bearish). Premium = Option price. ITM/ATM/OTM based on spot vs strike. Intrinsic value + Time value = Premium. Buyer's max loss = Premium. Seller's risk unlimited.",
+      "keyTakeaways": [
+        "Buying option = Limited risk (premium), unlimited potential gain",
+        "Selling option = Limited gain (premium), unlimited potential loss",
+        "ATM options have highest time value",
+        "Options are wasting assets - lose value every day (theta decay)"
+      ],
+      "commonMistakes": [
+        "Confusing call with bullish and put with bearish (can use both ways)",
+        "Buying deep OTM hoping for big gain (low probability)",
+        "Holding options till expiry (time decay accelerates)",
+        "Not understanding assignment risk when selling options"
+      ]
+    },
+    {
+      "id": "lesson-7-3",
+      "title": "Understanding Option Greeks",
+      "videoTopic": "Delta, Gamma, Theta, Vega Explained",
+      "videoId": "PLACEHOLDER",
+      "duration": "26 min",
+      "content": {
+        "original": "Greeks measure option price sensitivity. Delta: Change in option price for ₹1 change in underlying. Call delta 0 to 1, Put delta 0 to -1. Delta 0.5 = ATM. Gamma: Rate of change of delta. High gamma near expiry/ATM. Theta: Time decay per day. Always negative for buyers. Accelerates near expiry. Vega: Sensitivity to volatility changes. High vega for ATM, long-dated options. Rho: Interest rate sensitivity (usually ignored). Use Greeks to predict option price changes and manage risk. Delta hedging = Balancing portfolio delta to zero.",
+        "simplified": "Greeks help predict how option price will change. Delta: If stock moves ₹1, how much does option price move? Delta 0.5 means option moves ₹0.50 for every ₹1 stock move. Theta: How much you lose every day just from time passing (like ice melting). If theta is -10, you lose ₹10 daily even if stock doesn't move. Vega: How much option price changes when volatility changes. High volatility = Higher option prices. Gamma: How fast delta changes. Don't need to master all, but understanding theta (time decay) is crucial for option buyers.",
+        "hindi": "Greeks मदद करते हैं predict करने में कि option price कैसे बदलेगी। Delta: अगर stock ₹1 move करता है, तो option price कितना move करती है? Delta 0.5 मतलब option ₹0.50 move करती है हर ₹1 stock move के लिए। Theta: सिर्फ time बीतने से हर दिन कितना lose होता है (जैसे बर्फ पिघलती है)। अगर theta -10 है, तो ₹10 daily loss होता है भले stock न move करे। Vega: Volatility बदलने पर option price कितना बदलता है।"
+      },
+      "aiSummary": "Greeks = Option risk metrics. Delta (price sensitivity to underlying, 0-1 call, 0 to -1 put), Theta (time decay, negative for buyers), Vega (volatility sensitivity), Gamma (delta change rate). Essential for option trading and risk management.",
+      "keyTakeaways": [
+        "Delta 0.5 (ATM) = 50% probability of expiring ITM",
+        "Theta decay accelerates in last 30 days before expiry",
+        "High IV (Implied Volatility) = Expensive options, Low IV = Cheap options",
+        "Understanding Greeks separates amateurs from professionals"
+      ],
+      "commonMistakes": [
+        "Ignoring theta decay (holding options too long)",
+        "Not understanding delta (position size miscalculation)",
+        "Buying options when IV is very high (overpaying)",
+        "Trading without monitoring Greeks"
+      ]
+    },
+    {
+      "id": "lesson-7-4",
+      "title": "Basic Option Strategies",
+      "videoTopic": "Covered Call, Protective Put, Straddle, Strangle",
+      "videoId": "PLACEHOLDER",
+      "duration": "25 min",
+      "content": {
+        "original": "Basic strategies: (1) Covered Call: Own stock + Sell call. Generates income, caps upside. (2) Protective Put: Own stock + Buy put. Insurance against downside, costs premium. (3) Long Straddle: Buy ATM call + ATM put. Profit from big move either direction. High cost. (4) Long Strangle: Buy OTM call + OTM put. Cheaper than straddle, needs bigger move. (5) Bull Call Spread: Buy lower strike call + Sell higher strike call. Defined risk and reward. Use for moderate bullish view. Each strategy has specific market outlook and risk profile.",
+        "simplified": "Popular strategies: (1) Covered Call: You own 100 shares, sell call option on them. You earn premium every month but give up huge upside if stock rockets. Good for sideways market. (2) Protective Put: You own shares, buy put as insurance. Protects against big fall but costs premium. Like car insurance. (3) Straddle: Buy both call and put at same strike. You profit if stock moves a lot in ANY direction. Use before big events (budget, election, results). High cost, needs big movement. (4) Spread: Buy one option, sell another to reduce cost. Limited profit but also limited loss.",
+        "hindi": "Popular strategies: (1) Covered Call: आपके पास 100 shares हैं, उन पर call option बेचते हैं। हर महीने premium earn करते हैं लेकिन बड़ा upside छोड़ देते हैं अगर stock rocket करे। Sideways market के लिए अच्छा। (2) Protective Put: आपके पास shares हैं, put insurance की तरह खरीदते हैं। बड़ी गिरावट से बचाता है लेकिन premium cost होता है। (3) Straddle: Same strike पर call और put दोनों खरीदें। किसी भी दिशा में बड़ी move से profit।"
+      },
+      "aiSummary": "Basic strategies: Covered Call (income generation), Protective Put (downside protection), Straddle (volatility play), Strangle (cheaper volatility), Spreads (defined risk/reward). Match strategy to market outlook and risk appetite.",
+      "keyTakeaways": [
+        "Covered call = Income strategy for sideways/mildly bullish markets",
+        "Protective put = Insurance (costs premium but protects portfolio)",
+        "Straddle/Strangle = Volatility bets (profit from big moves)",
+        "Spreads = Beginner-friendly (defined max loss and gain)"
+      ],
+      "commonMistakes": [
+        "Using wrong strategy for market condition",
+        "Not calculating breakeven points before entering",
+        "Treating straddle like lottery ticket (IV crush after event)",
+        "Selling naked options without hedging (unlimited risk)"
+      ]
+    },
+    {
+      "id": "lesson-7-5",
+      "title": "Advanced Strategies and Hedging",
+      "videoTopic": "Iron Condor, Butterfly, Portfolio Hedging",
+      "videoId": "PLACEHOLDER",
+      "duration": "28 min",
+      "content": {
+        "original": "Advanced strategies: (1) Iron Condor: Sell OTM call spread + Sell OTM put spread. Profit in range-bound market. Collect premium. (2) Butterfly: Buy 1 ITM, Sell 2 ATM, Buy 1 OTM. Low cost, defined risk. Profits if stock stays near ATM. (3) Calendar Spread: Sell near-month, Buy far-month same strike. Profits from theta decay difference. (4) Ratio Spreads: Unequal number of long and short options. Portfolio hedging: Buy index puts to protect equity portfolio. Cost = Insurance premium. Dynamic hedging adjusts hedge ratio as market moves. Collar strategy: Buy put + Sell call (zero-cost protection with capped upside).",
+        "simplified": "Advanced strategies for experienced traders: (1) Iron Condor: Bet that stock will stay in range. Collect premium from selling 4 options (2 calls, 2 puts at different strikes). If stock stays between your range, keep all premium. High probability but small profit. (2) Butterfly: Bet stock stays at exact level. Low cost strategy. (3) Portfolio Insurance: Own ₹10L stocks, worried about crash? Buy Nifty puts for ₹30,000. If market crashes 20%, put gains ₹2L+ offsetting stock losses. Like buying health insurance - costs money but protects in emergency. Best for large portfolios during uncertain times.",
+        "hindi": "Experienced traders के लिए Advanced strategies: (1) Iron Condor: Bet लगाएं कि stock range में रहेगा। 4 options बेचकर premium collect करें (2 calls, 2 puts अलग-अलग strikes पर)। अगर stock आपकी range में रहता है, तो सारा premium रखें। High probability लेकिन small profit। (2) Portfolio Insurance: ₹10L stocks हैं, crash की चिंता? Nifty puts ₹30,000 में खरीदें। अगर market 20% crash करे, तो put से ₹2L+ gain होगा stock losses को offset करते हुए।"
+      },
+      "aiSummary": "Advanced strategies: Iron Condor (range-bound premium collection), Butterfly (pinpoint accuracy bet), Calendar spread (time decay arbitrage), Ratio spreads. Portfolio hedging: Buy index puts, collar strategy. Match complexity to experience level.",
+      "keyTakeaways": [
+        "Iron Condor = High probability, low profit per trade (consistency strategy)",
+        "Butterfly = Low cost but requires accurate prediction",
+        "Portfolio hedging essential for large equity holdings during volatility",
+        "Paper trade advanced strategies before using real money"
+      ],
+      "commonMistakes": [
+        "Jumping to advanced strategies without mastering basics",
+        "Not understanding max loss in iron condor (can be substantial)",
+        "Over-hedging portfolio (reduces returns, costs too much)",
+        "Using complex strategies with poor liquidity strikes"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "Derivative value is derived from:",
+      "options": [
+        "Government bonds",
+        "Underlying asset",
+        "Company earnings",
+        "Fixed deposits"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "Call option gives right to:",
+      "options": ["Sell", "Buy", "Hold", "Transfer"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q3",
+      "question": "Maximum loss for option buyer is:",
+      "options": [
+        "Unlimited",
+        "Premium paid",
+        "Strike price",
+        "Spot price"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q4",
+      "question": "Options expiry in India is:",
+      "options": [
+        "First Monday",
+        "Last Thursday",
+        "Every Friday",
+        "15th of month"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "Theta measures:",
+      "options": [
+        "Price sensitivity",
+        "Time decay",
+        "Volatility sensitivity",
+        "Interest rate impact"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q6",
+      "question": "ITM means:",
+      "options": [
+        "In The Money",
+        "Initial Trading Margin",
+        "Index Trading Mechanism",
+        "Interest Time Maturity"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q7",
+      "question": "Covered call strategy involves:",
+      "options": [
+        "Buying call only",
+        "Owning stock + Selling call",
+        "Selling stock + Buying call",
+        "Buying call + put"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q8",
+      "question": "Protective put is used for:",
+      "options": [
+        "Income generation",
+        "Downside protection",
+        "Speculation",
+        "Tax saving"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q9",
+      "question": "Derivatives are suitable for:",
+      "options": [
+        "All investors",
+        "Beginners",
+        "Experienced investors with risk capital",
+        "Retirees only"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "pre-q10",
+      "question": "High implied volatility makes options:",
+      "options": [
+        "Cheaper",
+        "More expensive",
+        "Unchanged",
+        "Risk-free"
+      ],
+      "correct": 1
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "Stock at ₹100, bought ₹105 call for ₹3. Stock at ₹112 at expiry. Profit/Loss:",
+      "options": ["₹4 profit", "₹7 profit", "₹9 profit", "₹3 loss"],
+      "correct": 0
+    },
+    {
+      "id": "post-q2",
+      "question": "Delta of 0.7 means option price moves:",
+      "options": [
+        "₹0.70 for ₹1 stock move",
+        "₹7 for ₹1 stock move",
+        "70% of stock price",
+        "7% daily"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "post-q3",
+      "question": "Theta of -15 means you lose ₹15:",
+      "options": [
+        "Per month",
+        "Per day",
+        "Per week",
+        "At expiry"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q4",
+      "question": "When does theta decay accelerate?",
+      "options": [
+        "At purchase",
+        "Mid-way",
+        "Last 30 days before expiry",
+        "After expiry"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q5",
+      "question": "Straddle profits from:",
+      "options": [
+        "Stock staying flat",
+        "Big move either direction",
+        "Slow uptrend",
+        "Small movement"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q6",
+      "question": "Iron Condor is best in:",
+      "options": [
+        "Volatile market",
+        "Range-bound market",
+        "Strong trend",
+        "After crash"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q7",
+      "question": "Maximum loss in buying call option:",
+      "options": [
+        "Unlimited",
+        "Premium paid",
+        "Strike price",
+        "₹1 crore"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q8",
+      "question": "Maximum risk in selling naked call:",
+      "options": [
+        "Premium received",
+        "Strike price",
+        "Unlimited",
+        "₹10,000"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q9",
+      "question": "Protective put is like:",
+      "options": [
+        "Speculation",
+        "Insurance",
+        "Income generation",
+        "Tax saving"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q10",
+      "question": "Covered call limits your:",
+      "options": [
+        "Downside",
+        "Upside",
+        "Both",
+        "Neither"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q11",
+      "question": "ATM options have highest:",
+      "options": [
+        "Intrinsic value",
+        "Time value",
+        "Delta",
+        "Certainty"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q12",
+      "question": "Best time to buy options:",
+      "options": [
+        "High IV (expensive)",
+        "Low IV (cheap)",
+        "At expiry",
+        "Doesn't matter"
+      ],
+      "correct": 1
+    }
+  ],
+  "documentation": {
+    "title": "Options & Derivatives Mastery Guide",
+    "summary": "Comprehensive coverage of futures, options mechanics, Greeks, basic to advanced strategies, portfolio hedging techniques. Includes risk warnings, practical examples, and strategy selection framework.",
+    "sections": [
+      "Derivatives Basics: Futures and Options",
+      "Call and Put Options: Mechanics and Payoffs",
+      "Understanding and Using Option Greeks",
+      "Basic Strategies: Covered Call, Protective Put, Straddles",
+      "Spread Strategies: Vertical, Horizontal, Diagonal",
+      "Advanced Strategies: Iron Condor, Butterfly, Ratio",
+      "Portfolio Hedging with Index Options",
+      "Volatility Trading and IV Analysis",
+      "Risk Management in Derivatives Trading",
+      "Common Mistakes and How to Avoid Them",
+      "Position Sizing and Capital Allocation",
+      "Paper Trading and Strategy Backtesting"
+    ]
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "id": "module-5-mutual-funds-etfs",
+  "title": "Mutual Funds & ETFs",
+  "difficulty": "beginner",
+  "duration": "2-3 hours",
+  "description": "Understand mutual funds and ETFs, learn how to select funds based on goals, and build diversified portfolios.",
+  "objectives": [
+    "Understand structure and types of mutual funds",
+    "Learn about ETFs and their advantages",
+    "Analyze fund performance metrics (NAV, expense ratio, returns)",
+    "Select funds based on investment goals and risk profile",
+    "Build diversified mutual fund portfolio"
+  ],
+  "prerequisites": ["module-1-basics"],
+  "icon": "🏦",
+  "lessons": [
+    {
+      "id": "lesson-5-1",
+      "title": "Mutual Funds Explained",
+      "videoTopic": "What are Mutual Funds and How They Work",
+      "videoId": "PLACEHOLDER",
+      "duration": "18 min",
+      "content": {
+        "original": "Mutual fund pools money from multiple investors to invest in diversified portfolio of stocks, bonds, or other securities. Managed by professional fund managers. NAV (Net Asset Value) = Total portfolio value / Number of units. Types: Equity funds (stocks), Debt funds (bonds), Hybrid funds (mix). Open-ended funds allow daily buy/sell, closed-ended have fixed tenure. SIP (Systematic Investment Plan) enables disciplined monthly investing.",
+        "simplified": "Mutual fund is like a basket where many investors put their money together. Expert fund manager then invests this big pool in many different stocks/bonds. You buy units of the fund. If fund's investments grow, your unit value (NAV) increases. Types: Equity funds (higher risk, higher return), Debt funds (lower risk, stable return), Hybrid (balanced). You can invest monthly small amounts through SIP instead of big lumpsum.",
+        "hindi": "म्यूचुअल फंड एक बास्केट जैसा है जहां कई निवेशक अपना पैसा एक साथ डालते हैं। एक्सपर्ट फंड मैनेजर फिर इस बड़े pool को कई अलग-अलग stocks/bonds में निवेश करता है। आप फंड की यूनिट्स खरीदते हैं। अगर फंड के निवेश grow होते हैं, तो आपकी यूनिट वैल्यू (NAV) बढ़ती है। Types: Equity funds (ज्यादा risk, ज्यादा return), Debt funds (कम risk, stable return)। आप SIP से हर महीने छोटी amount invest कर सकते हैं।"
+      },
+      "aiSummary": "Mutual Fund = Pooled investment vehicle. Fund manager invests in diversified portfolio. NAV = Fund value per unit. Types: Equity, Debt, Hybrid. SIP = Monthly disciplined investing.",
+      "keyTakeaways": [
+        "Mutual funds offer instant diversification for small investors",
+        "Professional management by experienced fund managers",
+        "SIP helps average out market volatility (rupee cost averaging)",
+        "Can start with as little as ₹500/month"
+      ],
+      "commonMistakes": [
+        "Choosing fund based on past 1-year return (too short-term)",
+        "Stopping SIP when market falls (best time to accumulate units)",
+        "Holding too many funds (over-diversification reduces returns)"
+      ]
+    },
+    {
+      "id": "lesson-5-2",
+      "title": "ETFs - Exchange Traded Funds",
+      "videoTopic": "Understanding ETFs and Index Investing",
+      "videoId": "PLACEHOLDER",
+      "duration": "17 min",
+      "content": {
+        "original": "ETF = Exchange Traded Fund, trades on stock exchange like shares. Tracks index (Nifty 50 ETF mirrors Nifty 50). Passive investment - no active fund manager. Advantages: Lower expense ratio (0.05-0.25% vs 1-2% in mutual funds), intraday trading, high transparency. Nifty BeES, Sensex ETF, Gold BeES are popular. Buy through demat account. Ideal for long-term passive investors. Dividend yield higher in ETFs.",
+        "simplified": "ETF is like a mutual fund but trades on stock exchange like a regular share. Most ETFs simply copy an index - if you buy Nifty ETF, you're buying all 50 Nifty companies automatically. Much cheaper than active mutual funds because no fund manager is actively picking stocks. You can buy/sell anytime during market hours just like stocks. Great for beginners who want diversification without complexity.",
+        "hindi": "ETF म्यूचुअल फंड जैसा है लेकिन stock exchange पर regular share की तरह trade होता है। ज्यादातर ETFs बस एक index को copy करते हैं - अगर आप Nifty ETF खरीदते हैं, तो आप सभी 50 Nifty कंपनियां automatically खरीद रहे हैं। Active म्यूचुअल फंड्स से बहुत सस्ता क्योंकि कोई फंड मैनेजर actively stocks नहीं चुन रहा। आप मार्केट hours में कभी भी खरीद/बेच सकते हैं जैसे stocks।"
+      },
+      "aiSummary": "ETF = Index-tracking fund traded on exchange. Passive investment. Benefits: Low cost (0.05-0.25% expense), intraday trading, transparency. Ideal for long-term passive strategy. Buy via demat account.",
+      "keyTakeaways": [
+        "ETFs have 5-10x lower expense ratio than active mutual funds",
+        "Liquidity: Can buy/sell anytime during market hours",
+        "Transparency: Holdings disclosed daily (vs monthly in MFs)",
+        "No exit load in ETFs (unlike some mutual funds)"
+      ],
+      "commonMistakes": [
+        "Trading ETFs frequently (defeats long-term purpose, adds costs)",
+        "Confusing ETFs with stocks (ETF is basket of many stocks)",
+        "Ignoring tracking error (how closely ETF follows index)"
+      ]
+    },
+    {
+      "id": "lesson-5-3",
+      "title": "Evaluating Fund Performance",
+      "videoTopic": "NAV, Expense Ratio, Returns, Sharpe Ratio Analysis",
+      "videoId": "PLACEHOLDER",
+      "duration": "20 min",
+      "content": {
+        "original": "Key metrics: (1) Rolling returns (3yr, 5yr) more reliable than point-to-point. (2) Expense ratio - lower is better, aim <1% for equity, <0.5% for index funds. (3) Sharpe ratio - risk-adjusted returns, higher better. (4) Alpha - excess return over benchmark. (5) Beta - volatility relative to market. Compare with benchmark and category average. Consistent performance across market cycles matters more than 1-year stellar return. Check fund manager tenure and philosophy.",
+        "simplified": "How to judge if mutual fund is good: (1) Check 3-year and 5-year returns, not just last year. (2) Lower expense ratio = more money stays in your pocket (prefer <1%). (3) Compare with benchmark index - if Nifty gave 12% and fund gave 10%, fund underperformed. (4) Look for consistency - fund should perform well in both bull and bear markets. (5) Check how long fund manager has been managing (longer = more experience with same fund).",
+        "hindi": "Mutual fund अच्छा है या नहीं कैसे judge करें: (1) 3-साल और 5-साल के returns देखें, सिर्फ पिछले साल के नहीं। (2) कम expense ratio = ज्यादा पैसा आपकी जेब में रहता है (<1% prefer करें)। (3) Benchmark index से compare करें - अगर Nifty ने 12% दिया और fund ने 10%, तो fund ने underperform किया। (4) Consistency देखें - fund bull और bear दोनों markets में अच्छा perform करना चाहिए।"
+      },
+      "aiSummary": "Evaluation metrics: Rolling returns (3yr, 5yr), Expense ratio (<1% equity, <0.5% index), Sharpe ratio (risk-adjusted return), Alpha (excess return), Beta (volatility). Consistency > short-term performance.",
+      "keyTakeaways": [
+        "Don't chase last year's best performer (mean reversion)",
+        "Lower expense ratio = higher net returns over time",
+        "3-5 year track record minimum for evaluation",
+        "Compare fund with appropriate benchmark (large-cap fund vs Nifty 100)"
+      ],
+      "commonMistakes": [
+        "Selecting fund based only on 1-year return (recency bias)",
+        "Ignoring expense ratio (1% vs 2% = huge difference over 20 years)",
+        "Not checking fund manager changes (different manager = different strategy)"
+      ]
+    },
+    {
+      "id": "lesson-5-4",
+      "title": "Choosing Funds for Goals",
+      "videoTopic": "Matching Funds to Investment Objectives",
+      "videoId": "PLACEHOLDER",
+      "duration": "19 min",
+      "content": {
+        "original": "Goal-based investing framework: Short-term goals (<3 years) → Liquid/Ultra-short debt funds. Medium-term (3-5 years) → Hybrid funds/Balanced Advantage. Long-term (>5 years) → Equity funds. Within equity: Large-cap for stability, Mid/Small-cap for growth (higher risk). Index funds for passive, Active funds for alpha generation. Tax: LTCG >₹1.25L taxed at 12.5%, STCG at 20%. SIP in equity funds ideal for wealth creation. Emergency fund in liquid funds.",
+        "simplified": "Match fund type to your goal timeline: Need money in 1-2 years (house down payment, car purchase) → Use debt funds (safe, stable). Goal is 3-5 years away (child's school admission) → Use balanced/hybrid funds (moderate risk). Long-term goals 7+ years (retirement, child's college) → Use equity funds (higher returns over long period). For long-term equity, start SIP and stay invested through ups and downs. Keep 6-month expenses in liquid fund as emergency backup.",
+        "hindi": "फंड type को आपके goal के timeline से match करें: 1-2 साल में पैसे चाहिए (घर का down payment, car) → Debt funds use करें (safe, stable)। Goal 3-5 साल दूर है (बच्चे का स्कूल admission) → Balanced/hybrid funds (moderate risk)। Long-term goals 7+ साल (retirement, बच्चे की college) → Equity funds (लंबे समय में higher returns)। Long-term equity के लिए, SIP शुरू करें और ups-downs में invested रहें।"
+      },
+      "aiSummary": "Goal-based selection: <3yr → Debt funds, 3-5yr → Hybrid, >5yr → Equity. Equity types: Large-cap (stable), Mid/small-cap (growth). Index funds (passive), Active (alpha). Tax: LTCG 12.5% above ₹1.25L.",
+      "keyTakeaways": [
+        "Time horizon determines asset allocation",
+        "Never invest in equity for short-term needs",
+        "Index funds suit most investors (lower cost, market returns)",
+        "Review portfolio annually, rebalance if needed"
+      ],
+      "commonMistakes": [
+        "Investing in equity funds for short-term goal (high risk of loss)",
+        "Putting emergency fund in equity (liquidity crisis when market down)",
+        "Not aligning fund risk with personal risk tolerance"
+      ]
+    },
+    {
+      "id": "lesson-5-5",
+      "title": "Building Mutual Fund Portfolio",
+      "videoTopic": "Portfolio Construction and Asset Allocation",
+      "videoId": "PLACEHOLDER",
+      "duration": "21 min",
+      "content": {
+        "original": "Core-Satellite approach: Core (70%) in index funds/large-cap equity for stability. Satellite (30%) in mid-cap/sectoral for alpha. Asset allocation example: 60% equity, 30% debt, 10% gold (varies by age and risk profile). Younger investors can have 80-90% equity. Rule of thumb: Equity % = 100 - Age. Rebalance annually to maintain allocation. Avoid overlap - check portfolio holdings. 3-5 funds sufficient for most investors. SIP amount should be 20-30% of monthly income if possible.",
+        "simplified": "Smart portfolio structure: Put majority (70%) in safe, reliable index funds that track Nifty/Sensex. Put smaller portion (30%) in funds that aim to beat market. Spread money across different types: If you're young, can go aggressive (80% equity, 20% debt). If near retirement, be conservative (40% equity, 60% debt). Simple rule: Your age = how much percent should be in safe debt funds. Review once a year and adjust. Don't buy too many funds - 3 to 5 is enough.",
+        "hindi": "Smart portfolio structure: ज्यादातर हिस्सा (70%) safe, reliable index funds में डालें जो Nifty/Sensex को track करते हैं। छोटा हिस्सा (30%) ऐसे funds में जो market को beat करने की कोशिश करते हैं। अलग-अलग types में फैलाएं: अगर आप young हैं, तो aggressive जा सकते हैं (80% equity, 20% debt)। Retirement के करीब हैं, तो conservative रहें (40% equity, 60% debt)। साल में एक बार review करें और adjust करें।"
+      },
+      "aiSummary": "Core-Satellite: 70% core (index/large-cap), 30% satellite (mid/small-cap). Asset allocation varies by age. Rule: Equity % = 100-Age. Rebalance yearly. 3-5 funds sufficient. SIP 20-30% of income.",
+      "keyTakeaways": [
+        "Diversification reduces risk without sacrificing returns",
+        "Index funds should form core of equity allocation",
+        "Asset allocation more important than fund selection",
+        "Automate SIPs to ensure discipline"
+      ],
+      "commonMistakes": [
+        "Holding 15-20 funds (over-diversification, unmanageable)",
+        "Never rebalancing (portfolio drift from target allocation)",
+        "Stopping SIP during market crash (best buying opportunity)",
+        "Chasing hot sectors/themes (often too late)"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "What does NAV stand for in mutual funds?",
+      "options": [
+        "Net Annual Value",
+        "Net Asset Value",
+        "New Asset Venture",
+        "National Asset Value"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "SIP means:",
+      "options": [
+        "Single Investment Plan",
+        "Systematic Investment Plan",
+        "Stock Investment Portfolio",
+        "Safe Investment Process"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q3",
+      "question": "ETF stands for:",
+      "options": [
+        "Exchange Traded Fund",
+        "Equity Trading Fund",
+        "Electronic Transfer Fund",
+        "Expense Trading Fee"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q4",
+      "question": "Which fund type is safest?",
+      "options": ["Equity fund", "Debt fund", "Mid-cap fund", "Sector fund"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "Expense ratio is:",
+      "options": [
+        "Fund's yearly return",
+        "Annual fee charged by fund",
+        "Expense of buying units",
+        "Tax on gains"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q6",
+      "question": "Index fund tracks:",
+      "options": [
+        "Individual stocks",
+        "Market index like Nifty",
+        "Gold prices",
+        "Commodity prices"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q7",
+      "question": "For 1-2 year goal, best fund type is:",
+      "options": ["Small-cap equity", "Large-cap equity", "Liquid/Debt fund", "Sector fund"],
+      "correct": 2
+    },
+    {
+      "id": "pre-q8",
+      "question": "ETFs are traded on:",
+      "options": [
+        "Mutual fund company website",
+        "Stock exchange",
+        "Bank branches",
+        "Post offices"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q9",
+      "question": "LTCG tax on equity mutual funds (above ₹1.25L) is:",
+      "options": ["10%", "12.5%", "15%", "20%"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q10",
+      "question": "Hybrid fund invests in:",
+      "options": [
+        "Only equity",
+        "Only debt",
+        "Both equity and debt",
+        "Only gold"
+      ],
+      "correct": 2
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "Fund A: 15% return, 2% expense. Fund B: 14% return, 0.5% expense. Net to investor:",
+      "options": [
+        "Fund A: 13%, Fund B: 13.5%",
+        "Fund A: 15%, Fund B: 14%",
+        "Both equal",
+        "Cannot calculate"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "post-q2",
+      "question": "You're 30 years old. Suggested equity allocation using 100-Age rule:",
+      "options": ["30%", "50%", "70%", "100%"],
+      "correct": 2
+    },
+    {
+      "id": "post-q3",
+      "question": "Nifty 50 ETF expense ratio is typically:",
+      "options": ["0.05-0.25%", "1-2%", "3-5%", "10%"],
+      "correct": 0
+    },
+    {
+      "id": "post-q4",
+      "question": "Best strategy during market crash for long-term SIP investor:",
+      "options": [
+        "Stop SIP immediately",
+        "Continue SIP (rupee cost averaging)",
+        "Redeem all units",
+        "Switch to debt"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q5",
+      "question": "Core-Satellite approach recommends core allocation:",
+      "options": ["30%", "50%", "70%", "90%"],
+      "correct": 2
+    },
+    {
+      "id": "post-q6",
+      "question": "Alpha in fund performance means:",
+      "options": [
+        "Total return",
+        "Return above benchmark",
+        "Risk level",
+        "Expense ratio"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q7",
+      "question": "For retirement goal 25 years away, best fund type:",
+      "options": [
+        "Liquid fund",
+        "Short-term debt",
+        "Equity fund",
+        "Gold fund"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q8",
+      "question": "Ideal number of mutual funds in portfolio for most investors:",
+      "options": ["1-2", "3-5", "10-15", "20+"],
+      "correct": 1
+    },
+    {
+      "id": "post-q9",
+      "question": "Tracking error in ETF refers to:",
+      "options": [
+        "Error in NAV calculation",
+        "Difference between ETF return and index return",
+        "Expense ratio",
+        "Tax calculation error"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q10",
+      "question": "Sharpe ratio measures:",
+      "options": [
+        "Total return only",
+        "Risk-adjusted return",
+        "Expense ratio",
+        "Fund size"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q11",
+      "question": "When should you rebalance portfolio?",
+      "options": [
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Annually or when allocation drifts significantly"
+      ],
+      "correct": 3
+    },
+    {
+      "id": "post-q12",
+      "question": "Emergency fund should be kept in:",
+      "options": [
+        "Small-cap equity fund",
+        "Liquid fund",
+        "Locked FD",
+        "Real estate"
+      ],
+      "correct": 1
+    }
+  ],
+  "documentation": {
+    "title": "Mutual Funds & ETFs Complete Guide",
+    "summary": "Comprehensive coverage of mutual fund structures, ETF mechanics, performance evaluation metrics, goal-based fund selection, and portfolio construction strategies. Includes tax implications and practical tips.",
+    "sections": [
+      "Mutual Fund Structure and Types",
+      "Understanding NAV, SIP, and Investment Process",
+      "ETFs: Mechanics, Advantages, and Popular Options",
+      "Performance Metrics: Returns, Expense Ratio, Sharpe, Alpha, Beta",
+      "Goal-Based Fund Selection Framework",
+      "Asset Allocation Strategies by Age and Risk Profile",
+      "Core-Satellite Portfolio Approach",
+      "Tax Implications: LTCG, STCG, Indexation",
+      "Common Investor Mistakes and How to Avoid",
+      "Rebalancing and Portfolio Maintenance"
+    ]
+  }
+}

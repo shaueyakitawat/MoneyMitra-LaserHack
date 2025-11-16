@@ -1,0 +1,360 @@
+[
+  {
+    "id": "module-1-basics",
+    "title": "Introduction to Investing",
+    "difficulty": "beginner",
+    "duration": "2-3 hours",
+    "description": "Master the fundamentals of investing and build a strong foundation for your financial journey.",
+    "objectives": [
+      "Understand what investing is and why it matters",
+      "Learn different types of investments and their characteristics",
+      "Master the concept of risk and return relationship",
+      "Understand the power of compounding over time",
+      "Learn diversification and asset allocation strategies"
+    ],
+    "prerequisites": [],
+    "icon": "📚",
+    "lessons": [
+      {
+        "id": "lesson-1-1",
+        "title": "What is Investing?",
+        "videoTopic": "Introduction to Investing Basics",
+        "videoId": "PLACEHOLDER",
+        "duration": "15 min",
+        "content": {
+          "original": "Investing is the process of allocating money with the expectation of generating returns over time. Unlike saving, which focuses on preserving capital, investing aims to grow wealth through appreciation, dividends, or interest. The fundamental principle is that money today is worth more than the same amount in the future due to inflation and opportunity cost.",
+          "simplified": "Investing means putting your money to work so it grows over time. It's different from just saving money in a bank. When you invest, you buy things like stocks or bonds that can increase in value and earn you more money.",
+          "hindi": "निवेश का मतलब है अपने पैसे को ऐसी जगह लगाना जहां वह समय के साथ बढ़े। यह सिर्फ बैंक में पैसा रखने से अलग है। जब आप निवेश करते हैं, तो आप शेयर या बॉन्ड खरीदते हैं जो बढ़कर आपको ज्यादा पैसा दे सकते हैं।"
+        },
+        "aiSummary": "Investing = Making your money grow by buying assets. Key difference from saving: Saving preserves money, investing multiplies it.",
+        "keyTakeaways": [
+          "Investing aims to grow wealth, not just preserve it",
+          "Time value of money: ₹100 today > ₹100 tomorrow",
+          "Inflation erodes purchasing power over time",
+          "Investing helps beat inflation"
+        ],
+        "commonMistakes": [
+          "Thinking investing = gambling (it's strategic, not random)",
+          "Waiting for 'perfect time' to start (time in market > timing market)",
+          "Keeping all money in savings account (loses value to inflation)"
+        ]
+      },
+      {
+        "id": "lesson-1-2",
+        "title": "Types of Investments",
+        "videoTopic": "Understanding Different Investment Options",
+        "videoId": "PLACEHOLDER",
+        "duration": "18 min",
+        "content": {
+          "original": "Investment vehicles include stocks (equity ownership), bonds (debt instruments), mutual funds (pooled investments), ETFs (exchange-traded funds), real estate, commodities, and alternative investments. Each asset class has distinct risk-return profiles, liquidity characteristics, and tax implications.",
+          "simplified": "There are many ways to invest: stocks (own part of a company), bonds (lend money to companies/government), mutual funds (professionals invest for you), real estate (property), and gold. Each has different risks and rewards.",
+          "hindi": "निवेश के कई तरीके हैं: शेयर (कंपनी का हिस्सा), बॉन्ड (कंपनी/सरकार को उधार), म्यूचुअल फंड (प्रोफेशनल आपके लिए निवेश करते हैं), रियल एस्टेट (संपत्ति), और सोना। हर एक में अलग जोखिम और फायदे हैं।"
+        },
+        "aiSummary": "Main investment types: Stocks (high risk, high return), Bonds (low risk, steady income), Mutual Funds (diversified), Real Estate (tangible asset), Gold (hedge against inflation).",
+        "keyTakeaways": [
+          "Stocks = Ownership in companies",
+          "Bonds = Lending money for interest",
+          "Mutual Funds = Professional management + diversification",
+          "Each asset class serves different goals"
+        ],
+        "commonMistakes": [
+          "Putting all money in one type of investment",
+          "Choosing investments without understanding them",
+          "Ignoring liquidity needs (how fast you can convert to cash)"
+        ]
+      },
+      {
+        "id": "lesson-1-3",
+        "title": "Risk and Return Relationship",
+        "videoTopic": "Understanding Risk-Return Tradeoff",
+        "videoId": "PLACEHOLDER",
+        "duration": "20 min",
+        "content": {
+          "original": "The risk-return tradeoff is fundamental: higher potential returns come with higher risk. Risk encompasses market risk, credit risk, liquidity risk, and inflation risk. Return includes capital gains, dividends, and interest. Risk tolerance varies by age, financial goals, and personal circumstances.",
+          "simplified": "Higher returns usually mean higher risk. If someone promises guaranteed high returns, be careful - it might be a scam. Your age and goals determine how much risk you should take. Young investors can take more risk.",
+          "hindi": "ज्यादा रिटर्न का मतलब ज्यादा जोखिम। अगर कोई गारंटीड ज्यादा रिटर्न का वादा करे, सावधान रहें। आपकी उम्र और लक्ष्य तय करते हैं कि आप कितना जोखिम ले सकते हैं। युवा निवेशक ज्यादा जोखिम ले सकते हैं।"
+        },
+        "aiSummary": "Risk-Return Rule: Want more profit? Accept more risk. No investment is 'risk-free high return'. Your risk capacity depends on age, income, goals.",
+        "keyTakeaways": [
+          "Higher return = Higher risk (always)",
+          "Diversification reduces overall portfolio risk",
+          "Risk tolerance decreases with age",
+          "Never invest in what you don't understand"
+        ],
+        "commonMistakes": [
+          "Chasing high returns without assessing risk",
+          "Panic selling during market downturns",
+          "Not matching investments to risk tolerance"
+        ]
+      },
+      {
+        "id": "lesson-1-4",
+        "title": "Power of Compounding",
+        "videoTopic": "How Compound Interest Multiplies Wealth",
+        "videoId": "PLACEHOLDER",
+        "duration": "16 min",
+        "content": {
+          "original": "Compound interest is earning returns on your returns. Einstein called it the 'eighth wonder of the world'. The formula: A = P(1 + r/n)^(nt). Starting early dramatically amplifies wealth accumulation due to exponential growth over time.",
+          "simplified": "Compounding means your money earns money, and then that earned money also earns money. Example: ₹10,000 at 10% yearly becomes ₹25,937 in 10 years without adding anything. Start early to get huge benefits.",
+          "hindi": "कंपाउंडिंग का मतलब आपका पैसा पैसा कमाता है, और वह कमाया हुआ पैसा फिर से पैसा कमाता है। उदाहरण: ₹10,000 को 10% सालाना पर 10 साल में ₹25,937 हो जाता है। जल्दी शुरू करें तो बहुत फायदा मिलता है।"
+        },
+        "aiSummary": "Compounding = Money making money. The earlier you start, the more you earn. Even small amounts grow huge over 20-30 years.",
+        "keyTakeaways": [
+          "Start investing early - even small amounts",
+          "Time is more important than timing",
+          "₹5,000/month for 30 years @ 12% = ₹1.76 crores",
+          "Reinvesting dividends accelerates compounding"
+        ],
+        "commonMistakes": [
+          "Waiting to start until you have 'enough money'",
+          "Withdrawing investment earnings early",
+          "Not reinvesting dividends/interest"
+        ]
+      },
+      {
+        "id": "lesson-1-5",
+        "title": "Diversification and Asset Allocation",
+        "videoTopic": "Building a Balanced Investment Portfolio",
+        "videoId": "PLACEHOLDER",
+        "duration": "17 min",
+        "content": {
+          "original": "Diversification spreads risk across multiple assets, sectors, and geographies. The principle: don't put all eggs in one basket. Asset allocation determines 90% of portfolio returns. Rebalancing maintains desired risk levels. Age-based allocation: 100 minus age in equity.",
+          "simplified": "Diversification means spreading your money across different investments. If one fails, others protect you. Mix stocks, bonds, gold based on your age and goals. Don't invest everything in one company or sector. Younger people can invest more in stocks.",
+          "hindi": "विविधीकरण का मतलब अपना पैसा अलग-अलग निवेशों में बांटना। अगर एक में नुकसान हो, तो दूसरे बचाते हैं। शेयर, बॉन्ड, सोना - अपनी उम्र और लक्ष्यों के हिसाब से मिलाएं। सब पैसा एक कंपनी या सेक्टर में न लगाएं। युवा लोग शेयर में ज्यादा लगा सकते हैं।"
+        },
+        "aiSummary": "Diversification = Risk management. Spread money across stocks, bonds, gold, real estate. Within stocks: different sectors. Key rule: 60% equity + 40% debt for balanced risk.",
+        "keyTakeaways": [
+          "Never invest >10-15% in single stock",
+          "Mix large cap, mid cap, small cap stocks",
+          "Include debt for stability",
+          "International diversification reduces country risk"
+        ],
+        "commonMistakes": [
+          "Over-diversification (too many similar funds)",
+          "Investing in one sector heavily",
+          "Forgetting to rebalance portfolio annually"
+        ]
+      }
+    ],
+    "preQuiz": [
+      {
+        "id": "pre-q1",
+        "question": "What is the primary difference between saving and investing?",
+        "options": [
+          "Saving is for short-term, investing is for long-term",
+          "Saving preserves money, investing grows money",
+          "Saving has no risk, investing has risk",
+          "All of the above"
+        ],
+        "correct": 3
+      },
+      {
+        "id": "pre-q2",
+        "question": "If inflation is 6% and your FD gives 5% interest, what is your real return?",
+        "options": ["+1%", "-1%", "0%", "+5%"],
+        "correct": 1
+      },
+      {
+        "id": "pre-q3",
+        "question": "Which investment typically has the highest long-term returns?",
+        "options": ["Fixed Deposits", "Gold", "Equity (Stocks)", "Savings Account"],
+        "correct": 2
+      },
+      {
+        "id": "pre-q4",
+        "question": "What does 'diversification' mean in investing?",
+        "options": [
+          "Investing in many similar stocks",
+          "Spreading money across different asset types",
+          "Investing only in large companies",
+          "Keeping money in multiple bank accounts"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "pre-q5",
+        "question": "How much emergency fund should you maintain before investing?",
+        "options": [
+          "1-2 months of expenses",
+          "3-4 months of expenses",
+          "6-12 months of expenses",
+          "No emergency fund needed"
+        ],
+        "correct": 2
+      },
+      {
+        "id": "pre-q6",
+        "question": "What is compound interest?",
+        "options": [
+          "Interest on principal only",
+          "Interest on interest earned",
+          "Double the simple interest",
+          "Interest paid twice a year"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "pre-q7",
+        "question": "For a 25-year-old planning retirement at 60, what should be the primary investment focus?",
+        "options": [
+          "100% Fixed Deposits",
+          "100% Gold",
+          "Majority in Equity (70-80%)",
+          "Only Real Estate"
+        ],
+        "correct": 2
+      },
+      {
+        "id": "pre-q8",
+        "question": "₹10,000 invested at 10% annual compound interest for 10 years becomes approximately:",
+        "options": ["₹20,000", "₹25,937", "₹15,000", "₹30,000"],
+        "correct": 1
+      },
+      {
+        "id": "pre-q9",
+        "question": "Higher investment returns always come with:",
+        "options": ["Lower risk", "Higher risk", "No risk", "Guaranteed safety"],
+        "correct": 1
+      },
+      {
+        "id": "pre-q10",
+        "question": "What percentage of portfolio should typically be in a single stock?",
+        "options": ["50-60%", "30-40%", "10-15% maximum", "100% is fine"],
+        "correct": 2
+      }
+    ],
+    "postQuiz": [
+      {
+        "id": "post-q1",
+        "question": "Calculate the real return if you earn 12% on stocks and inflation is 6%.",
+        "options": ["6%", "18%", "12%", "2%"],
+        "correct": 0
+      },
+      {
+        "id": "post-q2",
+        "question": "You have ₹1 lakh to invest for 20 years. Which gives highest returns historically?",
+        "options": [
+          "Bank FD at 6%",
+          "Equity mutual funds at 12%",
+          "Gold at 8%",
+          "PPF at 7.1%"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "post-q3",
+        "question": "Your portfolio is 100% in IT stocks. What's the primary risk?",
+        "options": ["Market risk", "Concentration risk", "Inflation risk", "Liquidity risk"],
+        "correct": 1
+      },
+      {
+        "id": "post-q4",
+        "question": "Why should younger investors take more equity exposure?",
+        "options": [
+          "They have more money",
+          "They have time to recover from volatility",
+          "They understand stocks better",
+          "Tax benefits are higher"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "post-q5",
+        "question": "Asset allocation of 60% equity, 30% debt, 10% gold is suitable for:",
+        "options": [
+          "Retired person (65 years)",
+          "Conservative investor",
+          "Moderate investor (35-45 years)",
+          "Aggressive young investor (25 years)"
+        ],
+        "correct": 2
+      },
+      {
+        "id": "post-q6",
+        "question": "₹5,000/month SIP in equity fund at 12% for 25 years accumulates approximately:",
+        "options": ["₹15 lakhs", "₹50 lakhs", "₹95 lakhs", "₹1.5 crores"],
+        "correct": 2
+      },
+      {
+        "id": "post-q7",
+        "question": "Which statement about mutual funds is TRUE?",
+        "options": [
+          "Returns are guaranteed",
+          "No risk involved",
+          "Professional management with diversification",
+          "Cannot lose money"
+        ],
+        "correct": 2
+      },
+      {
+        "id": "post-q8",
+        "question": "Emergency fund should be kept in:",
+        "options": [
+          "Equity stocks",
+          "Liquid funds or savings account",
+          "Real estate",
+          "Long-term FDs"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "post-q9",
+        "question": "What's the ideal first step before investing?",
+        "options": [
+          "Buy stocks immediately",
+          "Set clear financial goals",
+          "Take a loan to invest",
+          "Follow friends' tips"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "post-q10",
+        "question": "Systematic Investment Plan (SIP) works best because:",
+        "options": [
+          "It times the market perfectly",
+          "It averages cost through rupee-cost averaging",
+          "It guarantees profits",
+          "It has no fees"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "post-q11",
+        "question": "If you need money in 2 years for a down payment, where should you invest?",
+        "options": [
+          "Small-cap equity funds",
+          "Debt funds or FD",
+          "Cryptocurrency",
+          "Penny stocks"
+        ],
+        "correct": 1
+      },
+      {
+        "id": "post-q12",
+        "question": "The rule '100 minus your age' refers to:",
+        "options": [
+          "How many stocks to buy",
+          "Percentage to invest in equity",
+          "Number of years to invest",
+          "Amount to invest monthly"
+        ],
+        "correct": 1
+      }
+    ],
+    "documentation": {
+      "title": "Complete Guide to Investment Basics",
+      "summary": "Comprehensive notes covering all fundamental concepts of investing including types of investments, risk-return relationship, power of compounding, and diversification strategies. Includes formulas, checklists, and actionable steps.",
+      "sections": [
+        "Understanding Investing vs Saving",
+        "Investment Vehicles: Stocks, Bonds, Mutual Funds",
+        "Risk-Return Framework and Assessment",
+        "Compound Interest Mathematics",
+        "Diversification and Asset Allocation",
+        "Investment Formulas and Calculations",
+        "Common Mistakes to Avoid",
+        "Beginner's Action Checklist"
+      ]
+    }
+  }
+]

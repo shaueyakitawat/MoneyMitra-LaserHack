@@ -1,0 +1,359 @@
+{
+  "id": "module-6-portfolio-management",
+  "title": "Portfolio Management Strategies",
+  "difficulty": "intermediate",
+  "duration": "3-4 hours",
+  "description": "Master asset allocation, diversification, rebalancing, and building portfolios aligned with your risk tolerance and goals.",
+  "objectives": [
+    "Understand modern portfolio theory and efficient frontier",
+    "Learn strategic vs tactical asset allocation",
+    "Master diversification across asset classes and geographies",
+    "Implement systematic rebalancing strategies",
+    "Manage portfolio risk through hedging and position sizing"
+  ],
+  "prerequisites": ["module-1-basics", "module-5-mutual-funds-etfs"],
+  "icon": "💼",
+  "lessons": [
+    {
+      "id": "lesson-6-1",
+      "title": "Asset Allocation Fundamentals",
+      "videoTopic": "Strategic Asset Allocation Framework",
+      "videoId": "PLACEHOLDER",
+      "duration": "22 min",
+      "content": {
+        "original": "Asset allocation = Dividing portfolio among asset classes (equity, debt, gold, real estate). Strategic allocation = Long-term target based on goals, risk tolerance, time horizon. Tactical allocation = Short-term adjustments based on market conditions. Studies show 90%+ of portfolio return comes from allocation, not stock selection. Typical allocations: Aggressive (80-20 equity-debt), Moderate (60-40), Conservative (40-60). Include 5-10% gold for diversification. Rebalance when allocation drifts 5%+ from target.",
+        "simplified": "Asset allocation means deciding how much money goes into stocks, bonds, gold, real estate etc. This decision is MORE important than which specific stocks you pick. Young investors can be aggressive (80% stocks, 20% bonds) because they have time to recover from losses. Older investors near retirement should be conservative (40% stocks, 60% bonds) to protect capital. Don't put all eggs in one basket - spread across different assets. When one goes down, others may go up.",
+        "hindi": "Asset allocation मतलब तय करना कि कितना पैसा stocks, bonds, gold, real estate आदि में जाएगा। यह decision उससे ज्यादा important है कि आप कौन से specific stocks चुनते हैं। Young निवेशक aggressive हो सकते हैं (80% stocks, 20% bonds) क्योंकि उनके पास losses से recover होने का समय है। Retirement के करीब वाले निवेशक conservative होने चाहिए (40% stocks, 60% bonds) capital protect करने के लिए।"
+      },
+      "aiSummary": "Asset allocation = Dividing portfolio across asset classes. Strategic (long-term target) vs Tactical (market-based adjustment). 90% returns from allocation, not stock picking. Age-based: Aggressive (80-20), Moderate (60-40), Conservative (40-60).",
+      "keyTakeaways": [
+        "Asset allocation determines 90%+ of portfolio performance",
+        "Age and risk tolerance guide allocation choices",
+        "Include 5-10% gold for inflation hedge and diversification",
+        "Write Investment Policy Statement documenting allocation strategy"
+      ],
+      "commonMistakes": [
+        "100% allocation to single asset class (concentration risk)",
+        "Changing allocation based on short-term market moves (emotional)",
+        "Not documenting allocation strategy (no discipline)"
+      ]
+    },
+    {
+      "id": "lesson-6-2",
+      "title": "Diversification Strategies",
+      "videoTopic": "Building Truly Diversified Portfolios",
+      "videoId": "PLACEHOLDER",
+      "duration": "20 min",
+      "content": {
+        "original": "Diversification reduces unsystematic (company-specific) risk without reducing returns. Dimensions: (1) Across asset classes (equity, debt, gold, RE), (2) Within equity: sectors (IT, Banking, FMCG, Pharma), market caps (large, mid, small), (3) Geographic (domestic vs international), (4) Time (SIP vs lumpsum). Correlation matters - assets should move differently. 15-20 stocks provide adequate diversification. Beyond 30 stocks = diminishing returns. Don't confuse diversification with over-diversification (diworsification).",
+        "simplified": "Diversification = Don't put all eggs in one basket. Spread across: Different types (stocks, bonds, gold), Different industries (tech, banking, healthcare), Different company sizes (big stable companies, smaller growing companies), Different countries (India + USA). The magic: When one investment falls, others may rise, smoothing your overall returns. Having 15-20 stocks is enough - having 100 stocks doesn't help much more and becomes difficult to manage.",
+        "hindi": "Diversification = सभी अंडे एक टोकरी में मत रखो। अलग-अलग चीजों में फैलाएं: अलग-अलग types (stocks, bonds, gold), अलग-अलग industries (tech, banking, healthcare), अलग-अलग company sizes (बड़ी stable कंपनियां, छोटी growing कंपनियां), अलग-अलग देश (India + USA)। जादू: जब एक निवेश गिरता है, तो दूसरे बढ़ सकते हैं, आपके overall returns को smooth करते हुए। 15-20 stocks काफी हैं।"
+      },
+      "aiSummary": "Diversification = Risk reduction through spreading. Dimensions: Asset classes, Sectors, Market caps, Geography, Time. Optimal: 15-20 stocks. Correlation key: Assets should move independently. Avoid over-diversification.",
+      "keyTakeaways": [
+        "Diversification is only free lunch in investing",
+        "15-20 stocks eliminate 90%+ of diversifiable risk",
+        "International diversification adds new dimension (US, developed, emerging)",
+        "Check correlation - buying similar stocks doesn't diversify"
+      ],
+      "commonMistakes": [
+        "Buying 10 IT stocks thinking it's diversified (sector concentration)",
+        "Over-diversifying (100+ stocks impossible to track)",
+        "Diversifying only in bull market (should be constant strategy)"
+      ]
+    },
+    {
+      "id": "lesson-6-3",
+      "title": "Rebalancing Your Portfolio",
+      "videoTopic": "When and How to Rebalance",
+      "videoId": "PLACEHOLDER",
+      "duration": "18 min",
+      "content": {
+        "original": "Rebalancing = Restoring portfolio to target allocation. Methods: (1) Calendar-based (annually, semi-annually), (2) Threshold-based (when asset drifts 5%+ from target), (3) Hybrid (check quarterly, rebalance if threshold breached). Rebalancing forces discipline: Sell high (overweight assets), Buy low (underweight assets). Tax considerations: Use new cash inflows to buy underweight assets. In taxable accounts, avoid triggering STCG. Rebalance within retirement accounts first (tax-free). Costs: Transaction charges, tax, impact cost.",
+        "simplified": "Rebalancing = Bringing portfolio back to original plan. Example: You started with 70% stocks, 30% bonds. After year, stocks grew to 80%, bonds now 20%. Rebalancing means selling some stocks and buying bonds to get back to 70-30. This automatically makes you 'buy low, sell high'. When to rebalance: Once a year, or when any asset moves 5%+ from target. Smart trick: Instead of selling, add new money to lagging assets. This avoids tax on selling winners.",
+        "hindi": "Rebalancing = Portfolio को original plan पर वापस लाना। Example: आपने 70% stocks, 30% bonds से शुरुआत की। साल बाद, stocks बढ़कर 80% हो गए, bonds अब 20%। Rebalancing का मतलब कुछ stocks बेचना और bonds खरीदना ताकि 70-30 पर वापस आएं। यह automatically आपको 'buy low, sell high' करवाता है। कब rebalance करें: साल में एक बार, या जब कोई asset target से 5%+ move करे।"
+      },
+      "aiSummary": "Rebalancing = Restoring target allocation. Methods: Calendar (annual), Threshold (5%+ drift), Hybrid. Forces sell high, buy low discipline. Tax-smart: Use new cash for underweight assets. Rebalance annually or when significant drift.",
+      "keyTakeaways": [
+        "Rebalancing is contrarian - sell winners, buy losers (discipline)",
+        "Annual rebalancing sufficient for most investors",
+        "Use new investments to rebalance (tax-efficient)",
+        "Set calendar reminder to ensure consistency"
+      ],
+      "commonMistakes": [
+        "Never rebalancing (portfolio drifts far from plan)",
+        "Rebalancing too frequently (transaction costs, taxes)",
+        "Emotional rebalancing (selling losers, keeping winners)"
+      ]
+    },
+    {
+      "id": "lesson-6-4",
+      "title": "Risk Management Techniques",
+      "videoTopic": "Position Sizing, Stop-Loss, Hedging",
+      "videoId": "PLACEHOLDER",
+      "duration": "24 min",
+      "content": {
+        "original": "Risk management = Protecting capital from significant losses. (1) Position sizing: Never allocate >5% to single stock, >10% to sector. (2) Stop-loss: Exit when stock falls X% (typically 15-25%) from purchase price or recent high (trailing stop). (3) Hedging: Use put options, inverse ETFs, or increase debt allocation during uncertainty. (4) Portfolio insurance: Maintain cash cushion (5-10%) for opportunities during crash. Risk-reward ratio: Aim for 1:2 or better (risk ₹1 to make ₹2). Kelly Criterion for optimal position sizing.",
+        "simplified": "Risk management = Making sure you don't lose too much money. Key rules: (1) Don't put more than 5% of portfolio in one stock - if it goes to zero, you lose only 5%. (2) Set stop-loss: If stock falls 20% below your buy price, sell it automatically to limit damage. (3) Keep some cash (5-10%) always available - when market crashes, you can buy good companies cheap. (4) Don't risk ₹10 to make ₹11 - only take risks where potential gain is 2-3x the potential loss. Protection is as important as profit.",
+        "hindi": "Risk management = सुनिश्चित करें कि आप बहुत ज्यादा पैसे न खोएं। मुख्य नियम: (1) एक stock में portfolio का 5% से ज्यादा न डालें - अगर zero हो जाए, तो आप सिर्फ 5% खोते हैं। (2) Stop-loss सेट करें: अगर stock आपके buy price से 20% नीचे गिरे, तो automatically बेच दें नुकसान सीमित करने के लिए। (3) कुछ cash (5-10%) हमेशा available रखें - जब market crash करे, तो आप अच्छी companies सस्ते में खरीद सकते हैं।"
+      },
+      "aiSummary": "Risk management: Position sizing (max 5% per stock, 10% per sector), Stop-loss (15-25% below purchase), Hedging (options, inverse ETFs), Cash cushion (5-10%), Risk-reward 1:2+ ratio. Capital preservation crucial.",
+      "keyTakeaways": [
+        "Position sizing prevents single stock from destroying portfolio",
+        "Stop-loss is insurance - small premium to avoid catastrophic loss",
+        "Cash is a position - opportunity cost < downside protection",
+        "Size positions by conviction and risk, not equal-weighting"
+      ],
+      "commonMistakes": [
+        "No position limits (one stock becomes 30% of portfolio)",
+        "Not using stop-loss (holding losers too long)",
+        "Being 100% invested always (no dry powder for crashes)",
+        "Equal-weighting all positions (ignores conviction and risk differences)"
+      ]
+    },
+    {
+      "id": "lesson-6-5",
+      "title": "Building Your Investment Policy",
+      "videoTopic": "Creating Personal IPS (Investment Policy Statement)",
+      "videoId": "PLACEHOLDER",
+      "duration": "21 min",
+      "content": {
+        "original": "Investment Policy Statement (IPS) = Written document outlining investment strategy. Components: (1) Goals with timelines and amounts, (2) Risk tolerance assessment, (3) Asset allocation targets and ranges, (4) Rebalancing triggers and frequency, (5) Stock selection criteria, (6) Buy/sell rules, (7) Review schedule. IPS prevents emotional decisions during volatility. Update IPS when life circumstances change (marriage, child, job change). Treat IPS as constitution for portfolio. Behavioral benefits > technical benefits. Warren Buffett's advice: Write rules in calm times, follow in storm.",
+        "simplified": "Investment Policy Statement = Your personal investing rulebook written when mind is clear, not panicking. Include: Your goals (house down payment ₹20L in 5 years, retirement ₹3Cr in 25 years), How much risk you can take (can you sleep if portfolio drops 30%?), Your allocation plan (60% stocks, 30% bonds, 10% gold), When you'll rebalance, What types of stocks you'll buy, When you'll sell. When market crashes or soars, don't make emotional decisions - just follow your IPS. Update IPS only when your life changes (marriage, baby, new job), not when market changes.",
+        "hindi": "Investment Policy Statement = आपकी personal निवेश rulebook जो clear दिमाग में लिखी जाती है, panic में नहीं। शामिल करें: आपके goals (घर का down payment ₹20L 5 साल में, retirement ₹3Cr 25 साल में), आप कितना risk ले सकते हैं (क्या आप सो सकते हैं अगर portfolio 30% गिरे?), आपका allocation plan (60% stocks, 30% bonds, 10% gold), कब rebalance करेंगे, किस type के stocks खरीदेंगे, कब बेचेंगे। जब market crash या soar करे, emotional decisions मत लें - बस अपने IPS को follow करें।"
+      },
+      "aiSummary": "IPS = Written investment constitution. Components: Goals, Risk tolerance, Asset allocation, Rebalancing rules, Selection criteria, Buy/sell discipline, Review schedule. Prevents emotional decisions. Update on life changes, not market changes.",
+      "keyTakeaways": [
+        "Written plan beats mental plan (prevents rationalization)",
+        "IPS should fit on 1-2 pages (keep it simple)",
+        "Share IPS with family/advisor for accountability",
+        "Review IPS annually but change rarely"
+      ],
+      "commonMistakes": [
+        "No written plan (all decisions reactive and emotional)",
+        "Over-complicated IPS (100-page document unused)",
+        "Changing IPS based on market movements (defeats purpose)",
+        "Not reviewing IPS when life circumstances change"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "Asset allocation refers to:",
+      "options": [
+        "Picking individual stocks",
+        "Dividing portfolio among asset classes",
+        "Timing market entry",
+        "Calculating returns"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "What percentage of returns comes from asset allocation vs stock selection?",
+      "options": ["50%", "70%", "90%+", "30%"],
+      "correct": 2
+    },
+    {
+      "id": "pre-q3",
+      "question": "Diversification primarily reduces:",
+      "options": [
+        "Systematic risk",
+        "Unsystematic risk",
+        "All risk",
+        "Returns"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q4",
+      "question": "Rebalancing means:",
+      "options": [
+        "Selling all losing stocks",
+        "Restoring target asset allocation",
+        "Buying more winners",
+        "Calculating portfolio value"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "Maximum recommended allocation to single stock:",
+      "options": ["5%", "25%", "50%", "No limit"],
+      "correct": 0
+    },
+    {
+      "id": "pre-q6",
+      "question": "Stop-loss order is used for:",
+      "options": [
+        "Booking profits",
+        "Limiting losses",
+        "Buying stocks",
+        "Paying taxes"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q7",
+      "question": "IPS stands for:",
+      "options": [
+        "Indian Payment System",
+        "Investment Policy Statement",
+        "Income Protection Scheme",
+        "Index Performance Score"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q8",
+      "question": "How many stocks provide adequate diversification?",
+      "options": ["5-10", "15-20", "50-100", "200+"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q9",
+      "question": "Conservative portfolio typically has equity allocation of:",
+      "options": ["80%", "60%", "40%", "20%"],
+      "correct": 2
+    },
+    {
+      "id": "pre-q10",
+      "question": "Gold allocation in portfolio recommended:",
+      "options": ["0%", "5-10%", "30-40%", "50%+"],
+      "correct": 1
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "Portfolio starts 70% equity, 30% debt. Equity grows to 85%. Action in rebalancing:",
+      "options": [
+        "Do nothing",
+        "Sell equity, buy debt",
+        "Buy more equity",
+        "Sell all debt"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q2",
+      "question": "Aggressive investor age 25 should have approximate equity allocation:",
+      "options": ["30%", "50%", "70-80%", "100%"],
+      "correct": 2
+    },
+    {
+      "id": "post-q3",
+      "question": "You hold 10 IT stocks. Are you diversified?",
+      "options": [
+        "Yes, 10 stocks is enough",
+        "No, all in same sector",
+        "Yes, if large companies",
+        "Depends on investment amount"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q4",
+      "question": "Best rebalancing frequency for most investors:",
+      "options": ["Monthly", "Quarterly", "Annually", "Daily"],
+      "correct": 2
+    },
+    {
+      "id": "post-q5",
+      "question": "Position sizing rule: Max % in single stock:",
+      "options": ["5%", "10%", "25%", "50%"],
+      "correct": 0
+    },
+    {
+      "id": "post-q6",
+      "question": "Stock bought at ₹100, trailing stop-loss at 20%. Current price ₹150. Stop-loss level:",
+      "options": ["₹80", "₹100", "₹120", "₹130"],
+      "correct": 2
+    },
+    {
+      "id": "post-q7",
+      "question": "Tax-efficient rebalancing method:",
+      "options": [
+        "Sell all winners, buy losers",
+        "Use new cash to buy underweight assets",
+        "Trade daily",
+        "Ignore taxes"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q8",
+      "question": "When should you update your IPS?",
+      "options": [
+        "After every market correction",
+        "When life circumstances change",
+        "Weekly",
+        "When market hits all-time high"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q9",
+      "question": "Risk-reward ratio of 1:2 means:",
+      "options": [
+        "Risk ₹1 to make ₹2",
+        "Risk ₹2 to make ₹1",
+        "50% chance of success",
+        "2% annual return"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "post-q10",
+      "question": "Correlation in diversification means:",
+      "options": [
+        "Assets should move together",
+        "Assets should move independently",
+        "Only stocks that rise together",
+        "Same as covariance"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q11",
+      "question": "Cash cushion of 5-10% in portfolio helps during:",
+      "options": [
+        "Bull market rallies",
+        "Market crashes (buying opportunity)",
+        "Tax filing",
+        "Dividend collection"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q12",
+      "question": "Over-diversification (diworsification) happens when:",
+      "options": [
+        "You hold 5 stocks",
+        "You hold 15-20 stocks",
+        "You hold 100+ stocks (unmanageable)",
+        "You diversify across sectors"
+      ],
+      "correct": 2
+    }
+  ],
+  "documentation": {
+    "title": "Portfolio Management Comprehensive Guide",
+    "summary": "Complete framework for portfolio construction, asset allocation strategies, diversification principles, systematic rebalancing, risk management techniques, and creating personal Investment Policy Statement.",
+    "sections": [
+      "Strategic vs Tactical Asset Allocation",
+      "Age-Based and Goal-Based Allocation Models",
+      "Diversification: Principles and Implementation",
+      "Optimal Number of Holdings and Sector Limits",
+      "Rebalancing Methods: Calendar, Threshold, Hybrid",
+      "Tax-Efficient Rebalancing Strategies",
+      "Position Sizing and Risk Per Trade",
+      "Stop-Loss Strategies: Fixed, Trailing, ATR-based",
+      "Hedging Techniques for Downside Protection",
+      "Creating Investment Policy Statement (IPS)",
+      "Behavioral Finance and Avoiding Emotional Decisions",
+      "Portfolio Review and Performance Measurement"
+    ]
+  }
+}
