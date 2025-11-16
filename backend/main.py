@@ -11,8 +11,23 @@ from market_data import (
     get_market_overview, get_historical_data, get_intraday_data,
     get_stock_info, INDIAN_INDICES
 )
+from portfolio_analyzer import (
+    parse_csv_portfolio, extract_text_from_pdf, parse_portfolio_data, 
+    analyze_portfolio_composition, generate_portfolio_insights_prompt
+)
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+# Configure upload folder
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'pdf', 'csv'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+
+# Create upload folder if it doesn't exist
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Configure CORS properly - allow both React dev servers
 CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5174", "http://127.0.0.1:5174"], 
@@ -1566,6 +1581,172 @@ Remember: Every expert was once a beginner. Keep learning, stay curious, and don
             })
             response.headers.add("Access-Control-Allow-Origin", "*")
             return response, 500
+
+def allowed_file(filename):
+    """Check if file extension is allowed"""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload_portfolio', methods=['POST', 'OPTIONS'])
+def upload_portfolio():
+    """
+    Upload and analyze portfolio PDF
+    """
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        # Check if file is present
+        if 'file' not in request.files:
+            response = jsonify({
+                "success": False,
+                "error": "No file uploaded"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        file = request.files['file']
+        
+        if file.filename == '':
+            response = jsonify({
+                "success": False,
+                "error": "No file selected"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        if not allowed_file(file.filename):
+            response = jsonify({
+                "success": False,
+                "error": "Only PDF and CSV files are allowed"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        # Save file securely
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        
+        file_ext = filename.rsplit('.', 1)[1].lower()
+        print(f"📄 Processing portfolio {file_ext.upper()}: {filename}")
+        
+        # Parse based on file type
+        if file_ext == 'csv':
+            portfolio = parse_csv_portfolio(filepath)
+        else:  # PDF
+            # Extract text from PDF
+            text = extract_text_from_pdf(filepath)
+            
+            if not text:
+                # Clean up file
+                os.remove(filepath)
+                response = jsonify({
+                    "success": False,
+                    "error": "Failed to extract text from PDF. Please ensure it's a valid portfolio statement or try CSV format."
+                })
+                response.headers.add("Access-Control-Allow-Origin", "*")
+                return response, 500
+            
+            # Parse portfolio data
+            portfolio = parse_portfolio_data(text)
+        
+        if not portfolio["stocks"] or len(portfolio["stocks"]) == 0:
+            # Clean up file
+            os.remove(filepath)
+            response = jsonify({
+                "success": False,
+                "error": "No portfolio data found in PDF. Please upload a valid broker statement with stock holdings."
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        # Analyze portfolio composition
+        analysis = analyze_portfolio_composition(portfolio)
+        
+        # Clean up uploaded file
+        os.remove(filepath)
+        
+        print(f"✅ Portfolio parsed: {len(portfolio['stocks'])} stocks found")
+        
+        response = jsonify({
+            "success": True,
+            "portfolio": portfolio,
+            "analysis": analysis,
+            "message": f"Successfully analyzed portfolio with {len(portfolio['stocks'])} stocks"
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"❌ Error processing portfolio: {str(e)}")
+        # Clean up file if it exists
+        try:
+            if 'filepath' in locals() and os.path.exists(filepath):
+                os.remove(filepath)
+        except:
+            pass
+        
+        response = jsonify({
+            "success": False,
+            "error": f"Error processing portfolio: {str(e)}"
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/analyze_portfolio_ai', methods=['POST', 'OPTIONS'])
+def analyze_portfolio_ai():
+    """
+    Get AI-powered insights for portfolio
+    """
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json()
+        portfolio = data.get('portfolio')
+        analysis = data.get('analysis')
+        
+        if not portfolio or not analysis:
+            response = jsonify({
+                "success": False,
+                "error": "Portfolio and analysis data required"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"🤖 Generating AI insights for portfolio...")
+        
+        # Generate insights prompt
+        prompt = generate_portfolio_insights_prompt(portfolio, analysis)
+        
+        # Get AI response
+        ai_insights = get_agent_response(prompt)
+        
+        print(f"✅ AI insights generated successfully")
+        
+        response = jsonify({
+            "success": True,
+            "insights": ai_insights
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"❌ Error generating AI insights: {str(e)}")
+        response = jsonify({
+            "success": False,
+            "error": f"Error generating insights: {str(e)}"
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
 
 if __name__ == "__main__":
     print("🚀 Starting JainVest Financial Analysis API...")
