@@ -416,8 +416,11 @@ def health_check():
 @app.route('/sebi_content', methods=['GET', 'POST', 'OPTIONS'])
 def sebi_content():
     """
-    Get aggregated SEBI/NISM/NSE content with AI summarization and vernacular translation
-    Query params: language (en, hi, mr, gu, ta, te, bn, kn, ml), summary (true/false)
+    Get latest Indian financial news with AI-powered actionable analysis
+    Query params: 
+    - language (en, hi, mr, gu, ta, te, bn, kn, ml)
+    - summary (true/false)
+    - ai_analysis (true/false) - Get Buy/Sell/Hold recommendations
     """
     if request.method == 'OPTIONS':
         response = jsonify()
@@ -432,9 +435,11 @@ def sebi_content():
             data = request.get_json() or {}
             language = data.get('language', 'en')
             include_summary = data.get('summary', True)
+            include_ai_analysis = data.get('ai_analysis', True)
         else:
             language = request.args.get('language', 'en')
             include_summary = request.args.get('summary', 'true').lower() == 'true'
+            include_ai_analysis = request.args.get('ai_analysis', 'true').lower() == 'true'
         
         # Validate language
         if language not in ['en'] + list(LANGUAGES.keys()):
@@ -445,10 +450,14 @@ def sebi_content():
             response.headers.add("Access-Control-Allow-Origin", "*")
             return response, 400
         
-        print(f"📚 Fetching SEBI content in {language}...")
+        print(f"📰 Fetching latest financial news in {language} (AI Analysis: {include_ai_analysis})...")
         
-        # Get aggregated content
-        result = get_aggregated_content(language=language, include_summary=include_summary)
+        # Get aggregated content with AI analysis
+        result = get_aggregated_content(
+            language=language, 
+            include_summary=include_summary,
+            include_ai_analysis=include_ai_analysis
+        )
         
         response = jsonify(result)
         response.headers.add("Access-Control-Allow-Origin", "*")
@@ -483,6 +492,216 @@ def supported_languages():
     })
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
+# Global cache for articles per session
+_article_cache = {}
+
+@app.route('/sebi_content_stream', methods=['POST', 'OPTIONS'])
+def sebi_content_stream():
+    """
+    TRUE progressive loading - returns each article immediately as processed
+    Client calls this with article_index to get next article
+    """
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json() or {}
+        language = data.get('language', 'en')
+        article_index = data.get('article_index', 0)
+        session_id = data.get('session_id', 'default')
+        
+        from progressive_fetcher import get_all_news_articles, process_article_progressive
+        
+        # Get all articles (use session-based caching to prevent duplicates)
+        if article_index == 0 or session_id not in _article_cache:
+            # First request - fetch all news
+            all_articles = get_all_news_articles()
+            _article_cache[session_id] = all_articles
+            total = len(all_articles)
+            print(f"\n🆕 New session {session_id}: {total} articles cached")
+        else:
+            # Subsequent requests - use cached
+            all_articles = _article_cache.get(session_id, [])
+            total = len(all_articles)
+        
+        if article_index >= len(all_articles):
+            response = jsonify({
+                "success": True,
+                "article": None,
+                "has_more": False,
+                "total": total,
+                "current_index": article_index
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response
+        
+        # Process this specific article
+        article = all_articles[article_index]
+        include_ai = data.get('include_ai_analysis', False)
+        print(f"\n📰 Processing article {article_index + 1}/{total}...")
+        
+        processed = process_article_progressive(
+            article, 
+            article_index, 
+            language=language,
+            include_ai_analysis=include_ai
+        )
+        
+        response = jsonify({
+            "success": True,
+            "article": processed,
+            "has_more": article_index < total - 1,
+            "total": total,
+            "current_index": article_index
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"Error in stream endpoint: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({
+            "success": False,
+            "error": str(e)
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/get_ai_analysis', methods=['POST', 'OPTIONS'])
+def get_ai_analysis():
+    """
+    Get AI analysis for a specific article on demand
+    """
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json() or {}
+        title = data.get('title', '')
+        content = data.get('content', '')
+        language = data.get('language', 'en')
+        
+        if not title or not content:
+            response = jsonify({
+                "success": False,
+                "error": "Title and content are required"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"\n🤖 Getting AI analysis for article...")
+        
+        from content_aggregator import get_ai_analysis_and_action, translate_content
+        
+        # Get AI analysis
+        ai_analysis = get_ai_analysis_and_action(title, content)
+        
+        if not ai_analysis:
+            response = jsonify({
+                "success": False,
+                "error": "AI analysis failed due to rate limiting"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 503
+        
+        # Translate summary if needed
+        if language != 'en' and 'summary' in ai_analysis:
+            try:
+                ai_analysis['summary_translated'] = translate_content(ai_analysis['summary'], language)
+            except:
+                pass
+        
+        response = jsonify({
+            "success": True,
+            "ai_analysis": ai_analysis
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"Error in AI analysis endpoint: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({
+            "success": False,
+            "error": str(e)
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/sebi_content_progressive', methods=['POST', 'OPTIONS'])
+def sebi_content_progressive():
+    """
+    Progressive loading endpoint - returns articles as they're processed
+    Returns initial batch immediately, then client can poll for updates
+    """
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json() or {}
+        language = data.get('language', 'en')
+        batch_size = data.get('batch_size', 5)  # Return 5 articles at a time
+        
+        print(f"📰 Progressive fetch: language={language}, batch_size={batch_size}")
+        
+        # Get content with AI analysis (no translation yet for speed)
+        result = get_aggregated_content(
+            language='en',  # Always fetch in English first
+            include_summary=True,
+            include_ai_analysis=True
+        )
+        
+        if not result.get('success'):
+            response = jsonify(result)
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        # If translation needed, do it in background for first batch
+        if language != 'en' and result.get('content'):
+            from content_aggregator import translate_content, LANGUAGES
+            print(f"🌐 Translating first {batch_size} articles to {language}...")
+            for article in result['content'][:batch_size]:
+                try:
+                    article['title_translated'] = translate_content(article['title'], language)
+                    article['content_translated'] = translate_content(article['content'][:1000], language)
+                    if 'summary' in article:
+                        article['summary_translated'] = translate_content(article['summary'], language)
+                    article['language'] = LANGUAGES.get(language, language)
+                except Exception as e:
+                    print(f"Translation error: {str(e)}")
+        
+        result['language'] = language
+        result['is_progressive'] = True
+        
+        response = jsonify(result)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"Error in progressive endpoint: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({
+            "success": False,
+            "error": f"Failed to fetch content: {str(e)}"
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
 
 @app.route('/risk_questions', methods=['GET', 'OPTIONS'])
 def risk_questions():
