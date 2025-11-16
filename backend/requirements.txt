@@ -1,0 +1,39 @@
+# Core Framework
+Flask==3.0.0
+flask-cors==4.0.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# AI/LLM Libraries
+langchain==0.3.13
+langchain-groq==0.2.1
+langchain-community==0.3.13
+langchain-core==0.3.21
+
+# Web Scraping
+requests==2.31.0
+beautifulsoup4==4.12.3
+feedparser==6.0.11
+lxml==5.1.0
+
+# Translation
+deep-translator==1.11.4
+
+# Financial Data
+yfinance==0.2.48
+
+# Data Processing
+pandas==2.2.0
+numpy==1.26.3
+scipy==1.12.0
+
+# Date Handling
+python-dateutil==2.8.2
+
+# API Client
+groq==0.11.0
+
+# Optional but recommended
+setuptools>=65.5.0
+wheel>=0.38.0
