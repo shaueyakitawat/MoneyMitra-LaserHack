@@ -4,7 +4,7 @@ from ai_agent import get_agent_response, get_financial_report_json
 from content_aggregator import get_aggregated_content, LANGUAGES
 from risk_assessment import (
     get_risk_questions, calculate_risk_score, analyze_portfolio_risk,
-    suggest_asset_allocation, get_risk_profiles
+    suggest_asset_allocation, get_risk_profiles, calculate_corpus_investment_plan
 )
 from algo_backtest import backtest_strategy, get_indian_stocks
 
@@ -815,6 +815,200 @@ def risk_profiles():
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response
     except Exception as e:
+        response = jsonify({"success": False, "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+# Global cache for AI insights (TTL: 24 hours)
+_ai_insights_cache = {}
+_cache_timestamps = {}
+
+@app.route('/ai_risk_insights', methods=['POST', 'OPTIONS'])
+def ai_risk_insights():
+    """
+    Generate AI-powered personalized investment insights and recommendations
+    Uses caching to avoid repeated API calls for same inputs
+    """
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        from datetime import datetime, timedelta
+        from langchain_groq import ChatGroq
+        from langchain_core.messages import SystemMessage, HumanMessage
+        import os
+        import time
+        
+        data = request.get_json()
+        risk_profile = data.get('risk_profile', 'moderate')
+        risk_score = data.get('risk_score', 50)
+        corpus = data.get('corpus', 100000)
+        age = data.get('age', 30)
+        investment_horizon = data.get('investment_horizon', 5)
+        allocation = data.get('allocation', {})
+        
+        # Create cache key
+        cache_key = f"{risk_profile}_{int(risk_score/10)*10}_{int(corpus/50000)*50000}_{age}_{investment_horizon}"
+        
+        # Check cache (24 hour TTL)
+        if cache_key in _ai_insights_cache:
+            cache_time = _cache_timestamps.get(cache_key)
+            if cache_time and (datetime.now() - cache_time).seconds < 86400:
+                print(f"✅ Returning cached AI insights for key: {cache_key}")
+                response = jsonify({
+                    "success": True,
+                    "insights": _ai_insights_cache[cache_key],
+                    "cached": True
+                })
+                response.headers.add("Access-Control-Allow-Origin", "*")
+                return response
+        
+        print(f"\n🤖 Generating AI insights for {risk_profile} profile...")
+        
+        # Initialize Groq
+        groq_api_key = os.getenv("GROQ_API_KEY")
+        llm = ChatGroq(
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=2000,
+            api_key=groq_api_key
+        )
+        
+        # Construct prompt
+        system_prompt = """You are an expert Indian financial advisor with 20+ years of experience. 
+Provide personalized, actionable investment insights in a friendly, encouraging tone.
+Focus on Indian market context, SEBI-regulated products, and practical advice.
+Be specific, avoid jargon, and include exact numbers and steps."""
+        
+        user_prompt = f"""Create a personalized investment plan for this investor:
+
+**Profile:**
+- Risk Profile: {risk_profile.upper()}
+- Risk Score: {risk_score}/100
+- Age: {age} years
+- Investment Horizon: {investment_horizon} years
+- Available Corpus: ₹{corpus:,}
+- Recommended Allocation: {allocation.get('equity', 0)}% Equity, {allocation.get('debt', 0)}% Debt, {allocation.get('gold', 0)}% Gold
+
+**Provide exactly these sections (use these exact headings):**
+
+1. KEY INSIGHTS (3-4 bullet points):
+   - Your strengths as an investor
+   - Opportunities specific to your profile
+   - Important considerations
+
+2. INVESTMENT STRATEGY:
+   - Specific investment approach for your ₹{corpus:,} corpus
+   - Recommended instruments (mutual funds, ETFs, direct stocks)
+   - Entry strategy (lump sum vs SIP)
+
+3. CORPUS ALLOCATION PLAN:
+   - Exact rupee breakdown:
+     • Equity: ₹X (Y%)
+     • Debt: ₹X (Y%)
+     • Gold: ₹X (Y%)
+   - Suggested specific funds/ETFs for each category
+
+4. ACTION STEPS (numbered list):
+   - Immediate actions (this month)
+   - Short-term setup (next 3 months)
+   - Long-term habits
+
+5. RISK MANAGEMENT:
+   - Portfolio protection strategies
+   - Rebalancing guidelines
+   - Emergency fund recommendations
+
+Keep it concise, actionable, and encouraging. Use Indian rupees (₹) throughout."""
+        
+        # Call AI with retry logic
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                messages = [
+                    SystemMessage(content=system_prompt),
+                    HumanMessage(content=user_prompt)
+                ]
+                
+                result = llm.invoke(messages)
+                ai_response = result.content
+                
+                # Parse response into structured format
+                insights = {
+                    "raw_insights": ai_response,
+                    "profile": risk_profile,
+                    "corpus": corpus,
+                    "generated_at": datetime.now().isoformat()
+                }
+                
+                # Cache the result
+                _ai_insights_cache[cache_key] = insights
+                _cache_timestamps[cache_key] = datetime.now()
+                
+                print(f"✅ AI insights generated successfully")
+                
+                response = jsonify({
+                    "success": True,
+                    "insights": insights,
+                    "cached": False
+                })
+                response.headers.add("Access-Control-Allow-Origin", "*")
+                return response
+                
+            except Exception as e:
+                error_msg = str(e)
+                if "rate_limit" in error_msg.lower() or "429" in error_msg:
+                    wait_time = 2 ** attempt
+                    print(f"    ⏳ Rate limited (attempt {attempt + 1}), waiting {wait_time}s...")
+                    time.sleep(wait_time)
+                    if attempt == max_retries - 1:
+                        raise
+                else:
+                    raise
+        
+    except Exception as e:
+        print(f"Error generating AI insights: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({
+            "success": False,
+            "error": f"Failed to generate AI insights: {str(e)}"
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/corpus_investment_plan', methods=['POST', 'OPTIONS'])
+def corpus_investment_plan():
+    """Generate detailed investment plan for given corpus"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        data = request.get_json()
+        corpus = data.get('corpus', 100000)
+        allocation = data.get('allocation', {})
+        investment_mode = data.get('mode', 'lump_sum')  # 'lump_sum' or 'sip'
+        
+        plan = calculate_corpus_investment_plan(corpus, allocation, investment_mode)
+        
+        response = jsonify({
+            "success": True,
+            "investment_plan": plan
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        print(f"Error in corpus plan: {str(e)}")
+        import traceback
+        traceback.print_exc()
         response = jsonify({"success": False, "error": str(e)})
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response, 500

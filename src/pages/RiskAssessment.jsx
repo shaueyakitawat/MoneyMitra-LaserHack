@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, TrendingUp, AlertCircle, PieChart, Target, CheckCircle2, XCircle } from 'lucide-react';
+import { Shield, TrendingUp, AlertCircle, PieChart, Target, CheckCircle2, XCircle, Sparkles, IndianRupee } from 'lucide-react';
+import { PieChart as RechartsPie, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import Card from '../components/Card';
 
 const RiskAssessment = () => {
@@ -10,8 +11,11 @@ const RiskAssessment = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [age, setAge] = useState(30);
   const [investmentHorizon, setInvestmentHorizon] = useState(5);
+  const [corpus, setCorpus] = useState(100000);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingAI, setLoadingAI] = useState(false);
+  const [aiInsights, setAiInsights] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -23,7 +27,9 @@ const RiskAssessment = () => {
       const response = await fetch('http://localhost:5001/risk_questions');
       const data = await response.json();
       if (data.success) {
-        setQuestions(data.questions);
+        // Filter out questions 1 (age) and 2 (investment horizon) since we ask them in pre-questions
+        const filteredQuestions = data.questions.filter(q => q.id !== 1 && q.id !== 2);
+        setQuestions(filteredQuestions);
       }
     } catch (err) {
       console.error('Error fetching questions:', err);
@@ -84,15 +90,50 @@ const RiskAssessment = () => {
 
   const startAssessment = () => {
     setStep(2);
-    setCurrentQuestion(0);
+    setCurrentQuestion(-3); // Start with age question
     setAnswers({});
   };
 
   const retakeAssessment = () => {
     setStep(1);
-    setCurrentQuestion(0);
+    setCurrentQuestion(-3);
     setAnswers({});
     setResults(null);
+    setAiInsights(null);
+  };
+
+  const fetchAIInsights = async () => {
+    if (!results) return;
+    
+    setLoadingAI(true);
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:5001/ai_risk_insights', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          risk_profile: results.risk_assessment.risk_profile,
+          risk_score: results.risk_assessment.total_score,
+          corpus: corpus,
+          age: age,
+          investment_horizon: investmentHorizon,
+          allocation: results.asset_allocation
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setAiInsights(data.insights);
+      } else {
+        setError(data.error || 'Failed to generate AI insights');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      setError('Failed to fetch AI insights. Please try again.');
+    } finally {
+      setLoadingAI(false);
+    }
   };
 
   return (
@@ -141,69 +182,27 @@ const RiskAssessment = () => {
               </Card>
             </div>
 
-            <Card style={{ maxWidth: '600px', margin: '0 auto' }}>
-              <h3 style={{ marginBottom: '16px' }}>Before You Start</h3>
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>
-                  Your Age
-                </label>
-                <input
-                  type="number"
-                  value={age}
-                  onChange={(e) => setAge(parseInt(e.target.value) || 30)}
-                  min="18"
-                  max="100"
-                  style={{
-                    width: '100%',
-                    padding: '12px',
-                    border: '1px solid var(--border)',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    background: 'var(--neutralBg)'
-                  }}
-                />
-              </div>
-
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>
-                  Investment Time Horizon (years)
-                </label>
-                <input
-                  type="number"
-                  value={investmentHorizon}
-                  onChange={(e) => setInvestmentHorizon(parseInt(e.target.value) || 5)}
-                  min="1"
-                  max="50"
-                  style={{
-                    width: '100%',
-                    padding: '12px',
-                    border: '1px solid var(--border)',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    background: 'var(--neutralBg)'
-                  }}
-                />
-              </div>
-
+            <div style={{ textAlign: 'center' }}>
               <button
                 onClick={startAssessment}
                 disabled={questions.length === 0}
                 style={{
-                  width: '100%',
-                  padding: '16px',
+                  padding: '16px 48px',
                   background: 'var(--accentGold)',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
-                  fontSize: '16px',
+                  fontSize: '18px',
                   fontWeight: '600',
                   cursor: questions.length > 0 ? 'pointer' : 'not-allowed',
-                  opacity: questions.length > 0 ? 1 : 0.5
+                  opacity: questions.length > 0 ? 1 : 0.5,
+                  boxShadow: questions.length > 0 ? '0 4px 12px rgba(212, 175, 55, 0.3)' : 'none',
+                  transition: 'all 0.3s'
                 }}
               >
                 Start Assessment (10 Questions)
               </button>
-            </Card>
+            </div>
           </motion.div>
         )}
 
@@ -219,89 +218,321 @@ const RiskAssessment = () => {
               <div style={{ marginBottom: '40px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <span style={{ fontSize: '14px', fontWeight: '500' }}>
-                    Question {currentQuestion + 1} of {questions.length}
+                    {currentQuestion === -3 ? 'Basic Info 1/3' : 
+                     currentQuestion === -2 ? 'Basic Info 2/3' : 
+                     currentQuestion === -1 ? 'Basic Info 3/3' : 
+                     `Question ${currentQuestion + 1} of ${questions.length}`}
                   </span>
                   <span style={{ fontSize: '14px', color: 'var(--textSecondary)' }}>
-                    {Math.round(((currentQuestion + 1) / questions.length) * 100)}% Complete
+                    {currentQuestion < 0 ? 
+                      Math.round(((currentQuestion + 4) / (questions.length + 3)) * 100) :
+                      Math.round(((currentQuestion + 4) / (questions.length + 3)) * 100)}% Complete
                   </span>
                 </div>
                 <div style={{ height: '8px', background: 'var(--neutralBg)', borderRadius: '4px', overflow: 'hidden' }}>
                   <div style={{
                     height: '100%',
                     background: 'var(--accentGold)',
-                    width: `${((currentQuestion + 1) / questions.length) * 100}%`,
+                    width: `${currentQuestion < 0 ? 
+                      ((currentQuestion + 4) / (questions.length + 3)) * 100 :
+                      ((currentQuestion + 4) / (questions.length + 3)) * 100}%`,
                     transition: 'width 0.3s ease'
                   }} />
                 </div>
               </div>
 
               <Card>
-                <h2 style={{ marginBottom: '24px', fontSize: '24px', fontWeight: '600' }}>
-                  {questions[currentQuestion].question}
-                </h2>
-
-                <div style={{ display: 'grid', gap: '12px' }}>
-                  {questions[currentQuestion].options.map((option, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleAnswer(questions[currentQuestion].id, option.score)}
+                {/* Age Input */}
+                {currentQuestion === -3 && (
+                  <>
+                    <h2 style={{ marginBottom: '24px', fontSize: '24px', fontWeight: '600' }}>
+                      What is your age?
+                    </h2>
+                    <input
+                      type="number"
+                      value={age}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === '') {
+                          setAge('');
+                        } else {
+                          const parsed = parseInt(val);
+                          setAge(isNaN(parsed) ? 30 : parsed);
+                        }
+                      }}
+                      min="18"
+                      max="100"
                       style={{
+                        width: '100%',
                         padding: '16px',
-                        textAlign: 'left',
-                        border: `2px solid ${answers[questions[currentQuestion].id] === option.score ? 'var(--accentGold)' : 'var(--border)'}`,
+                        border: '2px solid var(--border)',
                         borderRadius: '8px',
-                        background: answers[questions[currentQuestion].id] === option.score ? 'rgba(212, 175, 55, 0.1)' : 'transparent',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        transition: 'all 0.2s'
-                      }}
-                    >
-                      {option.text}
-                    </button>
-                  ))}
-                </div>
-
-                <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid var(--border)', fontSize: '14px', color: 'var(--textSecondary)' }}>
-                  💡 <strong>Why this matters:</strong> {questions[currentQuestion].rationale}
-                </div>
-
-                <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
-                  {currentQuestion > 0 && (
-                    <button
-                      onClick={() => setCurrentQuestion(currentQuestion - 1)}
-                      style={{
-                        flex: 1,
-                        padding: '12px',
+                        fontSize: '20px',
                         background: 'var(--neutralBg)',
-                        color: 'var(--textPrimary)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        fontWeight: '500'
-                      }}
-                    >
-                      Previous
-                    </button>
-                  )}
-                  {Object.keys(answers).length === questions.length && (
-                    <button
-                      onClick={handleSubmit}
-                      disabled={loading}
-                      style={{
-                        flex: 1,
-                        padding: '12px',
-                        background: 'var(--primaryCobalt)',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: loading ? 'not-allowed' : 'pointer',
+                        textAlign: 'center',
                         fontWeight: '600'
                       }}
+                    />
+                    <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid var(--border)', fontSize: '14px', color: 'var(--textSecondary)' }}>
+                      💡 <strong>Why this matters:</strong> Age helps determine your investment time horizon and risk capacity. Younger investors typically have more time to recover from market downturns.
+                    </div>
+                    <button
+                      onClick={() => setCurrentQuestion(-2)}
+                      disabled={!age || age < 18 || age > 100}
+                      style={{
+                        marginTop: '24px',
+                        width: '100%',
+                        padding: '14px',
+                        background: (age >= 18 && age <= 100) ? 'var(--primaryCobalt)' : 'var(--neutralBg)',
+                        color: (age >= 18 && age <= 100) ? 'white' : 'var(--textSecondary)',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: (age >= 18 && age <= 100) ? 'pointer' : 'not-allowed',
+                        fontWeight: '600',
+                        fontSize: '16px'
+                      }}
                     >
-                      {loading ? 'Calculating...' : 'View Results'}
+                      Next
                     </button>
-                  )}
-                </div>
+                  </>
+                )}
+
+                {/* Investment Horizon Input */}
+                {currentQuestion === -2 && (
+                  <>
+                    <h2 style={{ marginBottom: '24px', fontSize: '24px', fontWeight: '600' }}>
+                      What is your investment time horizon?
+                    </h2>
+                    <input
+                      type="number"
+                      value={investmentHorizon}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === '') {
+                          setInvestmentHorizon('');
+                        } else {
+                          const parsed = parseInt(val);
+                          setInvestmentHorizon(isNaN(parsed) ? 5 : parsed);
+                        }
+                      }}
+                      min="1"
+                      max="50"
+                      style={{
+                        width: '100%',
+                        padding: '16px',
+                        border: '2px solid var(--border)',
+                        borderRadius: '8px',
+                        fontSize: '20px',
+                        background: 'var(--neutralBg)',
+                        textAlign: 'center',
+                        fontWeight: '600'
+                      }}
+                    />
+                    <div style={{ marginTop: '8px', fontSize: '14px', color: 'var(--textSecondary)', textAlign: 'center' }}>
+                      {investmentHorizon} years
+                    </div>
+                    <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid var(--border)', fontSize: '14px', color: 'var(--textSecondary)' }}>
+                      💡 <strong>Why this matters:</strong> Longer investment horizons allow you to take more risk and potentially earn higher returns. Short-term investors should be more conservative.
+                    </div>
+                    <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+                      <button
+                        onClick={() => setCurrentQuestion(-3)}
+                        style={{
+                          flex: 1,
+                          padding: '12px',
+                          background: 'var(--neutralBg)',
+                          color: 'var(--textPrimary)',
+                          border: '1px solid var(--border)',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          fontWeight: '500'
+                        }}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        onClick={() => setCurrentQuestion(-1)}
+                        disabled={!investmentHorizon || investmentHorizon < 1}
+                        style={{
+                          flex: 1,
+                          padding: '12px',
+                          background: (investmentHorizon && investmentHorizon >= 1) ? 'var(--primaryCobalt)' : 'var(--neutralBg)',
+                          color: (investmentHorizon && investmentHorizon >= 1) ? 'white' : 'var(--textSecondary)',
+                          border: 'none',
+                          borderRadius: '8px',
+                          cursor: investmentHorizon >= 1 ? 'pointer' : 'not-allowed',
+                          fontWeight: '600'
+                        }}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {/* Corpus Input */}
+                {currentQuestion === -1 && (
+                  <>
+                    <h2 style={{ marginBottom: '24px', fontSize: '24px', fontWeight: '600' }}>
+                      <IndianRupee size={28} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '8px' }} />
+                      What is your available investment corpus?
+                    </h2>
+                    <input
+                      type="number"
+                      value={corpus}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === '') {
+                          setCorpus('');
+                        } else {
+                          const parsed = parseInt(val);
+                          setCorpus(isNaN(parsed) ? 100000 : parsed);
+                        }
+                      }}
+                      min="10000"
+                      max="100000000"
+                      step="10000"
+                      style={{
+                        width: '100%',
+                        padding: '16px',
+                        border: '2px solid var(--border)',
+                        borderRadius: '8px',
+                        fontSize: '20px',
+                        background: 'var(--neutralBg)',
+                        textAlign: 'center',
+                        fontWeight: '600'
+                      }}
+                    />
+                    <div style={{ marginTop: '8px', fontSize: '16px', color: 'var(--textSecondary)', textAlign: 'center', fontWeight: '600' }}>
+                      {corpus ? `₹${corpus.toLocaleString('en-IN')}` : '₹0'}
+                    </div>
+                    <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid var(--border)', fontSize: '14px', color: 'var(--textSecondary)' }}>
+                      💡 <strong>Why this matters:</strong> Your corpus size helps us create a practical investment plan with specific fund recommendations and allocation amounts.
+                    </div>
+                    <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+                      <button
+                        onClick={() => setCurrentQuestion(-2)}
+                        style={{
+                          flex: 1,
+                          padding: '12px',
+                          background: 'var(--neutralBg)',
+                          color: 'var(--textPrimary)',
+                          border: '1px solid var(--border)',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          fontWeight: '500'
+                        }}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        onClick={() => setCurrentQuestion(0)}
+                        disabled={!corpus || corpus < 10000}
+                        style={{
+                          flex: 1,
+                          padding: '12px',
+                          background: (corpus && corpus >= 10000) ? 'var(--primaryCobalt)' : 'var(--neutralBg)',
+                          color: (corpus && corpus >= 10000) ? 'white' : 'var(--textSecondary)',
+                          border: 'none',
+                          borderRadius: '8px',
+                          cursor: corpus >= 10000 ? 'pointer' : 'not-allowed',
+                          fontWeight: '600'
+                        }}
+                      >
+                        Start Questions
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {/* Regular Questions */}
+                {currentQuestion >= 0 && (
+                  <>
+                    <h2 style={{ marginBottom: '24px', fontSize: '24px', fontWeight: '600' }}>
+                      {questions[currentQuestion].question}
+                    </h2>
+
+                    <div style={{ display: 'grid', gap: '12px' }}>
+                      {questions[currentQuestion].options.map((option, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleAnswer(questions[currentQuestion].id, option.score)}
+                          style={{
+                            padding: '16px',
+                            textAlign: 'left',
+                            border: `2px solid ${answers[questions[currentQuestion].id] === option.score ? 'var(--accentGold)' : 'var(--border)'}`,
+                            borderRadius: '8px',
+                            background: answers[questions[currentQuestion].id] === option.score ? 'rgba(212, 175, 55, 0.1)' : 'transparent',
+                            cursor: 'pointer',
+                            fontSize: '16px',
+                            transition: 'all 0.2s'
+                          }}
+                        >
+                          {option.text}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid var(--border)', fontSize: '14px', color: 'var(--textSecondary)' }}>
+                      💡 <strong>Why this matters:</strong> {questions[currentQuestion].rationale}
+                    </div>
+
+                    <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+                      {currentQuestion > 0 && (
+                        <button
+                          onClick={() => setCurrentQuestion(currentQuestion - 1)}
+                          style={{
+                            flex: 1,
+                            padding: '12px',
+                            background: 'var(--neutralBg)',
+                            color: 'var(--textPrimary)',
+                            border: '1px solid var(--border)',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: '500'
+                          }}
+                        >
+                          Previous
+                        </button>
+                      )}
+                      {currentQuestion === 0 && (
+                        <button
+                          onClick={() => setCurrentQuestion(-1)}
+                          style={{
+                            flex: 1,
+                            padding: '12px',
+                            background: 'var(--neutralBg)',
+                            color: 'var(--textPrimary)',
+                            border: '1px solid var(--border)',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: '500'
+                          }}
+                        >
+                          Previous
+                        </button>
+                      )}
+                      {Object.keys(answers).length === questions.length && (
+                        <button
+                          onClick={handleSubmit}
+                          disabled={loading}
+                          style={{
+                            flex: 1,
+                            padding: '12px',
+                            background: 'var(--primaryCobalt)',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            fontWeight: '600'
+                          }}
+                        >
+                          {loading ? 'Calculating...' : 'View Results'}
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
               </Card>
             </div>
           </motion.div>
@@ -496,22 +727,176 @@ const RiskAssessment = () => {
               </Card>
             </div>
 
+            {/* Detailed Risk Score Breakdown */}
+            {results.risk_assessment.score_breakdown && (
+              <Card style={{ marginBottom: '24px' }}>
+                <h3 style={{ marginBottom: '16px', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  📊 How We Calculated Your Risk Score
+                </h3>
+                <div style={{ fontSize: '14px', color: 'var(--textSecondary)', marginBottom: '20px', lineHeight: '1.6' }}>
+                  Your total risk score of <strong style={{ color: getProfileColor(results.risk_assessment.risk_profile) }}>{results.risk_assessment.total_score}/100</strong> is calculated from {results.risk_assessment.score_breakdown.length} questions. 
+                  Each question evaluates different aspects of your financial situation and risk tolerance.
+                </div>
+
+                <div style={{ marginBottom: '20px', padding: '16px', background: 'var(--neutralBg)', borderRadius: '12px', border: '2px solid var(--border)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '14px', fontWeight: '600' }}>Your Total Score</span>
+                    <span style={{ fontSize: '18px', fontWeight: '700', color: getProfileColor(results.risk_assessment.risk_profile) }}>
+                      {results.risk_assessment.raw_score}/{results.risk_assessment.max_possible_score} points
+                    </span>
+                  </div>
+                  <div style={{ height: '12px', background: '#e5e7eb', borderRadius: '6px', overflow: 'hidden' }}>
+                    <div style={{
+                      height: '100%',
+                      background: `linear-gradient(90deg, ${getProfileColor(results.risk_assessment.risk_profile)}, ${getProfileColor(results.risk_assessment.risk_profile)}dd)`,
+                      width: `${results.risk_assessment.total_score}%`,
+                      transition: 'width 1s ease'
+                    }} />
+                  </div>
+                  <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--textSecondary)' }}>
+                    Normalized Score: {results.risk_assessment.total_score}% → <strong>{results.risk_assessment.profile_details.name} Profile</strong>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '16px', color: 'var(--textPrimary)' }}>
+                  Question-by-Question Breakdown:
+                </div>
+                
+                <div style={{ display: 'grid', gap: '16px' }}>
+                  {results.risk_assessment.score_breakdown.map((item, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: idx * 0.05 }}
+                      style={{ 
+                        padding: '16px', 
+                        background: 'white',
+                        border: '1px solid var(--border)',
+                        borderRadius: '12px',
+                        borderLeft: `4px solid ${item.percentage >= 80 ? '#10b981' : item.percentage >= 50 ? '#f59e0b' : '#ef4444'}`
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', color: 'var(--textPrimary)' }}>
+                            {idx + 1}. {item.question}
+                          </div>
+                          <div style={{ fontSize: '13px', color: 'var(--textSecondary)', marginBottom: '4px' }}>
+                            <strong>Your Answer:</strong> {item.your_answer}
+                          </div>
+                        </div>
+                        <div style={{ 
+                          minWidth: '80px', 
+                          textAlign: 'right',
+                          padding: '8px 12px',
+                          background: 'var(--neutralBg)',
+                          borderRadius: '8px'
+                        }}>
+                          <div style={{ fontSize: '18px', fontWeight: '700', color: getProfileColor(results.risk_assessment.risk_profile) }}>
+                            {item.score}/{item.max_score}
+                          </div>
+                          <div style={{ fontSize: '11px', color: 'var(--textSecondary)', marginTop: '2px' }}>
+                            {item.percentage}%
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '8px',
+                        padding: '10px',
+                        background: 'var(--neutralBg)',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        marginBottom: '8px'
+                      }}>
+                        <span style={{ fontSize: '16px' }}>{item.impact_icon}</span>
+                        <span style={{ fontWeight: '600' }}>{item.impact}</span>
+                      </div>
+
+                      <div style={{ 
+                        fontSize: '12px', 
+                        color: 'var(--textSecondary)', 
+                        fontStyle: 'italic',
+                        paddingLeft: '12px',
+                        borderLeft: '2px solid var(--border)',
+                        marginTop: '8px'
+                      }}>
+                        💡 {item.rationale}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(102, 126, 234, 0.05)', borderRadius: '12px', border: '1px solid rgba(102, 126, 234, 0.2)' }}>
+                  <div style={{ fontWeight: '600', marginBottom: '8px', fontSize: '14px' }}>🎯 What This Means:</div>
+                  <div style={{ fontSize: '13px', color: 'var(--textSecondary)', lineHeight: '1.7' }}>
+                    Based on your {results.risk_assessment.total_score}/100 score, you are classified as a <strong>{results.risk_assessment.profile_details.name} investor</strong>. 
+                    This profile suggests you {results.risk_assessment.profile_details.description.toLowerCase()} 
+                    Your recommended asset allocation reflects this by balancing growth potential with risk management appropriate for your profile.
+                  </div>
+                </div>
+              </Card>
+            )}
+
             {/* Calculation Reasoning */}
             {results.asset_allocation.reasoning && Array.isArray(results.asset_allocation.reasoning) && (
               <Card style={{ marginBottom: '24px' }}>
                 <h3 style={{ marginBottom: '16px', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  🧮 How We Calculated Your Allocation
+                  🧮 How We Calculated Your Asset Allocation
                 </h3>
-                <div style={{ fontSize: '14px', color: 'var(--textSecondary)', marginBottom: '16px' }}>
-                  Your personalized allocation is based on quantitative analysis of your answers:
+                <div style={{ fontSize: '14px', color: 'var(--textSecondary)', marginBottom: '16px', lineHeight: '1.6' }}>
+                  Your personalized allocation of <strong style={{ color: '#3b82f6' }}>{results.asset_allocation.equity}% Equity</strong>, 
+                  <strong style={{ color: '#10b981' }}> {results.asset_allocation.debt}% Debt</strong>, and 
+                  <strong style={{ color: '#f59e0b' }}> {results.asset_allocation.gold}% Gold</strong> is calculated using a multi-factor algorithm 
+                  that considers your risk profile, age, investment horizon, financial stability, and behavioral factors.
                 </div>
+
+                <div style={{ marginBottom: '20px', padding: '16px', background: 'var(--neutralBg)', borderRadius: '12px' }}>
+                  <div style={{ fontWeight: '600', marginBottom: '12px', fontSize: '14px' }}>⚙️ Algorithm Steps:</div>
+                  <div style={{ display: 'grid', gap: '10px', fontSize: '13px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                      <span style={{ fontWeight: '700', color: 'var(--accentGold)', minWidth: '20px' }}>1.</span>
+                      <span>Base equity allocation calculated using modified age rule (110 - age = {110 - age}%)</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                      <span style={{ fontWeight: '700', color: 'var(--accentGold)', minWidth: '20px' }}>2.</span>
+                      <span>Risk capacity score computed from age, time horizon, savings rate, emergency fund, and net worth capacity</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                      <span style={{ fontWeight: '700', color: 'var(--accentGold)', minWidth: '20px' }}>3.</span>
+                      <span>Risk tolerance score assessed from your emotional response to losses, investment goals, and return expectations</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                      <span style={{ fontWeight: '700', color: 'var(--accentGold)', minWidth: '20px' }}>4.</span>
+                      <span>Constraint penalties applied for missing emergency fund, high debt burden, or beginner status</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                      <span style={{ fontWeight: '700', color: 'var(--accentGold)', minWidth: '20px' }}>5.</span>
+                      <span>Time horizon multiplier adjusts allocation based on investment duration ({investmentHorizon} years)</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                      <span style={{ fontWeight: '700', color: 'var(--accentGold)', minWidth: '20px' }}>6.</span>
+                      <span>Final allocation capped within your risk profile ranges and diversified across sub-asset classes</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '12px', color: 'var(--textPrimary)' }}>
+                  Key Factors That Influenced Your Allocation:
+                </div>
+                
                 <div style={{ display: 'grid', gap: '12px' }}>
                   {results.asset_allocation.reasoning.map((point, idx) => (
                     <div key={idx} style={{ 
                       padding: '12px', 
                       background: 'var(--neutralBg)', 
                       borderRadius: '8px',
-                      borderLeft: '4px solid var(--accentGold)'
+                      borderLeft: '4px solid var(--accentGold)',
+                      fontSize: '14px',
+                      lineHeight: '1.6'
                     }}>
                       {point}
                     </div>
@@ -524,23 +909,168 @@ const RiskAssessment = () => {
                       <div>
                         <span style={{ color: 'var(--textSecondary)' }}>Risk Capacity Score:</span>
                         <strong style={{ marginLeft: '8px' }}>{results.asset_allocation.risk_metrics.risk_capacity_score}/100</strong>
+                        <div style={{ fontSize: '11px', color: 'var(--textSecondary)', marginTop: '2px' }}>
+                          Financial ability to take risk
+                        </div>
                       </div>
                       <div>
                         <span style={{ color: 'var(--textSecondary)' }}>Risk Tolerance Score:</span>
                         <strong style={{ marginLeft: '8px' }}>{results.asset_allocation.risk_metrics.risk_tolerance_score}/100</strong>
+                        <div style={{ fontSize: '11px', color: 'var(--textSecondary)', marginTop: '2px' }}>
+                          Emotional willingness to take risk
+                        </div>
                       </div>
                       <div>
                         <span style={{ color: 'var(--textSecondary)' }}>Constraint Factor:</span>
                         <strong style={{ marginLeft: '8px' }}>{results.asset_allocation.risk_metrics.constraint_factor}x</strong>
+                        <div style={{ fontSize: '11px', color: 'var(--textSecondary)', marginTop: '2px' }}>
+                          Penalties from debt/emergency fund
+                        </div>
                       </div>
                       <div>
                         <span style={{ color: 'var(--textSecondary)' }}>Horizon Factor:</span>
                         <strong style={{ marginLeft: '8px' }}>{results.asset_allocation.risk_metrics.horizon_factor}x</strong>
+                        <div style={{ fontSize: '11px', color: 'var(--textSecondary)', marginTop: '2px' }}>
+                          Time-based risk adjustment
+                        </div>
                       </div>
                     </div>
                   </div>
                 )}
               </Card>
+            )}
+
+            {/* Asset Allocation Donut Chart */}
+            <Card style={{ marginBottom: '24px' }}>
+              <h3 style={{ marginBottom: '20px', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <PieChart size={24} color="var(--accentGold)" />
+                Portfolio Allocation Visualization
+              </h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <RechartsPie>
+                  <Pie
+                    data={[
+                      { name: 'Equity', value: results.asset_allocation.equity, color: '#3b82f6' },
+                      { name: 'Debt', value: results.asset_allocation.debt, color: '#10b981' },
+                      { name: 'Gold', value: results.asset_allocation.gold, color: '#f59e0b' }
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, value }) => `${name}: ${value}%`}
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {[
+                      { name: 'Equity', value: results.asset_allocation.equity, color: '#3b82f6' },
+                      { name: 'Debt', value: results.asset_allocation.debt, color: '#10b981' },
+                      { name: 'Gold', value: results.asset_allocation.gold, color: '#f59e0b' }
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </RechartsPie>
+              </ResponsiveContainer>
+            </Card>
+
+            {/* AI Insights Section */}
+            {!aiInsights ? (
+              <Card style={{ marginBottom: '24px', textAlign: 'center' }}>
+                <div style={{ padding: '20px' }}>
+                  <Sparkles size={48} color="var(--accentGold)" style={{ marginBottom: '16px' }} />
+                  <h3 style={{ marginBottom: '12px', fontSize: '20px' }}>Get Personalized AI Insights</h3>
+                  <p style={{ color: 'var(--textSecondary)', marginBottom: '20px', lineHeight: '1.6' }}>
+                    Receive tailored investment strategy, corpus allocation plan, and actionable recommendations powered by AI
+                  </p>
+                  <button
+                    onClick={fetchAIInsights}
+                    disabled={loadingAI}
+                    style={{
+                      padding: '14px 32px',
+                      background: loadingAI ? 'var(--neutralBg)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '12px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: loadingAI ? 'not-allowed' : 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      boxShadow: loadingAI ? 'none' : '0 4px 15px rgba(102, 126, 234, 0.4)',
+                      opacity: loadingAI ? 0.6 : 1
+                    }}
+                  >
+                    {loadingAI ? (
+                      <>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        >
+                          <Sparkles size={18} />
+                        </motion.div>
+                        Generating Insights...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles size={18} />
+                        Get AI Insights for ₹{corpus.toLocaleString('en-IN')} Corpus
+                      </>
+                    )}
+                  </button>
+                </div>
+              </Card>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Card style={{ 
+                  marginBottom: '24px',
+                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
+                  border: '2px solid rgba(102, 126, 234, 0.2)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <Sparkles size={24} color="white" />
+                    </div>
+                    <div>
+                      <h3 style={{ margin: 0, fontSize: '22px' }}>AI-Powered Investment Insights</h3>
+                      <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: 'var(--textSecondary)' }}>
+                        Personalized for your ₹{corpus.toLocaleString('en-IN')} corpus
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div style={{ 
+                    background: 'white', 
+                    padding: '24px', 
+                    borderRadius: '12px',
+                    whiteSpace: 'pre-wrap',
+                    lineHeight: '1.8',
+                    fontSize: '15px',
+                    border: '1px solid var(--border)'
+                  }}>
+                    {aiInsights.raw_insights}
+                  </div>
+                  
+                  <div style={{ marginTop: '16px', fontSize: '12px', color: 'var(--textSecondary)', textAlign: 'center' }}>
+                    💡 These insights are AI-generated. Please consult a certified financial advisor before making investment decisions.
+                  </div>
+                </Card>
+              </motion.div>
             )}
 
             {/* Suitable Products */}
