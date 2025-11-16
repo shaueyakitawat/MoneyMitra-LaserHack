@@ -60,7 +60,7 @@ const Sidebar = () => {
         {open.news && (
           <div className={styles.submenu}>
             <Link className={location.pathname === "/resources" ? styles.active : null} to="/resources">📚 Official Resources</Link>
-            <Link to="#">📣 News Insights</Link>
+            <Link className={location.pathname === "/news-insights" ? styles.active : null} to="/news-insights">📣 News Insights</Link>
             <Link to="#">⚠️ SEBI Alerts</Link>
           </div>
         )}
