@@ -135,7 +135,7 @@ const Learn = () => {
 
   // Helper function to get gradient color
   const getModuleColor = (difficulty) => {
-    return moduleColors[difficulty] || "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+    return moduleColors[difficulty] || "linear-gradient(135deg, #10B981 0%, #059669 100%)";
   };
 
   // Content formats data
@@ -480,7 +480,7 @@ const Learn = () => {
     formatType: {
       fontSize: '14px',
       fontWeight: '600',
-      color: '#667eea',
+      color: '#10B981',
       marginBottom: '8px'
     },
     formatTitle: {
@@ -500,11 +500,15 @@ const Learn = () => {
       gap: '24px'
     },
     moduleCard: {
-      backgroundColor: 'white',
-      padding: '24px',
-      borderRadius: '12px',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-      border: '1px solid #E2E8F0'
+      background: 'linear-gradient(135deg, #ffffff 0%, #f9fffe 100%)',
+      padding: '28px',
+      borderRadius: '14px',
+      boxShadow: '0 2px 8px rgba(16, 185, 129, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
+      border: '1.5px solid rgba(16, 185, 129, 0.12)',
+      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      position: 'relative',
+      overflow: 'hidden',
+      cursor: 'pointer'
     },
     moduleHeader: {
       display: 'flex',
@@ -513,12 +517,14 @@ const Learn = () => {
       marginBottom: '16px'
     },
     moduleLevel: {
-      fontSize: '14px',
+      fontSize: '13px',
       fontWeight: '600',
-      color: '#667eea',
-      padding: '4px 8px',
-      backgroundColor: '#EBF4FF',
-      borderRadius: '4px'
+      color: '#059669',
+      padding: '6px 12px',
+      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.1))',
+      border: '1px solid rgba(16, 185, 129, 0.3)',
+      borderRadius: '20px',
+      letterSpacing: '0.3px'
     },
     moduleStats: {
       display: 'flex',
@@ -529,10 +535,11 @@ const Learn = () => {
       color: '#718096'
     },
     moduleTitle: {
-      fontSize: '18px',
-      fontWeight: '600',
-      color: '#2D3748',
-      marginBottom: '12px'
+      fontSize: '20px',
+      fontWeight: '700',
+      color: '#0F172A',
+      marginBottom: '12px',
+      letterSpacing: '-0.3px'
     },
     moduleDescription: {
       fontSize: '14px',
@@ -545,15 +552,17 @@ const Learn = () => {
     },
     progressBar: {
       height: '8px',
-      backgroundColor: '#EDF2F7',
-      borderRadius: '4px',
+      backgroundColor: 'rgba(16, 185, 129, 0.1)',
+      borderRadius: '10px',
       marginBottom: '8px',
       overflow: 'hidden'
     },
     progressFill: {
       height: '100%',
-      borderRadius: '4px',
-      transition: 'width 0.3s ease'
+      background: 'linear-gradient(90deg, #10B981, #34D399)',
+      borderRadius: '10px',
+      transition: 'width 0.5s ease',
+      boxShadow: '0 0 10px rgba(16, 185, 129, 0.5)'
     },
     progressText: {
       fontSize: '12px',
@@ -561,22 +570,23 @@ const Learn = () => {
     },
     continueButton: {
       width: '100%',
-      padding: '12px',
-      backgroundColor: '#667eea',
+      padding: '14px',
+      background: 'linear-gradient(135deg, #10B981, #059669)',
       color: 'white',
       border: 'none',
-      borderRadius: '6px',
+      borderRadius: '10px',
       fontWeight: '600',
       cursor: 'pointer',
-      transition: 'background-color 0.2s ease'
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      boxShadow: '0 2px 8px rgba(16, 185, 129, 0.2)'
     },
     confirmSection: {
-      backgroundColor: 'white',
-      padding: '32px',
-      borderRadius: '12px',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f9fffe 100%)',
+      padding: '36px',
+      borderRadius: '14px',
+      boxShadow: '0 2px 8px rgba(16, 185, 129, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
       textAlign: 'center',
-      border: '1px solid #E2E8F0'
+      border: '1.5px solid rgba(16, 185, 129, 0.12)'
     },
     confirmTitle: {
       fontSize: '24px',
@@ -590,14 +600,15 @@ const Learn = () => {
       marginBottom: '24px'
     },
     viewProgressButton: {
-      padding: '12px 24px',
-      backgroundColor: '#667eea',
+      padding: '14px 28px',
+      background: 'linear-gradient(135deg, #10B981, #059669)',
       color: 'white',
       border: 'none',
-      borderRadius: '6px',
+      borderRadius: '10px',
       fontWeight: '600',
       cursor: 'pointer',
-      transition: 'background-color 0.2s ease'
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      boxShadow: '0 2px 8px rgba(16, 185, 129, 0.2)'
     }
   };
 
@@ -825,7 +836,7 @@ const Learn = () => {
                         width: '40px', 
                         height: '40px', 
                         border: '4px solid #E2E8F0',
-                        borderTop: '4px solid #667eea',
+                        borderTop: '4px solid #10B981',
                         borderRadius: '50%',
                         animation: 'spin 1s linear infinite',
                         margin: '0 auto 16px'
@@ -867,7 +878,7 @@ const Learn = () => {
                       width: '30px', 
                       height: '30px', 
                       border: '3px solid #E2E8F0',
-                      borderTop: '3px solid #667eea',
+                      borderTop: '3px solid #10B981',
                       borderRadius: '50%',
                       animation: 'spin 1s linear infinite',
                       margin: '0 auto 12px'
@@ -991,7 +1002,7 @@ const Learn = () => {
               </p>
               {getQuizResult('pre') ? (
                 <div style={{ marginBottom: '12px', padding: '12px', backgroundColor: '#EBF4FF', borderRadius: '6px' }}>
-                  <div style={{ fontWeight: '600', color: '#667eea' }}>
+                  <div style={{ fontWeight: '600', color: '#10B981' }}>
                     Completed: {getQuizResult('pre').percentage}%
                   </div>
                   <div style={{ fontSize: '14px', color: '#718096' }}>
@@ -1055,7 +1066,7 @@ const Learn = () => {
                   <span style={{ 
                     padding: '4px 12px', 
                     backgroundColor: '#e0e7ff', 
-                    color: '#667eea',
+                    color: '#10B981',
                     borderRadius: '12px',
                     fontSize: '14px',
                     fontWeight: '600'
@@ -1150,7 +1161,7 @@ const Learn = () => {
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
               }}>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '28px', fontWeight: '700', color: '#667eea' }}>
+                  <div style={{ fontSize: '28px', fontWeight: '700', color: '#10B981' }}>
                     {learningStats.completedModules}/{learningStats.totalModules}
                   </div>
                   <div style={{ fontSize: '14px', color: '#718096' }}>Modules Complete</div>
@@ -1184,13 +1195,27 @@ const Learn = () => {
               {learningModules && learningModules.map((module) => {
                 const moduleProgress = getModuleProgress(module.id, module.lessons?.length || 0);
                 return (
-                  <div key={module.id} style={styles.moduleCard}>
+                  <div 
+                    key={module.id} 
+                    style={styles.moduleCard}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
+                      e.currentTarget.style.boxShadow = '0 12px 24px rgba(16, 185, 129, 0.15), 0 6px 12px rgba(0, 0, 0, 0.08)';
+                      e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)';
+                      e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.12)';
+                    }}
+                  >
                     <div style={styles.moduleHeader}>
                       <span style={{ fontSize: '32px' }}>{module.icon}</span>
                       <span style={{
                         ...styles.moduleLevel,
-                        color: difficultyColors[module.difficulty],
-                        backgroundColor: `${difficultyColors[module.difficulty]}15`
+                        color: '#059669',
+                        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.1))',
+                        border: '1px solid rgba(16, 185, 129, 0.3)'
                       }}>
                         {module.difficulty.charAt(0).toUpperCase() + module.difficulty.slice(1)}
                       </span>
@@ -1214,8 +1239,7 @@ const Learn = () => {
                           <div 
                             style={{
                               ...styles.progressFill, 
-                              width: `${moduleProgress}%`,
-                              backgroundColor: difficultyColors[module.difficulty]
+                              width: `${moduleProgress}%`
                             }}
                           ></div>
                         </div>
@@ -1227,10 +1251,20 @@ const Learn = () => {
                       style={styles.continueButton}
                       onClick={() => handleModuleSelect(module)}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#5568d3';
+                        e.currentTarget.style.background = 'linear-gradient(135deg, #34D399, #10B981)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(16, 185, 129, 0.3)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = '#667eea';
+                        e.currentTarget.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.2)';
+                      }}
+                      onMouseDown={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0) scale(0.98)';
+                      }}
+                      onMouseUp={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-2px) scale(1)';
                       }}
                     >
                       {moduleProgress > 0 ? 'Continue Module →' : 'Start Module →'}

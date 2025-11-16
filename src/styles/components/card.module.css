@@ -1,60 +1,110 @@
 .card {
-  background: var(--neutralCard);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  transition: all 0.3s ease;
-  padding: 24px;
+  background: linear-gradient(135deg, #ffffff 0%, #f9fffe 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid rgba(16, 185, 129, 0.12);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #10B981, #34D399, #6EE7B7);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
 }
 
 .card.hover:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.15), 0 6px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.card.hover:hover::before {
+  transform: scaleX(1);
 }
 
 .cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(16, 185, 129, 0.1);
+  position: relative;
+}
+
+.cardHeader::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #10B981, transparent);
 }
 
 .cardTitle {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--ink);
+  letter-spacing: -0.3px;
+  background: linear-gradient(135deg, #0F172A, #1F2937);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .cardContent {
   color: var(--textSecondary);
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 15px;
 }
 
 .cardFooter {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1.5px solid rgba(16, 185, 129, 0.1);
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .statCard {
   text-align: center;
-  padding: 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+  transform: translateY(-2px);
 }
 
 .statValue {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--primaryCobalt);
-  margin-bottom: 4px;
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #10B981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+  line-height: 1;
 }
 
 .statLabel {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--textMuted);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
