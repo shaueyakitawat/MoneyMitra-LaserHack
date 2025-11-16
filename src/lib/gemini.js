@@ -38,6 +38,92 @@ export const analyzeWithGemini = async (text) => {
   }
 };
 
+export const getQuizRecommendations = async (quizData) => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  
+  if (!apiKey) {
+    return getMockQuizRecommendations(quizData);
+  }
+  
+  try {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    
+    const { moduleTitle, preQuizScore, postQuizScore, weakTopics, strongTopics } = quizData;
+    
+    const prompt = `
+      As an AI learning advisor for financial education, analyze this student's quiz performance and provide personalized recommendations.
+      
+      **Module**: ${moduleTitle}
+      **Pre-Quiz Score**: ${preQuizScore.score}/${preQuizScore.total} (${preQuizScore.percentage}%)
+      **Post-Quiz Score**: ${postQuizScore.score}/${postQuizScore.total} (${postQuizScore.percentage}%)
+      **Improvement**: ${postQuizScore.percentage - preQuizScore.percentage}%
+      
+      **Weak Topics** (questions answered incorrectly):
+      ${weakTopics.map((t, i) => `${i + 1}. ${t}`).join('\n')}
+      
+      **Strong Topics** (questions answered correctly):
+      ${strongTopics.map((t, i) => `${i + 1}. ${t}`).join('\n')}
+      
+      Please provide:
+      
+      1. **Performance Summary** (2-3 sentences): Overall assessment of their learning journey
+      2. **Key Strengths** (2-3 bullet points): What they've mastered well
+      3. **Areas for Improvement** (2-3 bullet points): Topics needing more focus
+      4. **Personalized Recommendations** (4-5 actionable items): Specific next steps, resources, or practice areas
+      5. **Motivational Message** (1-2 sentences): Encouraging words based on their progress
+      
+      Keep the tone supportive, educational, and suitable for Indian retail investors learning financial concepts.
+      Format the response in clear markdown with headings and bullet points.
+    `;
+    
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
+  } catch (error) {
+    console.error('Gemini API error:', error);
+    return getMockQuizRecommendations(quizData);
+  }
+};
+
+const getMockQuizRecommendations = (quizData) => {
+  const improvement = quizData.postQuizScore.percentage - quizData.preQuizScore.percentage;
+  const performanceLevel = quizData.postQuizScore.percentage >= 80 ? 'excellent' : 
+                           quizData.postQuizScore.percentage >= 60 ? 'good' : 'needs improvement';
+  
+  return `
+# Learning Recommendations for ${quizData.moduleTitle}
+
+## 📊 Performance Summary
+You've shown ${improvement > 0 ? 'significant improvement' : 'consistent performance'} with a ${Math.abs(improvement)}% ${improvement > 0 ? 'increase' : 'change'} from pre-quiz to post-quiz. Your ${performanceLevel} post-quiz score of ${quizData.postQuizScore.percentage}% demonstrates ${performanceLevel === 'excellent' ? 'strong mastery' : performanceLevel === 'good' ? 'good understanding' : 'room for growth'} of the module content.
+
+## ✅ Key Strengths
+${quizData.strongTopics.slice(0, 3).map(topic => `- **${topic}**: You've demonstrated solid understanding of this concept`).join('\n')}
+
+## 📈 Areas for Improvement
+${quizData.weakTopics.slice(0, 3).map(topic => `- **${topic}**: Review this topic with additional practice and examples`).join('\n')}
+
+## 🎯 Personalized Recommendations
+
+1. **Revisit Challenging Concepts**: Focus on ${quizData.weakTopics.slice(0, 2).join(' and ')}. Spend 15-20 minutes reviewing these topics with practical examples.
+
+2. **Practice with Real Scenarios**: Apply your knowledge by analyzing real market data or case studies related to weak areas.
+
+3. **Use Multiple Learning Resources**: Watch the recommended videos again, especially sections covering topics you found challenging.
+
+4. **Take Notes**: Create summary notes for ${quizData.weakTopics.length} weak areas to reinforce learning through active recall.
+
+5. **Retake the Quiz**: After reviewing, attempt the post-quiz again to track your progress and build confidence.
+
+## 💪 Motivational Message
+${improvement > 0 
+  ? `Great progress! Your ${improvement}% improvement shows dedication to learning. Keep building on this momentum!` 
+  : `You're on the right track! Consistency in learning is key. Focus on the improvement areas and you'll see great results.`}
+
+Remember: Every expert was once a beginner. Keep learning, stay curious, and don't hesitate to revisit topics as many times as needed! 🚀
+`;
+};
+
 const getMockAnalysis = () => {
   return `
 # Portfolio Analysis Report

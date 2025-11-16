@@ -672,6 +672,346 @@ def algo_backtest():
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response, 500
 
+@app.route('/generate_ai_summary', methods=['POST', 'OPTIONS'])
+def generate_ai_summary():
+    """Generate AI summary for lesson content using Groq AI"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        from langchain_groq import ChatGroq
+        
+        data = request.get_json()
+        original_content = data.get('originalContent', '')
+        lesson_title = data.get('lessonTitle', '')
+        
+        if not original_content:
+            response = jsonify({
+                "success": False,
+                "error": "Original content is required"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"Generating AI summary for {lesson_title}")
+        
+        # Initialize Groq LLM
+        groq_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.5)
+        
+        summary_prompt = f"""You are a financial education expert. Create a concise, crystal-clear summary of this lesson.
+
+Lesson: {lesson_title}
+
+Content:
+{original_content}
+
+Create a 1-2 sentence summary that captures the CORE concept in simple terms. Format:
+"[Topic] = [Simple Definition/Explanation]. Key insight: [Most important takeaway]"
+
+Examples:
+- "Investing = Making your money grow by buying assets. Key insight: Saving preserves money, investing multiplies it."
+- "Diversification = Spreading money across different investments. Key insight: Don't put all eggs in one basket to reduce risk."
+
+Output ONLY the summary, nothing else."""
+
+        summary_response = groq_llm.invoke(summary_prompt).content
+        
+        response = jsonify({
+            "success": True,
+            "summary": summary_response.strip()
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"Error generating AI summary: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({
+            "success": False,
+            "error": str(e)
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/generate_lesson_content', methods=['POST', 'OPTIONS'])
+def generate_lesson_content():
+    """Generate simplified and Hindi translations of lesson content using Groq AI"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        from langchain_groq import ChatGroq
+        
+        data = request.get_json()
+        original_content = data.get('originalContent', '')
+        lesson_title = data.get('lessonTitle', '')
+        module_title = data.get('moduleTitle', '')
+        content_type = data.get('contentType', 'both')  # 'simplified', 'hindi', or 'both'
+        
+        if not original_content:
+            response = jsonify({
+                "success": False,
+                "error": "Original content is required"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"Generating {content_type} content for {lesson_title}")
+        
+        # Initialize Groq LLM
+        groq_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
+        
+        result = {}
+        
+        # Generate simplified content
+        if content_type in ['simplified', 'both']:
+            simplified_prompt = f"""You are a financial education expert simplifying content for Indian retail investors who are beginners.
+
+Module: {module_title}
+Lesson: {lesson_title}
+
+Original Content:
+{original_content}
+
+Please rewrite this in simple, easy-to-understand language. Use:
+- Short sentences
+- Common everyday words
+- Indian examples (₹, NSE, BSE, Nifty, etc.)
+- Analogies and real-life scenarios
+- Conversational tone
+
+Keep the same length but make it accessible to someone with no financial background.
+Output only the simplified content, no additional commentary."""
+
+            simplified_response = groq_llm.invoke(simplified_prompt).content
+            result['simplified'] = simplified_response.strip()
+        
+        # Generate Hindi translation
+        if content_type in ['hindi', 'both']:
+            hindi_prompt = f"""You are a financial education expert translating content to Hindi for Indian investors.
+
+Module: {module_title}
+Lesson: {lesson_title}
+
+Original Content:
+{original_content}
+
+Please translate this to Hindi (Devanagari script). Requirements:
+- Use simple, conversational Hindi
+- Keep financial terms in English (stocks, bonds, mutual funds, SIP, etc.) with Hindi explanation
+- Use ₹ for rupees
+- Make it natural and easy to read
+- Maintain the same structure and key points
+
+Output only the Hindi translation, no additional commentary."""
+
+            hindi_response = groq_llm.invoke(hindi_prompt).content
+            result['hindi'] = hindi_response.strip()
+        
+        response = jsonify({
+            "success": True,
+            **result
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"Error generating lesson content: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        response = jsonify({
+            "success": False,
+            "error": str(e)
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+@app.route('/quiz_recommendations', methods=['POST', 'OPTIONS'])
+def quiz_recommendations():
+    """Generate AI-powered learning recommendations based on quiz performance"""
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+    
+    try:
+        from langchain_groq import ChatGroq
+        import os
+        
+        data = request.get_json()
+        module_title = data.get('moduleTitle', '')
+        pre_quiz = data.get('preQuizScore', {})
+        post_quiz = data.get('postQuizScore', {})
+        weak_topics = data.get('weakTopics', [])
+        strong_topics = data.get('strongTopics', [])
+        
+        if not module_title or not pre_quiz or not post_quiz:
+            response = jsonify({
+                "success": False,
+                "error": "Missing required quiz data"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"Generating quiz recommendations for {module_title}")
+        
+        # Initialize Groq LLM
+        groq_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
+        
+        improvement = post_quiz.get('percentage', 0) - pre_quiz.get('percentage', 0)
+        
+        # Create detailed prompt
+        improvement_pct = improvement
+        total_questions = post_quiz.get('total', 0)
+        correct_in_post = post_quiz.get('score', 0)
+        
+        prompt = f"""As an expert AI learning advisor for financial education, analyze this Indian student's quiz performance and provide highly personalized, actionable recommendations.
+
+**Module**: {module_title}
+**Pre-Quiz Performance**: {pre_quiz.get('score', 0)}/{pre_quiz.get('total', 0)} ({pre_quiz.get('percentage', 0)}%) - Baseline knowledge before learning
+**Post-Quiz Performance**: {post_quiz.get('score', 0)}/{post_quiz.get('total', 0)} ({post_quiz.get('percentage', 0)}%) - Knowledge after completing module
+**Improvement**: {improvement_pct:+.0f}% ({correct_in_post - pre_quiz.get('score', 0):+d} more questions correct)
+
+**Questions Answered INCORRECTLY in Post-Quiz** (Weak Areas - Need Focus):
+{chr(10).join([f"{i+1}. {t}" for i, t in enumerate(weak_topics[:6])]) if weak_topics else "✓ All questions answered correctly! Excellent mastery."}
+
+**Questions Answered CORRECTLY in Post-Quiz** (Strong Areas - Well Understood):
+{chr(10).join([f"{i+1}. {t}" for i, t in enumerate(strong_topics[:6])]) if strong_topics else "No topics mastered yet - requires comprehensive review."}
+
+**Analysis Context**:
+- If improvement is positive: Student learned during the module
+- If improvement is negative/zero: Student may need different learning approach or more practice
+- Weak topics require immediate attention with specific action steps
+- Strong topics show effective learning - reinforce with advanced concepts
+
+**Your Task**: Create detailed, actionable recommendations following this exact structure:
+
+# Learning Recommendations for {module_title}
+
+## 📊 Performance Summary
+
+Write 2-3 sentences analyzing:
+1. Their learning journey (pre → post quiz)
+2. What the {improvement_pct:+.0f}% improvement means
+3. Current mastery level assessment
+
+## ✅ Key Strengths
+
+List 3-4 bullet points:
+- **[Topic Name]**: Specific praise + why this matters in real investing
+- Focus on strong topics that were answered correctly
+- Connect to practical Indian market scenarios (NSE, BSE, mutual funds, etc.)
+
+## 📈 Areas for Improvement
+
+List 3-4 bullet points:
+- **[Topic Name]**: Specific gap identified + exact steps to improve
+- Focus on weak topics that were answered incorrectly
+- Suggest specific resources: videos, practice problems, real examples
+
+## 🎯 Personalized Action Plan
+
+Provide 5-6 highly specific, numbered action items:
+1. **[Action]**: [Detailed steps] - Time estimate: [X minutes]
+2. Focus on weak topics first, then reinforcement
+3. Include practical exercises (e.g., "Calculate SIP returns for ₹5000/month")
+4. Suggest Indian finance resources/tools
+5. Include revision strategies
+6. Set measurable goals for improvement
+
+## 🧠 Study Strategy Recommendations
+
+Provide 2-3 specific study techniques:
+- Active recall methods
+- Spaced repetition schedule
+- Real-world application exercises
+- Resources for weak areas (YouTube channels, articles, calculators)
+
+## 💪 Motivational Message
+
+Write 2-3 encouraging sentences:
+- Acknowledge their effort and progress
+- Build confidence based on their strengths
+- Inspire continued learning with specific next milestone
+
+**Tone**: Supportive, specific, actionable. Like a personal mentor who knows Indian markets.
+**Language**: Use Indian financial terms (₹, Crore, Lakh, SIP, NSE, BSE, SEBI)
+**Format**: Clean markdown with proper headings, bullet points, bold text, and emojis."""
+        
+        # Generate recommendations using Groq
+        response_text = groq_llm.invoke(prompt).content
+        
+        response = jsonify({
+            "success": True,
+            "recommendations": response_text
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+        
+    except Exception as e:
+        print(f"Error generating quiz recommendations: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        
+        # Fallback to mock recommendations
+        try:
+            improvement = post_quiz.get('percentage', 0) - pre_quiz.get('percentage', 0)
+            performance_level = 'excellent' if post_quiz.get('percentage', 0) >= 80 else 'good' if post_quiz.get('percentage', 0) >= 60 else 'needs improvement'
+            
+            mock_response = f"""# Learning Recommendations for {module_title}
+
+## 📊 Performance Summary
+You've shown {'significant improvement' if improvement > 0 else 'consistent performance'} with a {abs(improvement):.0f}% {'increase' if improvement > 0 else 'change'} from pre-quiz to post-quiz. Your {performance_level} post-quiz score of {post_quiz.get('percentage', 0):.0f}% demonstrates {'strong mastery' if performance_level == 'excellent' else 'good understanding' if performance_level == 'good' else 'room for growth'} of the module content.
+
+## ✅ Key Strengths
+{chr(10).join([f"- **{topic}**: You've demonstrated solid understanding of this concept" for topic in strong_topics[:3]]) if strong_topics else "- Continue building foundational knowledge"}
+
+## 📈 Areas for Improvement
+{chr(10).join([f"- **{topic}**: Review this topic with additional practice and examples" for topic in weak_topics[:3]]) if weak_topics else "- Focus on reinforcing all concepts"}
+
+## 🎯 Personalized Recommendations
+
+1. **Revisit Challenging Concepts**: Focus on {weak_topics[0] if weak_topics else 'key topics'}. Spend 15-20 minutes reviewing these topics with practical examples.
+
+2. **Practice with Real Scenarios**: Apply your knowledge by analyzing real market data or case studies related to weak areas.
+
+3. **Use Multiple Learning Resources**: Watch the recommended videos again, especially sections covering topics you found challenging.
+
+4. **Take Notes**: Create summary notes for weak areas to reinforce learning through active recall.
+
+5. **Retake the Quiz**: After reviewing, attempt the post-quiz again to track your progress and build confidence.
+
+## 💪 Motivational Message
+{'Great progress! Your ' + str(improvement) + '% improvement shows dedication to learning. Keep building on this momentum!' if improvement > 0 else "You're on the right track! Consistency in learning is key. Focus on the improvement areas and you'll see great results."}
+
+Remember: Every expert was once a beginner. Keep learning, stay curious, and don't hesitate to revisit topics as many times as needed! 🚀
+"""
+            
+            response = jsonify({
+                "success": True,
+                "recommendations": mock_response
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response
+        except:
+            response = jsonify({
+                "success": False,
+                "error": "Failed to generate recommendations"
+            })
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 500
+
 if __name__ == "__main__":
     print("🚀 Starting JainVest Financial Analysis API...")
     print("🌐 Server will be available at: http://localhost:5001")
@@ -689,4 +1029,7 @@ if __name__ == "__main__":
     print("  - POST /calculate_risk_profile (Calculate investor risk profile)")
     print("  - POST /analyze_portfolio_risk (Portfolio risk analysis)")
     print("  - GET  /risk_profiles (Risk profile definitions)")
+    print("  - POST /generate_ai_summary (Generate AI lesson summary)")
+    print("  - POST /generate_lesson_content (Generate simplified/Hindi content)")
+    print("  - POST /quiz_recommendations (AI quiz performance recommendations)")
     app.run(debug=True, host='0.0.0.0', port=5001)

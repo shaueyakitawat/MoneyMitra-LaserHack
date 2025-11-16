@@ -1,0 +1,380 @@
+{
+  "id": "module-3-technical-analysis",
+  "title": "Technical Analysis Mastery",
+  "difficulty": "intermediate",
+  "duration": "3-4 hours",
+  "description": "Master chart patterns, technical indicators, and price action analysis to identify trading opportunities.",
+  "objectives": [
+    "Understand candlestick charts and patterns",
+    "Learn key technical indicators (RSI, MACD, Moving Averages)",
+    "Identify support and resistance levels",
+    "Master trend analysis and chart patterns",
+    "Develop entry and exit strategies using technical analysis"
+  ],
+  "prerequisites": ["module-1-basics", "module-2-stock-market"],
+  "icon": "📈",
+  "lessons": [
+    {
+      "id": "lesson-3-1",
+      "title": "Candlestick Charts Basics",
+      "videoTopic": "Reading Candlestick Patterns",
+      "videoId": "PLACEHOLDER",
+      "duration": "20 min",
+      "content": {
+        "original": "Candlestick charts display Open, High, Low, Close (OHLC) data visually. Green/white candle indicates bullish (close > open). Red/black candle indicates bearish (close < open). Body shows open-close range, wicks show high-low extremes. Patterns like Doji, Hammer, Engulfing provide trading signals.",
+        "simplified": "Candlestick is like a visual story of price movement in one time period. Green candle means price went up (buyers won). Red candle means price went down (sellers won). The thick part (body) shows where it opened and closed. Thin lines (wicks) show highest and lowest points.",
+        "hindi": "कैंडलस्टिक एक समय अवधि में प्राइस मूवमेंट की विज़ुअल कहानी है। हरी कैंडल मतलब प्राइस बढ़ी (खरीददार जीते)। लाल कैंडल मतलब प्राइस गिरी (बेचने वाले जीते)। मोटा हिस्सा (बॉडी) दिखाता है कहां खुली और बंद हुई। पतली लाइनें (विक्स) सबसे ऊंचा और नीचा पॉइंट दिखाती हैं।"
+      },
+      "aiSummary": "Candlestick = Visual OHLC data. Green/white (bullish), Red/black (bearish). Body = open-close range, Wicks = high-low extremes. Patterns predict future moves.",
+      "keyTakeaways": [
+        "Each candlestick represents one time period (1min, 1hr, 1day, etc.)",
+        "Long body = strong buying/selling pressure",
+        "Long wicks = indecision or rejection of price levels",
+        "Patterns are more reliable on higher timeframes"
+      ],
+      "commonMistakes": [
+        "Using candlesticks in isolation without context",
+        "Relying on single candle patterns (look for confirmation)",
+        "Ignoring volume when analyzing patterns"
+      ]
+    },
+    {
+      "id": "lesson-3-2",
+      "title": "Support and Resistance",
+      "videoTopic": "Identifying Key Price Levels",
+      "videoId": "PLACEHOLDER",
+      "duration": "22 min",
+      "content": {
+        "original": "Support is price level where demand is strong enough to prevent further decline. Resistance is level where selling pressure prevents further rise. These levels form at previous swing highs/lows, psychological numbers (₹100, ₹500), moving averages. When broken, roles reverse - support becomes resistance and vice versa.",
+        "simplified": "Support is like a floor where price bounces back up because many people want to buy at that level. Resistance is like a ceiling where price bounces back down because many people want to sell. When price breaks through support, it often becomes new resistance. Think of it like flipping a floor into a ceiling.",
+        "hindi": "सपोर्ट एक फ्लोर जैसा है जहां प्राइस वापस ऊपर उछलती है क्योंकि बहुत लोग उस लेवल पर खरीदना चाहते हैं। रेजिस्टेंस एक छत जैसा है जहां प्राइस वापस नीचे उछलती है क्योंकि बहुत लोग बेचना चाहते हैं। जब प्राइस सपोर्ट तोड़ देती है, तो वो अक्सर नया रेजिस्टेंस बन जाता है।"
+      },
+      "aiSummary": "Support = Floor (price bounces up), Resistance = Ceiling (price bounces down). Found at previous highs/lows, round numbers, MAs. Role reversal: broken support → resistance.",
+      "keyTakeaways": [
+        "More touches = stronger support/resistance",
+        "Buy near support, sell near resistance (in range-bound markets)",
+        "Breakout above resistance = bullish signal with volume",
+        "Use horizontal lines to mark key levels"
+      ],
+      "commonMistakes": [
+        "Drawing too many support/resistance lines (chart becomes messy)",
+        "Expecting exact price bounce (use zones, not precise lines)",
+        "Not waiting for confirmation after breakout (false breakouts common)"
+      ]
+    },
+    {
+      "id": "lesson-3-3",
+      "title": "Moving Averages and Trends",
+      "videoTopic": "SMA, EMA, and Trend Identification",
+      "videoId": "PLACEHOLDER",
+      "duration": "24 min",
+      "content": {
+        "original": "Moving averages smooth price data to identify trends. Simple Moving Average (SMA) = arithmetic mean of prices. Exponential Moving Average (EMA) gives more weight to recent prices. Common periods: 20, 50, 200-day. Golden Cross (50 crosses above 200) = bullish. Death Cross (50 crosses below 200) = bearish. Price above MA = uptrend, below = downtrend.",
+        "simplified": "Moving average is like averaging out price ups and downs to see the overall direction. SMA treats all days equally. EMA focuses more on recent days. When short-term average crosses above long-term average, it's a buy signal. When it crosses below, it's a sell signal. If price is above the average line, trend is up.",
+        "hindi": "मूविंग एवरेज प्राइस के उतार-चढ़ाव को एवरेज करके समग्र दिशा दिखाता है। SMA सभी दिनों को बराबर मानता है। EMA हाल के दिनों पर ज्यादा फोकस करता है। जब शॉर्ट-टर्म एवरेज लॉन्ग-टर्म एवरेज के ऊपर क्रॉस करे, तो खरीदने का सिग्नल। नीचे क्रॉस करे तो बेचने का सिग्नल। अगर प्राइस एवरेज लाइन के ऊपर है, तो ट्रेंड ऊपर है।"
+      },
+      "aiSummary": "Moving Averages = Trend indicators. SMA (equal weight), EMA (recent weight). Golden Cross (50>200) = bullish, Death Cross (50<200) = bearish. Price>MA = uptrend.",
+      "keyTakeaways": [
+        "20 EMA = short-term trend, 50 SMA = medium, 200 SMA = long-term",
+        "Moving averages act as dynamic support/resistance",
+        "Use multiple MAs to confirm trend strength",
+        "EMA responds faster than SMA to price changes"
+      ],
+      "commonMistakes": [
+        "Using MAs in choppy/sideways markets (many false signals)",
+        "Ignoring lag (MAs are lagging indicators)",
+        "Not combining with other indicators for confirmation"
+      ]
+    },
+    {
+      "id": "lesson-3-4",
+      "title": "RSI and MACD Indicators",
+      "videoTopic": "Momentum Indicators for Trading",
+      "videoId": "PLACEHOLDER",
+      "duration": "23 min",
+      "content": {
+        "original": "Relative Strength Index (RSI) measures momentum on 0-100 scale. Above 70 = overbought (potential reversal down), below 30 = oversold (potential reversal up). MACD (Moving Average Convergence Divergence) shows relationship between two EMAs. MACD line crossing above signal line = bullish, below = bearish. Histogram shows momentum strength. Divergence between price and RSI/MACD signals potential reversals.",
+        "simplified": "RSI tells if stock is overbought (too expensive, might fall) or oversold (too cheap, might rise). Above 70 = overbought, below 30 = oversold. MACD uses two moving averages - when fast line crosses above slow line, it's time to buy. When it crosses below, time to sell. Both help you time your entry and exit.",
+        "hindi": "RSI बताता है कि स्टॉक ओवरबॉट है (बहुत महंगा, गिर सकता है) या ओवरसोल्ड (बहुत सस्ता, बढ़ सकता है)। 70 से ऊपर = ओवरबॉट, 30 से नीचे = ओवरसोल्ड। MACD दो मूविंग एवरेज का इस्तेमाल करता है - जब फास्ट लाइन स्लो लाइन के ऊपर क्रॉस करे, तो खरीदने का समय। नीचे क्रॉस करे तो बेचने का समय।"
+      },
+      "aiSummary": "RSI: Momentum oscillator. >70 overbought, <30 oversold. MACD: Two EMA relationship. Line crosses = buy/sell signals. Divergence = early reversal warning.",
+      "keyTakeaways": [
+        "RSI 14-period is standard setting",
+        "MACD (12,26,9) are default parameters",
+        "Divergence: Price makes new high but RSI doesn't = bearish",
+        "Use RSI/MACD together with trend analysis"
+      ],
+      "commonMistakes": [
+        "Buying immediately when RSI hits 30 (can stay oversold in downtrend)",
+        "Selling immediately when RSI hits 70 (can stay overbought in uptrend)",
+        "Ignoring divergence signals (powerful early warnings)"
+      ]
+    },
+    {
+      "id": "lesson-3-5",
+      "title": "Chart Patterns and Trading Strategies",
+      "videoTopic": "Head and Shoulders, Triangles, Flags",
+      "videoId": "PLACEHOLDER",
+      "duration": "25 min",
+      "content": {
+        "original": "Common reversal patterns: Head and Shoulders (bearish), Inverse H&S (bullish), Double Top/Bottom. Continuation patterns: Flags, Pennants, Triangles indicate trend will resume. Breakout from pattern with volume confirms validity. Measure target by projecting pattern height from breakout point. Combine patterns with indicators and volume for high-probability trades.",
+        "simplified": "Some patterns tell you trend will reverse (change direction): Head and Shoulders means uptrend will become downtrend. Double Bottom means downtrend will become uptrend. Some patterns tell you trend will continue: Flags and Triangles mean same direction will resume after small pause. Always wait for price to break out of pattern with high volume before trading.",
+        "hindi": "कुछ पैटर्न बताते हैं कि ट्रेंड रिवर्स होगा (दिशा बदलेगी): हेड एंड शोल्डर्स मतलब अपट्रेंड डाउनट्रेंड बन जाएगा। डबल बॉटम मतलब डाउनट्रेंड अपट्रेंड बन जाएगा। कुछ पैटर्न बताते हैं कि ट्रेंड जारी रहेगा: फ्लैग्स और ट्रायंगल्स मतलब थोड़े पॉज के बाद वही दिशा। हमेशा प्राइस के पैटर्न से हाई वॉल्यूम के साथ ब्रेकआउट का इंतजार करें।"
+      },
+      "aiSummary": "Reversal patterns: H&S, Double Top/Bottom (trend change). Continuation: Flags, Triangles (trend resume). Volume confirms breakout. Target = pattern height from breakout.",
+      "keyTakeaways": [
+        "Patterns are statistical probabilities, not guarantees",
+        "Volume must increase on breakout for validation",
+        "Larger timeframe patterns more reliable than smaller",
+        "Set stop-loss below pattern low for long trades"
+      ],
+      "commonMistakes": [
+        "Trading pattern before confirmation (premature entry)",
+        "Ignoring volume during breakout (false breakouts)",
+        "Not having exit plan before entering trade",
+        "Seeing patterns everywhere (confirmation bias)"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "What does a green candlestick indicate?",
+      "options": [
+        "Price closed lower than open",
+        "Price closed higher than open",
+        "No price movement",
+        "High volume"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "Support level is best described as:",
+      "options": [
+        "Where price tends to stop falling",
+        "Where price tends to stop rising",
+        "The highest price ever",
+        "The opening price"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q3",
+      "question": "What is a moving average?",
+      "options": [
+        "Average of stock prices over time",
+        "Average volume traded",
+        "Average market cap",
+        "Average dividend"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q4",
+      "question": "RSI above 70 typically indicates:",
+      "options": ["Oversold", "Overbought", "Neutral", "Trending"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "What does OHLC stand for?",
+      "options": [
+        "Open, High, Low, Close",
+        "Order, Hold, Limit, Cancel",
+        "Overvalued, High, Low, Cheap",
+        "Options, Hedge, Long, Call"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q6",
+      "question": "Chart patterns are based on:",
+      "options": [
+        "Company fundamentals",
+        "Historical price movements",
+        "Dividend history",
+        "Management quality"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q7",
+      "question": "What does MACD measure?",
+      "options": [
+        "Relationship between two moving averages",
+        "Total market volume",
+        "Company earnings",
+        "Dividend yield"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q8",
+      "question": "Volume in technical analysis indicates:",
+      "options": [
+        "Company size",
+        "Strength of price movement",
+        "Number of shareholders",
+        "Profit margin"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q9",
+      "question": "A breakout occurs when price:",
+      "options": [
+        "Stays within support and resistance",
+        "Moves beyond support or resistance level",
+        "Reaches all-time high",
+        "Pays dividend"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q10",
+      "question": "Technical analysis primarily focuses on:",
+      "options": [
+        "Company financial statements",
+        "Management quality",
+        "Price and volume data",
+        "Industry trends"
+      ],
+      "correct": 2
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "A Doji candlestick (open = close) typically indicates:",
+      "options": [
+        "Strong bullish trend",
+        "Strong bearish trend",
+        "Indecision in market",
+        "High liquidity"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q2",
+      "question": "Stock bounces off ₹500 level three times. This level is likely:",
+      "options": ["Resistance", "Support", "Breakout", "Pivot"],
+      "correct": 1
+    },
+    {
+      "id": "post-q3",
+      "question": "Golden Cross formation is:",
+      "options": [
+        "50-day MA crosses below 200-day MA",
+        "50-day MA crosses above 200-day MA",
+        "RSI crosses 50",
+        "MACD crosses zero"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q4",
+      "question": "Stock at ₹100, RSI at 25. What action might technical analyst take?",
+      "options": [
+        "Sell immediately (overbought)",
+        "Consider buying (oversold)",
+        "Ignore (neutral)",
+        "Short sell"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q5",
+      "question": "MACD histogram increasing in positive territory indicates:",
+      "options": [
+        "Weakening uptrend",
+        "Strengthening uptrend",
+        "Downtrend starting",
+        "No trend"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q6",
+      "question": "Price makes higher high but RSI makes lower high. This divergence is:",
+      "options": [
+        "Bullish (buy signal)",
+        "Bearish (sell signal)",
+        "Neutral",
+        "Meaningless"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q7",
+      "question": "Head and Shoulders pattern is completed when:",
+      "options": [
+        "Third shoulder forms",
+        "Neckline is broken",
+        "Head is formed",
+        "Volume increases"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q8",
+      "question": "Which timeframe is generally more reliable for patterns?",
+      "options": ["1-minute", "5-minute", "1-hour", "Daily"],
+      "correct": 3
+    },
+    {
+      "id": "post-q9",
+      "question": "Flag pattern suggests:",
+      "options": [
+        "Trend reversal",
+        "Trend continuation",
+        "Trend exhaustion",
+        "No trend"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q10",
+      "question": "Breakout with low volume is:",
+      "options": [
+        "Very reliable",
+        "Somewhat reliable",
+        "Not reliable (likely false)",
+        "Always profitable"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q11",
+      "question": "EMA reacts _____ than SMA to recent price changes:",
+      "options": ["Slower", "Faster", "Same speed", "Never"],
+      "correct": 1
+    },
+    {
+      "id": "post-q12",
+      "question": "Best practice when RSI shows overbought in strong uptrend:",
+      "options": [
+        "Sell immediately",
+        "Wait for confirmation before selling",
+        "Buy more",
+        "Ignore RSI"
+      ],
+      "correct": 1
+    }
+  ],
+  "documentation": {
+    "title": "Technical Analysis Complete Guide",
+    "summary": "Comprehensive notes on candlestick patterns, support/resistance, moving averages, RSI, MACD, and chart patterns. Includes practical trading strategies and risk management with technical tools.",
+    "sections": [
+      "Candlestick Anatomy and Pattern Recognition",
+      "Support and Resistance: Identification and Trading",
+      "Moving Averages: SMA, EMA, and Crossover Strategies",
+      "RSI: Overbought/Oversold and Divergence Analysis",
+      "MACD: Signal Lines, Histogram, and Interpretation",
+      "Chart Patterns: Reversal and Continuation",
+      "Volume Analysis and Confirmation",
+      "Developing Complete Trading Strategy with Technical Tools",
+      "Common Pitfalls and Risk Management"
+    ]
+  }
+}
