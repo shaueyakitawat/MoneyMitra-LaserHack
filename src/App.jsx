@@ -15,7 +15,6 @@ import Learn from "./pages/Learn";
 import Leaderboard from "./pages/Leaderboard";
 import Market from "./pages/Market";
 import Portfolio from "./pages/Portfolio";
-import Backtest from "./pages/Backtest";
 import Admin from "./pages/Admin";
 import Analyze from "./pages/Analyze";
 import Assistance from "./pages/Assistance";
@@ -23,7 +22,11 @@ import GetReport from "./pages/GetReport";
 import OfficialResources from "./pages/OfficialResources";
 import NewsInsights from "./pages/NewsInsights";
 import RiskAssessment from "./pages/RiskAssessment";
-import AlgoBuilder from "./pages/AlgoBuilder";
+import Profile from "./pages/Profile";
+// Strategy Builder & Virtual Portfolio
+import StrategyBuilder from "./pages/StrategyBuilder";
+import BacktestResultsPage from "./pages/BacktestResultsPage";
+import VirtualPortfolio from "./pages/VirtualPortfolio";
 
 function App() {
   const user = getCurrentUser();
@@ -99,12 +102,42 @@ function App() {
                 }
               />
 
-              {/* Backtest */}
+              {/* Profile */}
               <Route
-                path="/backtest"
+                path="/profile"
                 element={
                   <ProtectedRoute requiredRole="learner">
-                    <Backtest />
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Strategy Builder */}
+              <Route
+                path="/strategy-builder"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <StrategyBuilder />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Backtest Results */}
+              <Route
+                path="/backtest-results"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <BacktestResultsPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Virtual Portfolio */}
+              <Route
+                path="/virtual-portfolio"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <VirtualPortfolio />
                   </ProtectedRoute>
                 }
               />
@@ -175,16 +208,6 @@ function App() {
                 element={
                   <ProtectedRoute requiredRole="learner">
                     <RiskAssessment />
-                  </ProtectedRoute>
-                }
-              />
-
-              {/* Algo Builder */}
-              <Route
-                path="/algo-builder"
-                element={
-                  <ProtectedRoute requiredRole="learner">
-                    <AlgoBuilder />
                   </ProtectedRoute>
                 }
               />

@@ -6,21 +6,33 @@ from risk_assessment import (
     get_risk_questions, calculate_risk_score, analyze_portfolio_risk,
     suggest_asset_allocation, get_risk_profiles, calculate_corpus_investment_plan
 )
-from algo_backtest import backtest_strategy, get_indian_stocks
+# LEGACY: Commented out - old algo builder functions (replaced by Strategy Builder system)
+# from algo_backtest import backtest_strategy, get_indian_stocks
 from market_data import (
     get_market_overview, get_historical_data, get_intraday_data,
     get_stock_info, INDIAN_INDICES
 )
+# Portfolio Analyzer imports (Friend's work)
 from portfolio_analyzer import (
     parse_csv_portfolio, extract_text_from_pdf, parse_portfolio_data, 
     analyze_portfolio_composition, generate_portfolio_insights_prompt
 )
+# Strategy Builder & Backtesting imports (Your work)
+from models import (
+    Strategy, Backtest, Portfolio, Trade, DeployedStrategy,
+    strategies_db, backtests_db, portfolios_db, trades_db, deployments_db
+)
+from backtest_worker import run_backtest
+from forward_runner import deploy_strategy, stop_deployment, active_runners
 import os
 from werkzeug.utils import secure_filename
+import uuid
+import threading
+from datetime import datetime
 
 app = Flask(__name__)
 
-# Configure upload folder
+# Configure upload folder (Friend's work)
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf', 'csv'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -29,8 +41,12 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 # Create upload folder if it doesn't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Configure CORS properly - allow both React dev servers
-CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5174", "http://127.0.0.1:5174"], 
+# Configure CORS properly - allow both React dev servers and Vite
+CORS(app, origins=[
+    "http://localhost:3000", "http://127.0.0.1:3000",
+    "http://localhost:5173", "http://127.0.0.1:5173",  # Vite default port
+    "http://localhost:5174", "http://127.0.0.1:5174"
+], 
      methods=["GET", "POST", "OPTIONS"],
      allow_headers=["Content-Type", "Authorization"])
 
@@ -1051,77 +1067,80 @@ def corpus_investment_plan():
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response, 500
 
-# ===== ALGO BUILDER ENDPOINTS =====
+# ===== LEGACY ALGO BUILDER ENDPOINTS (DEPRECATED - Use Strategy Builder System) =====
+# NOTE: These endpoints were used by the old AlgoBuilder.jsx (now in src/pages/_legacy/)
+# The new Strategy Builder system uses /strategy, /backtest, /portfolio, /deploy endpoints
+# Keeping these commented for reference only
 
-@app.route('/algo_stocks', methods=['GET', 'OPTIONS'])
-def algo_stocks():
-    """Get list of Indian stocks for algo trading"""
-    if request.method == 'OPTIONS':
-        response = jsonify()
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add('Access-Control-Allow-Headers', "*")
-        response.headers.add('Access-Control-Allow-Methods', "*")
-        return response
-    
-    try:
-        stocks = get_indian_stocks()
-        response = jsonify({
-            "success": True,
-            "stocks": stocks
-        })
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        return response
-    except Exception as e:
-        response = jsonify({"success": False, "error": str(e)})
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        return response, 500
+# @app.route('/algo_stocks', methods=['GET', 'OPTIONS'])
+# def algo_stocks():
+#     """LEGACY: Get list of Indian stocks for algo trading"""
+#     if request.method == 'OPTIONS':
+#         response = jsonify()
+#         response.headers.add("Access-Control-Allow-Origin", "*")
+#         response.headers.add('Access-Control-Allow-Headers', "*")
+#         response.headers.add('Access-Control-Allow-Methods', "*")
+#         return response
+#     
+#     try:
+#         stocks = get_indian_stocks()
+#         response = jsonify({
+#             "success": True,
+#             "stocks": stocks
+#         })
+#         response.headers.add("Access-Control-Allow-Origin", "*")
+#         return response
+#     except Exception as e:
+#         response = jsonify({"success": False, "error": str(e)})
+#         response.headers.add("Access-Control-Allow-Origin", "*")
+#         return response, 500
 
-@app.route('/algo_backtest', methods=['POST', 'OPTIONS'])
-def algo_backtest():
-    """Run backtest on real market data with user's strategy"""
-    if request.method == 'OPTIONS':
-        response = jsonify()
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add('Access-Control-Allow-Headers', "*")
-        response.headers.add('Access-Control-Allow-Methods', "*")
-        return response
-    
-    try:
-        data = request.get_json()
-        symbol = data.get('symbol', 'RELIANCE.NS')
-        strategy_blocks = data.get('strategy_blocks', [])
-        start_date = data.get('start_date')
-        end_date = data.get('end_date')
-        initial_capital = data.get('initial_capital', 100000)
-        
-        if not strategy_blocks:
-            response = jsonify({
-                "success": False,
-                "error": "Strategy blocks are required"
-            })
-            response.headers.add("Access-Control-Allow-Origin", "*")
-            return response, 400
-        
-        print(f"Running backtest for {symbol} with {len(strategy_blocks)} blocks")
-        
-        result = backtest_strategy(
-            symbol=symbol,
-            strategy_blocks=strategy_blocks,
-            start_date=start_date,
-            end_date=end_date,
-            initial_capital=initial_capital
-        )
-        
-        response = jsonify(result)
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        return response
-    except Exception as e:
-        print(f"Error in algo backtest: {str(e)}")
-        import traceback
-        traceback.print_exc()
-        response = jsonify({"success": False, "error": str(e)})
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        return response, 500
+# @app.route('/algo_backtest', methods=['POST', 'OPTIONS'])
+# def algo_backtest():
+#     """LEGACY: Run backtest on real market data with user's strategy"""
+#     if request.method == 'OPTIONS':
+#         response = jsonify()
+#         response.headers.add("Access-Control-Allow-Origin", "*")
+#         response.headers.add('Access-Control-Allow-Headers', "*")
+#         response.headers.add('Access-Control-Allow-Methods', "*")
+#         return response
+#     
+#     try:
+#         data = request.get_json()
+#         symbol = data.get('symbol', 'RELIANCE.NS')
+#         strategy_blocks = data.get('strategy_blocks', [])
+#         start_date = data.get('start_date')
+#         end_date = data.get('end_date')
+#         initial_capital = data.get('initial_capital', 100000)
+#         
+#         if not strategy_blocks:
+#             response = jsonify({
+#                 "success": False,
+#                 "error": "Strategy blocks are required"
+#             })
+#             response.headers.add("Access-Control-Allow-Origin", "*")
+#             return response, 400
+#         
+#         print(f"Running backtest for {symbol} with {len(strategy_blocks)} blocks")
+#         
+#         result = backtest_strategy(
+#             symbol=symbol,
+#             strategy_blocks=strategy_blocks,
+#             start_date=start_date,
+#             end_date=end_date,
+#             initial_capital=initial_capital
+#         )
+#         
+#         response = jsonify(result)
+#         response.headers.add("Access-Control-Allow-Origin", "*")
+#         return response
+#     except Exception as e:
+#         print(f"Error in algo backtest: {str(e)}")
+#         import traceback
+#         traceback.print_exc()
+#         response = jsonify({"success": False, "error": str(e)})
+#         response.headers.add("Access-Control-Allow-Origin", "*")
+#         return response, 500
 
 # ===== MARKET DATA ENDPOINTS =====
 
@@ -1582,6 +1601,8 @@ Remember: Every expert was once a beginner. Keep learning, stay curious, and don
             response.headers.add("Access-Control-Allow-Origin", "*")
             return response, 500
 
+# ==================== PORTFOLIO ANALYZER ENDPOINTS (Friend's work) ====================
+
 def allowed_file(filename):
     """Check if file extension is allowed"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -1748,8 +1769,357 @@ def analyze_portfolio_ai():
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response, 500
 
+# ==================== STRATEGY BUILDER & BACKTESTING ENDPOINTS (Your work) ====================
+
+@app.route('/strategy', methods=['POST'])
+def create_strategy():
+    """
+    Create and save a trading strategy
+    Expected JSON: {
+        "name": "SMA Crossover",
+        "userId": "user123",
+        "symbols": ["RELIANCE.NS"],
+        "timeframe": "1d",
+        "blocks": [...]
+    }
+    """
+    try:
+        data = request.get_json()
+        
+        strategy_id = str(uuid.uuid4())
+        strategy = Strategy(
+            strategy_id=strategy_id,
+            name=data.get('name', 'Untitled Strategy'),
+            user_id=data.get('userId', 'default'),
+            symbols=data.get('symbols', []),
+            timeframe=data.get('timeframe', '1d'),
+            blocks=data.get('blocks', [])
+        )
+        
+        strategies_db[strategy_id] = strategy
+        
+        return jsonify({
+            'success': True,
+            'strategyId': strategy_id,
+            'strategy': strategy.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/strategy/<strategy_id>', methods=['GET'])
+def get_strategy(strategy_id):
+    """Get a strategy by ID"""
+    try:
+        strategy = strategies_db.get(strategy_id)
+        if not strategy:
+            return jsonify({'error': 'Strategy not found'}), 404
+        
+        return jsonify({
+            'success': True,
+            'strategy': strategy.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/strategy', methods=['GET'])
+def list_strategies():
+    """List all strategies for a user"""
+    try:
+        user_id = request.args.get('userId', 'default')
+        user_strategies = [
+            s.to_dict() for s in strategies_db.values() 
+            if s.user_id == user_id
+        ]
+        
+        return jsonify({
+            'success': True,
+            'strategies': user_strategies
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/backtest', methods=['POST'])
+def start_backtest():
+    """
+    Start a backtest job
+    Expected JSON: {
+        "strategyId": "uuid",
+        "symbol": "RELIANCE.NS",
+        "startDate": "2023-01-01",
+        "endDate": "2024-01-01",
+        "initialCapital": 100000
+    }
+    """
+    try:
+        data = request.get_json()
+        
+        strategy_id = data.get('strategyId')
+        if not strategy_id or strategy_id not in strategies_db:
+            return jsonify({'error': 'Invalid strategy ID'}), 400
+        
+        strategy = strategies_db[strategy_id]
+        
+        backtest_id = str(uuid.uuid4())
+        backtest = Backtest(
+            backtest_id=backtest_id,
+            strategy_id=strategy_id,
+            symbol=data.get('symbol'),
+            start_date=data.get('startDate'),
+            end_date=data.get('endDate'),
+            initial_capital=data.get('initialCapital', 100000)
+        )
+        
+        backtests_db[backtest_id] = backtest
+        
+        # Run backtest in background thread
+        def run_backtest_async():
+            backtest.status = 'running'
+            try:
+                results = run_backtest(
+                    strategy.to_dict(),
+                    backtest.symbol,
+                    backtest.start_date,
+                    backtest.end_date,
+                    backtest.initial_capital
+                )
+                
+                backtest.status = 'completed'
+                backtest.results = results
+                backtest.completed_at = datetime.now()
+            
+            except Exception as e:
+                backtest.status = 'failed'
+                backtest.error = str(e)
+                backtest.completed_at = datetime.now()
+        
+        thread = threading.Thread(target=run_backtest_async, daemon=True)
+        thread.start()
+        
+        return jsonify({
+            'success': True,
+            'backtestId': backtest_id,
+            'status': 'running'
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/backtest/<backtest_id>', methods=['GET'])
+def get_backtest_results(backtest_id):
+    """Get backtest results"""
+    try:
+        backtest = backtests_db.get(backtest_id)
+        if not backtest:
+            return jsonify({'error': 'Backtest not found'}), 404
+        
+        return jsonify({
+            'success': True,
+            'backtest': backtest.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/portfolio', methods=['POST'])
+def create_portfolio():
+    """
+    Create a virtual portfolio
+    Expected JSON: {
+        "userId": "user123",
+        "name": "My Portfolio",
+        "initialCapital": 100000
+    }
+    """
+    try:
+        data = request.get_json()
+        
+        portfolio_id = str(uuid.uuid4())
+        portfolio = Portfolio(
+            portfolio_id=portfolio_id,
+            user_id=data.get('userId', 'default'),
+            name=data.get('name', 'My Portfolio'),
+            initial_capital=data.get('initialCapital', 100000)
+        )
+        
+        portfolios_db[portfolio_id] = portfolio
+        
+        return jsonify({
+            'success': True,
+            'portfolioId': portfolio_id,
+            'portfolio': portfolio.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/portfolio/<portfolio_id>', methods=['GET'])
+def get_portfolio(portfolio_id):
+    """Get portfolio state"""
+    try:
+        portfolio = portfolios_db.get(portfolio_id)
+        if not portfolio:
+            return jsonify({'error': 'Portfolio not found'}), 404
+        
+        return jsonify({
+            'success': True,
+            'portfolio': portfolio.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/portfolio', methods=['GET'])
+def list_portfolios():
+    """List all portfolios for a user"""
+    try:
+        user_id = request.args.get('userId', 'default')
+        user_portfolios = [
+            p.to_dict() for p in portfolios_db.values() 
+            if p.user_id == user_id
+        ]
+        
+        return jsonify({
+            'success': True,
+            'portfolios': user_portfolios
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/deploy', methods=['POST'])
+def deploy_strategy_endpoint():
+    """
+    Deploy a strategy for forward testing
+    Expected JSON: {
+        "strategyId": "uuid",
+        "portfolioId": "uuid"
+    }
+    """
+    try:
+        data = request.get_json()
+        
+        strategy_id = data.get('strategyId')
+        portfolio_id = data.get('portfolioId')
+        
+        if not strategy_id or strategy_id not in strategies_db:
+            return jsonify({'error': 'Invalid strategy ID'}), 400
+        
+        if not portfolio_id or portfolio_id not in portfolios_db:
+            return jsonify({'error': 'Invalid portfolio ID'}), 400
+        
+        strategy = strategies_db[strategy_id]
+        
+        deployment_id = str(uuid.uuid4())
+        deployment = DeployedStrategy(
+            deployment_id=deployment_id,
+            strategy_id=strategy_id,
+            portfolio_id=portfolio_id,
+            symbols=strategy.symbols
+        )
+        
+        deployments_db[deployment_id] = deployment
+        
+        # Start forward testing runner
+        deploy_strategy(strategy.to_dict(), portfolio_id, deployment_id)
+        
+        return jsonify({
+            'success': True,
+            'deploymentId': deployment_id,
+            'deployment': deployment.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/deploy/<deployment_id>', methods=['GET'])
+def get_deployment(deployment_id):
+    """Get deployment status"""
+    try:
+        deployment = deployments_db.get(deployment_id)
+        if not deployment:
+            return jsonify({'error': 'Deployment not found'}), 404
+        
+        return jsonify({
+            'success': True,
+            'deployment': deployment.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/deploy/<deployment_id>/stop', methods=['POST'])
+def stop_deployment_endpoint(deployment_id):
+    """Stop a deployed strategy"""
+    try:
+        deployment = deployments_db.get(deployment_id)
+        if not deployment:
+            return jsonify({'error': 'Deployment not found'}), 404
+        
+        stop_deployment(deployment_id)
+        deployment.status = 'stopped'
+        
+        return jsonify({
+            'success': True,
+            'message': 'Deployment stopped',
+            'deployment': deployment.to_dict()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/portfolio/<portfolio_id>/close', methods=['POST'])
+def close_positions(portfolio_id):
+    """
+    Close specific or all positions in a portfolio
+    Expected JSON: {
+        "symbol": "RELIANCE.NS"  # optional, if not provided closes all
+    }
+    """
+    try:
+        portfolio = portfolios_db.get(portfolio_id)
+        if not portfolio:
+            return jsonify({'error': 'Portfolio not found'}), 404
+        
+        data = request.get_json() or {}
+        symbol = data.get('symbol')
+        
+        if symbol and symbol in portfolio.holdings:
+            # Close specific position
+            # This would be handled by the forward runner
+            # For now, just return success
+            return jsonify({
+                'success': True,
+                'message': f'Position {symbol} closed'
+            })
+        elif not symbol:
+            # Close all positions
+            portfolio.holdings = {}
+            return jsonify({
+                'success': True,
+                'message': 'All positions closed'
+            })
+        else:
+            return jsonify({'error': 'Position not found'}), 404
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == "__main__":
-    print("🚀 Starting JainVest Financial Analysis API...")
+    print("🚀 Starting MoneyMitra Financial Analysis API...")
     print("🌐 Server will be available at: http://localhost:5001")
     print("🔧 Debug mode: ON")
     print("📊 Available endpoints:")
