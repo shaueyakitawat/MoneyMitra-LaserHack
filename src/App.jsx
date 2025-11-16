@@ -1,186 +1,207 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { getCurrentUser } from './lib/auth';
-import './styles/theme.css';
-import './i18n';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { getCurrentUser } from "./lib/auth";
+import "./styles/theme.css";
+import "./i18n";
 
 // Components
-import Navbar from './components/Navbar';
-import ProtectedRoute from './components/ProtectedRoute';
+import TopBar from "./components/TopBar";
+import Sidebar from "./components/Sidebar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Pages
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Learn from './pages/Learn';
-import Quiz from './pages/Quiz';
-import Leaderboard from './pages/Leaderboard';
-import Market from './pages/Market';
-import Portfolio from './pages/Portfolio';
-import Backtest from './pages/Backtest';
-import Admin from './pages/Admin';
-import Analyze from './pages/Analyze';
-import Assistance from './pages/Assistance';   // ✅ new page
-import GetReport from './pages/GetReport';     // ✅ AI Financial Report page
-import OfficialResources from './pages/OfficialResources';  // ✅ SEBI/NISM content
-import RiskAssessment from './pages/RiskAssessment';  // ✅ Risk profiling
-import AlgoBuilder from './pages/AlgoBuilder';  // ✅ Visual strategy builder
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Learn from "./pages/Learn";
+import Leaderboard from "./pages/Leaderboard";
+import Market from "./pages/Market";
+import Portfolio from "./pages/Portfolio";
+import Backtest from "./pages/Backtest";
+import Admin from "./pages/Admin";
+import Analyze from "./pages/Analyze";
+import Assistance from "./pages/Assistance";
+import GetReport from "./pages/GetReport";
+import OfficialResources from "./pages/OfficialResources";
+import RiskAssessment from "./pages/RiskAssessment";
+import AlgoBuilder from "./pages/AlgoBuilder";
 
 function App() {
   const user = getCurrentUser();
 
   return (
     <BrowserRouter>
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        {user && <Navbar />}
-        
-        <main style={{ flex: 1 }}>
-          <Routes>
-            <Route 
-              path="/login" 
-              element={user ? <Navigate to="/" replace /> : <Login />} 
-            />
-            
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/learn"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Learn />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/quiz"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Quiz />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/leaderboard"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Leaderboard />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/market"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Market />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/portfolio"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Portfolio />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/backtest"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Backtest />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/analyze"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Analyze />
-                </ProtectedRoute>
-              }
-            />
+      {/* Top Horizontal Bar */}
+      {user && <TopBar />}
 
-            <Route
-              path="/assistance"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <Assistance />
-                </ProtectedRoute>
-              }
-            />
+      <div style={{ display: "flex", minHeight: "100vh" }}>
+        {/* Left Sidebar */}
+        {user && <Sidebar />}
 
-            <Route
-              path="/get-report"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <GetReport />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requiredRole="reviewer">
-                  <Admin />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/resources"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <OfficialResources />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/risk-assessment"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <RiskAssessment />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/algo-builder"
-              element={
-                <ProtectedRoute requiredRole="learner">
-                  <AlgoBuilder />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </main>
+        {/* Main Content Area */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+          <main style={{ flex: 1, padding: "20px" }}>
+            <Routes>
+              {/* Login Page */}
+              <Route
+                path="/login"
+                element={user ? <Navigate to="/" replace /> : <Login />}
+              />
 
-        {user && (
-          <footer style={{ 
-            background: 'var(--neutralCard)', 
-            borderTop: '1px solid var(--border)', 
-            padding: '24px 0',
-            textAlign: 'center'
-          }}>
-            <div className="container">
-              <p style={{ color: 'var(--textMuted)', fontSize: '14px' }}>
-                <strong>MoneyMitra provides educational content only. Not investment advice.</strong>
+              {/* Home */}
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Learn */}
+              <Route
+                path="/learn"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <Learn />
+                  </ProtectedRoute>
+                }
+              />
+
+              
+
+              {/* Leaderboard */}
+              <Route
+                path="/leaderboard"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <Leaderboard />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Market */}
+              <Route
+                path="/market"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <Market />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Portfolio */}
+              <Route
+                path="/portfolio"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <Portfolio />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Backtest */}
+              <Route
+                path="/backtest"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <Backtest />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Analyzer */}
+              <Route
+                path="/analyze"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <Analyze />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* AI Mentor */}
+              <Route
+                path="/assistance"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <Assistance />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Financial Report */}
+              <Route
+                path="/get-report"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <GetReport />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Admin */}
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute requiredRole="reviewer">
+                    <Admin />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Official Resources */}
+              <Route
+                path="/resources"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <OfficialResources />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Risk Assessment */}
+              <Route
+                path="/risk-assessment"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <RiskAssessment />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Algo Builder */}
+              <Route
+                path="/algo-builder"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <AlgoBuilder />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Fallback Route */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+
+          {/* Footer */}
+          {user && (
+            <footer
+              style={{
+                background: "var(--neutralCard)",
+                borderTop: "1px solid var(--border)",
+                padding: "24px 0",
+                textAlign: "center",
+              }}
+            >
+              <p style={{ color: "var(--textMuted)", fontSize: "14px" }}>
+                <strong>
+                  MoneyMitra provides educational content only. Not investment
+                  advice.
+                </strong>
               </p>
-            </div>
-          </footer>
-        )}
+            </footer>
+          )}
+        </div>
       </div>
     </BrowserRouter>
   );
