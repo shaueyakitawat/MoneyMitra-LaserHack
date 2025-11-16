@@ -183,7 +183,7 @@ RISK_QUESTIONS = [
 
 def calculate_risk_score(answers: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Calculate risk score based on questionnaire answers
+    Calculate risk score based on questionnaire answers with detailed explanations
     """
     total_score = sum(answer.get("score", 0) for answer in answers)
     max_possible_score = sum(max(q["options"], key=lambda x: x["score"])["score"] for q in RISK_QUESTIONS)
@@ -202,12 +202,50 @@ def calculate_risk_score(answers: List[Dict[str, Any]]) -> Dict[str, Any]:
     # Store individual answers for allocation calculation
     answer_dict = {ans.get("question_id"): ans.get("score") for ans in answers}
     
+    # Generate detailed score breakdown
+    score_breakdown = []
+    for answer in answers:
+        q_id = answer.get("question_id")
+        score = answer.get("score", 0)
+        
+        # Find the question
+        question = next((q for q in RISK_QUESTIONS if q["id"] == q_id), None)
+        if question:
+            # Find the selected option
+            selected_option = next((opt for opt in question["options"] if opt["score"] == score), None)
+            max_score_for_q = max(opt["score"] for opt in question["options"])
+            
+            # Generate impact description
+            if score >= max_score_for_q * 0.8:
+                impact = "High risk capacity"
+                impact_icon = "🟢"
+            elif score >= max_score_for_q * 0.5:
+                impact = "Moderate risk capacity"
+                impact_icon = "🟡"
+            else:
+                impact = "Low risk capacity"
+                impact_icon = "🔴"
+            
+            score_breakdown.append({
+                "question": question["question"],
+                "your_answer": selected_option["text"] if selected_option else "Unknown",
+                "score": score,
+                "max_score": max_score_for_q,
+                "percentage": round((score / max_score_for_q) * 100, 1),
+                "impact": impact,
+                "impact_icon": impact_icon,
+                "rationale": question["rationale"]
+            })
+    
     return {
         "total_score": round(normalized_score, 2),
+        "raw_score": total_score,
+        "max_possible_score": max_possible_score,
         "risk_profile": risk_profile,
         "profile_details": RISK_PROFILES.get(risk_profile, {}),
         "assessment_date": datetime.now().isoformat(),
-        "answer_dict": answer_dict
+        "answer_dict": answer_dict,
+        "score_breakdown": score_breakdown
     }
 
 
@@ -576,6 +614,190 @@ def get_risk_questions():
 def get_risk_profiles():
     """Return all risk profile definitions"""
     return RISK_PROFILES
+
+
+def calculate_corpus_investment_plan(corpus: float, allocation: Dict[str, Any], mode: str = 'lump_sum') -> Dict[str, Any]:
+    """
+    Generate detailed investment plan for a given corpus
+    
+    Args:
+        corpus: Total investment amount in INR
+        allocation: Asset allocation dict with equity, debt, gold percentages
+        mode: 'lump_sum' or 'sip'
+    
+    Returns:
+        Detailed investment plan with rupee breakdowns
+    """
+    equity_pct = allocation.get('equity', 50)
+    debt_pct = allocation.get('debt', 40)
+    gold_pct = allocation.get('gold', 10)
+    
+    # Calculate absolute amounts
+    equity_amount = corpus * (equity_pct / 100)
+    debt_amount = corpus * (debt_pct / 100)
+    gold_amount = corpus * (gold_pct / 100)
+    
+    # Get breakdown details
+    breakdown = allocation.get('breakdown', {})
+    equity_breakdown = breakdown.get('equity', {})
+    debt_breakdown = breakdown.get('debt', {})
+    
+    # Detailed equity allocation
+    equity_plan = {
+        "total": round(equity_amount, 2),
+        "percentage": equity_pct,
+        "large_cap": {
+            "amount": round(equity_amount * (equity_breakdown.get('large_cap', 0) / 100), 2),
+            "percentage": equity_breakdown.get('large_cap', 0),
+            "suggested_instruments": [
+                "Nifty 50 Index Fund",
+                "ICICI Pru Bluechip Fund",
+                "HDFC Top 100 Fund"
+            ]
+        },
+        "mid_cap": {
+            "amount": round(equity_amount * (equity_breakdown.get('mid_cap', 0) / 100), 2),
+            "percentage": equity_breakdown.get('mid_cap', 0),
+            "suggested_instruments": [
+                "Nifty Midcap 150 Index Fund",
+                "Kotak Emerging Equity Fund",
+                "PGIM India Midcap Opportunities Fund"
+            ]
+        },
+        "small_cap": {
+            "amount": round(equity_amount * (equity_breakdown.get('small_cap', 0) / 100), 2),
+            "percentage": equity_breakdown.get('small_cap', 0),
+            "suggested_instruments": [
+                "Nippon India Small Cap Fund",
+                "Axis Small Cap Fund",
+                "SBI Small Cap Fund"
+            ]
+        },
+        "international": {
+            "amount": round(equity_amount * (equity_breakdown.get('international', 0) / 100), 2),
+            "percentage": equity_breakdown.get('international', 0),
+            "suggested_instruments": [
+                "Motilal Oswal S&P 500 Index Fund",
+                "Nippon India US Equity Opportunities Fund",
+                "ICICI Pru US Bluechip Equity Fund"
+            ]
+        }
+    }
+    
+    # Detailed debt allocation
+    debt_plan = {
+        "total": round(debt_amount, 2),
+        "percentage": debt_pct,
+        "liquid_funds": {
+            "amount": round(debt_amount * (debt_breakdown.get('liquid_funds', 0) / 100), 2),
+            "percentage": debt_breakdown.get('liquid_funds', 0),
+            "suggested_instruments": [
+                "HDFC Liquid Fund",
+                "ICICI Pru Liquid Fund",
+                "SBI Liquid Fund"
+            ]
+        },
+        "short_duration": {
+            "amount": round(debt_amount * (debt_breakdown.get('short_duration', 0) / 100), 2),
+            "percentage": debt_breakdown.get('short_duration', 0),
+            "suggested_instruments": [
+                "HDFC Short Term Debt Fund",
+                "ICICI Pru Short Term Fund",
+                "Axis Short Term Fund"
+            ]
+        },
+        "corporate_bonds": {
+            "amount": round(debt_amount * (debt_breakdown.get('corporate_bonds', 0) / 100), 2),
+            "percentage": debt_breakdown.get('corporate_bonds', 0),
+            "suggested_instruments": [
+                "ICICI Pru Corporate Bond Fund",
+                "HDFC Corporate Bond Fund",
+                "Axis Corporate Debt Fund"
+            ]
+        },
+        "government_securities": {
+            "amount": round(debt_amount * (debt_breakdown.get('government_securities', 0) / 100), 2),
+            "percentage": debt_breakdown.get('government_securities', 0),
+            "suggested_instruments": [
+                "Bharat Bond ETF",
+                "SBI Magnum Gilt Fund",
+                "ICICI Pru Gilt Fund"
+            ]
+        }
+    }
+    
+    # Gold allocation
+    gold_plan = {
+        "total": round(gold_amount, 2),
+        "percentage": gold_pct,
+        "suggested_instruments": [
+            "Nippon India Gold Savings Fund",
+            "SBI Gold ETF",
+            "ICICI Pru Gold ETF",
+            "Sovereign Gold Bonds (SGB)"
+        ]
+    }
+    
+    # SIP plan calculation
+    sip_plan = None
+    if mode == 'sip':
+        # Assume monthly SIP for different durations
+        durations = [12, 24, 36, 60]  # months
+        sip_plan = {}
+        for months in durations:
+            monthly_amount = round(corpus / months, 2)
+            sip_plan[f"{months}_months"] = {
+                "monthly_sip": monthly_amount,
+                "total_invested": corpus,
+                "duration_months": months,
+                "equity_sip": round(monthly_amount * (equity_pct / 100), 2),
+                "debt_sip": round(monthly_amount * (debt_pct / 100), 2),
+                "gold_sip": round(monthly_amount * (gold_pct / 100), 2)
+            }
+    
+    # Expected growth projections
+    expected_returns = allocation.get('expected_returns', {})
+    expected_return = expected_returns.get('expected_annual_return', 10)
+    
+    # Calculate future value projections (3, 5, 10 years)
+    projections = {}
+    for years in [3, 5, 10]:
+        if mode == 'lump_sum':
+            # Lump sum future value: P * (1 + r)^n
+            future_value = corpus * ((1 + expected_return/100) ** years)
+        else:
+            # SIP future value: P * [((1+r)^n - 1) / r] * (1+r)
+            monthly_rate = expected_return / 12 / 100
+            months = years * 12
+            monthly_sip = corpus / months
+            future_value = monthly_sip * (((1 + monthly_rate) ** months - 1) / monthly_rate) * (1 + monthly_rate)
+        
+        projections[f"{years}_years"] = {
+            "future_value": round(future_value, 2),
+            "gains": round(future_value - corpus, 2),
+            "total_return_pct": round(((future_value - corpus) / corpus) * 100, 2) if corpus > 0 else 0
+        }
+    
+    return {
+        "corpus": corpus,
+        "mode": mode,
+        "allocation": {
+            "equity": equity_plan,
+            "debt": debt_plan,
+            "gold": gold_plan
+        },
+        "sip_plan": sip_plan,
+        "projections": projections,
+        "expected_annual_return": expected_return,
+        "recommendations": [
+            "📊 Diversify across suggested instruments in each category",
+            "🔄 Review and rebalance portfolio " + allocation.get('rebalance_frequency', 'quarterly'),
+            "💰 Consider tax-saving options: ELSS funds for 80C benefits",
+            "🎯 Set up automatic monthly investments to avoid timing risk",
+            "📈 Monitor portfolio performance against benchmarks quarterly",
+            "🛡️ Maintain emergency fund (6 months expenses) before investing"
+        ]
+    }
 
 
 if __name__ == "__main__":
