@@ -21,6 +21,7 @@ import Analyze from "./pages/Analyze";
 import Assistance from "./pages/Assistance";
 import GetReport from "./pages/GetReport";
 import OfficialResources from "./pages/OfficialResources";
+import NewsInsights from "./pages/NewsInsights";
 import RiskAssessment from "./pages/RiskAssessment";
 import AlgoBuilder from "./pages/AlgoBuilder";
 
@@ -154,6 +155,16 @@ function App() {
                 element={
                   <ProtectedRoute requiredRole="learner">
                     <OfficialResources />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* News Insights */}
+              <Route
+                path="/news-insights"
+                element={
+                  <ProtectedRoute requiredRole="learner">
+                    <NewsInsights />
                   </ProtectedRoute>
                 }
               />

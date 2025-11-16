@@ -21,37 +21,49 @@ load_dotenv()
 # Initialize Groq LLM for analysis
 groq_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.3)
 
-# Trusted Indian Financial News Sources focused on STOCK MARKET NEWS
+# Trusted Indian Financial News Sources - STRICTLY STOCK MARKET FOCUSED
 OFFICIAL_SOURCES = {
-    "bse": {
-        "name": "BSE India",
-        "rss_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/rssfeed_news.xml",
-        "category": "Market News"
-    },
     "moneycontrol_stocks": {
         "name": "Moneycontrol Stocks",
         "rss_url": "https://www.moneycontrol.com/rss/marketoutlook.xml",
-        "category": "Stock Analysis"
+        "category": "Stock Analysis",
+        "news_type": "stock"
     },
-    "moneycontrol_market": {
-        "name": "Moneycontrol Markets",
-        "rss_url": "https://www.moneycontrol.com/rss/business.xml",
-        "category": "Market News"
+    "moneycontrol_ipos": {
+        "name": "Moneycontrol IPO",
+        "rss_url": "https://www.moneycontrol.com/rss/ipo.xml",
+        "category": "IPO",
+        "news_type": "stock"
     },
     "economic_times_stocks": {
         "name": "ET Stocks",
         "rss_url": "https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms",
-        "category": "Stock News"
+        "category": "Stock News",
+        "news_type": "stock"
     },
-    "livemint": {
+    "economic_times_markets": {
+        "name": "ET Markets",
+        "rss_url": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
+        "category": "Market News",
+        "news_type": "general"
+    },
+    "livemint_market": {
         "name": "Mint Market",
         "rss_url": "https://www.livemint.com/rss/markets",
-        "category": "Market Updates"
+        "category": "Market Updates",
+        "news_type": "general"
     },
-    "business_standard": {
+    "livemint_companies": {
+        "name": "Mint Companies",
+        "rss_url": "https://www.livemint.com/rss/companies",
+        "category": "Company News",
+        "news_type": "stock"
+    },
+    "business_standard_markets": {
         "name": "Business Standard Markets",
         "rss_url": "https://www.business-standard.com/rss/markets-106.rss",
-        "category": "Market Analysis"
+        "category": "Market Analysis",
+        "news_type": "general"
     }
 }
 
@@ -438,6 +450,7 @@ def get_aggregated_content(language: str = "en", include_summary: bool = True, i
         for article in articles:
             article["category"] = source_info["category"]
             article["verified"] = True
+            article["news_type"] = source_info.get("news_type", "general")
             all_content.append(article)
     
     # Check if we got real news
@@ -474,6 +487,7 @@ def get_aggregated_content(language: str = "en", include_summary: bool = True, i
             "verified": article.get("verified", True),
             "published": article.get("published", datetime.now().isoformat()),
             "is_recent": article.get("is_recent", True),
+            "news_type": article.get("news_type", "general"),  # Add news_type field
             "timestamp": datetime.now().isoformat()
         }
         
