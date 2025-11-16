@@ -20,6 +20,7 @@ def process_article_progressive(article, idx, language='en', include_ai_analysis
         "verified": article.get("verified", True),
         "published": article.get("published", datetime.now().isoformat()),
         "is_recent": article.get("is_recent", True),
+        "news_type": article.get("news_type", "general"),  # Add news_type to processed article
         "timestamp": datetime.now().isoformat()
     }
     
@@ -62,6 +63,92 @@ def process_article_progressive(article, idx, language='en', include_ai_analysis
     return processed_article
 
 
+def classify_news_type(title, content):
+    """
+    Intelligently classify if news is stock-specific or general market.
+    FILTERS OUT NON-MARKET NEWS.
+    Returns tuple: (news_type, category) or None if not market-related
+    """
+    text = (title + " " + content).lower()
+    
+    # Filter out non-market topics (STRICT FILTERING)
+    non_market_keywords = [
+        'election', 'vote', 'poll', 'minister', 'government formation',
+        'political', 'party', 'congress leader', 'bjp leader', 'president elected',
+        'sports', 'cricket', 'football', 'entertainment', 'movie', 'actor',
+        'weather', 'crime', 'accident', 'health alert', 'covid unrelated',
+        'celebrity', 'fashion', 'lifestyle', 'travel', 'tourism'
+    ]
+    
+    # If non-market content detected, check if it has strong market keywords
+    if any(keyword in text for keyword in non_market_keywords):
+        strong_market = any(k in text for k in ['stock', 'market', 'share', 'sensex', 'nifty', 'ipo', 'earnings', 'revenue', 'profit', 'dividend'])
+        if not strong_market:
+            return None  # Skip non-market articles
+    
+    # Stock-specific indicators (company names, IPO, earnings, quarterly results)
+    stock_indicators = [
+        'ipo', 'q1', 'q2', 'q3', 'q4', 'quarterly results', 'earnings',
+        'profit', 'revenue', 'sales', 'acquisition', 'merger',
+        'tata', 'reliance', 'infosys', 'tcs', 'wipro', 'hdfc', 'icici',
+        'sbi', 'bharti', 'airtel', 'adani', 'mahindra', 'bajaj',
+        'maruti', 'asian paints', 'itc', 'larsen', 'ultratech',
+        'hul', 'nestle', 'britannia', 'titan', 'dmart',
+        'zomato', 'paytm', 'nykaa', 'policybazaar', 'swiggy',
+        'ceo', 'cmd', 'management', 'board meeting', 'dividend',
+        'buyback', 'share price', 'stock split', 'bonus shares',
+        'listing', 'delisting', 'promoter', 'stake sale'
+    ]
+    
+    # General market indicators (indices, sectors, policy, economy)
+    general_indicators = [
+        'nifty', 'sensex', 'market', 'indices', 'index',
+        'rbi', 'sebi', 'government', 'policy', 'regulation',
+        'interest rate', 'repo rate', 'inflation', 'gdp',
+        'economy', 'budget', 'fiscal', 'monetary',
+        'sector', 'industry', 'banking sector', 'it sector',
+        'pharma sector', 'auto sector', 'fmcg sector',
+        'rally', 'correction', 'bull', 'bear', 'volatility',
+        'trading session', 'market closes', 'market opens'
+    ]
+    
+    # Count indicators
+    stock_count = sum(1 for indicator in stock_indicators if indicator in text)
+    general_count = sum(1 for indicator in general_indicators if indicator in text)
+    
+    # Determine category based on content
+    if 'ipo' in text or 'listing' in text:
+        category = 'IPO'
+    elif any(q in text for q in ['q1', 'q2', 'q3', 'q4', 'quarterly', 'earnings']):
+        category = 'Earnings'
+    elif 'dividend' in text or 'buyback' in text:
+        category = 'Corporate Action'
+    elif 'acquisition' in text or 'merger' in text:
+        category = 'M&A'
+    elif 'policy' in text or 'regulation' in text or 'sebi' in text or 'rbi' in text:
+        category = 'Regulatory'
+    elif 'sector' in text or 'industry' in text:
+        category = 'Sector News'
+    elif 'nifty' in text or 'sensex' in text or 'index' in text:
+        category = 'Market Index'
+    else:
+        category = 'Company News' if stock_count > 0 else 'Market News'
+    
+    # If strong stock indicators, mark as stock
+    if stock_count >= 2 or any(indicator in text for indicator in ['ipo', 'q1', 'q2', 'q3', 'q4', 'quarterly', 'earnings']):
+        return 'stock', category
+    
+    # If general indicators dominate, mark as general
+    if general_count > stock_count:
+        return 'general', category
+    
+    # Default: if unsure and has company name, mark as stock
+    if stock_count > 0:
+        return 'stock', category
+    
+    return 'general', category
+
+
 def get_all_news_articles():
     """Fetch all news articles from sources"""
     all_content = []
@@ -74,7 +161,7 @@ def get_all_news_articles():
             articles = scrape_rss_feed(
                 source_info["rss_url"], 
                 source_info["name"], 
-                max_articles=3  # Limit per source
+                max_articles=10  # Max articles per quality source
             )
         elif "url" in source_info:
             articles = scrape_sebi_content(source_info["url"], max_articles=2)
@@ -82,12 +169,49 @@ def get_all_news_articles():
             articles = []
         
         for article in articles:
-            article["category"] = source_info["category"]
             article["verified"] = True
+            
+            # Intelligently classify news type and category based on content (filters non-market news)
+            classification_result = classify_news_type(article["title"], article.get("content", ""))
+            
+            # Skip article if it's not market-related
+            if classification_result is None:
+                print(f"    ⚠️ Filtered out non-market: {article['title'][:50]}...")
+                continue
+            
+            intelligent_type, intelligent_category = classification_result
+            article["news_type"] = intelligent_type
+            article["category"] = intelligent_category  # Override with intelligent category
+            
             all_content.append(article)
     
-    # Sort by date
-    all_content.sort(key=lambda x: x.get('published', ''), reverse=True)
+    # Deduplicate articles by URL and title
+    seen_urls = set()
+    seen_titles = set()
+    deduplicated = []
     
-    print(f"✅ Successfully fetched {len(all_content)} news articles")
-    return all_content[:10]  # Return top 10 most recent
+    for article in all_content:
+        url = article.get('url', '')
+        title = article.get('title', '').strip().lower()
+        
+        # Skip if we've seen this URL or very similar title
+        if url and url in seen_urls:
+            print(f"    🔄 Duplicate URL skipped: {article['title'][:40]}...")
+            continue
+        if title and title in seen_titles:
+            print(f"    🔄 Duplicate title skipped: {article['title'][:40]}...")
+            continue
+        
+        if url:
+            seen_urls.add(url)
+        if title:
+            seen_titles.add(title)
+        deduplicated.append(article)
+    
+    print(f"📊 Removed {len(all_content) - len(deduplicated)} duplicate articles")
+    
+    # Sort by date
+    deduplicated.sort(key=lambda x: x.get('published', ''), reverse=True)
+    
+    print(f"✅ Successfully fetched {len(deduplicated)} unique news articles")
+    return deduplicated[:25]  # Return top 25 most recent market-focused articles

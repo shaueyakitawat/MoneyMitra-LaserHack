@@ -708,15 +708,167 @@ const Market = () => {
                       <p style={{ marginTop: '16px', color: 'var(--textSecondary)' }}>AI is analyzing the stock...</p>
                     </div>
                   ) : stockAIInsights ? (
-                    <div style={{ 
-                      background: 'var(--neutralBg)', 
-                      padding: '24px', 
-                      borderRadius: '12px',
-                      whiteSpace: 'pre-wrap',
-                      lineHeight: '1.8'
-                    }}>
-                      {stockAIInsights}
-                    </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {(() => {
+                        // Parse AI insights into sections
+                        const insights = stockAIInsights;
+                        const sections = [];
+                        
+                        // Split by numbered sections or headers
+                        const lines = insights.split('\n');
+                        let currentSection = { title: '', content: [] };
+                        
+                        lines.forEach((line) => {
+                          const trimmed = line.trim();
+                          
+                          // Detect section headers (lines with ** or numbered like 1., 2., etc.)
+                          if (trimmed.match(/^\*\*.*\*\*$/) || trimmed.match(/^\d+[\.)]\s+\*\*/)) {
+                            if (currentSection.content.length > 0) {
+                              sections.push({ ...currentSection });
+                            }
+                            currentSection = {
+                              title: trimmed.replace(/\*\*/g, '').replace(/^\d+[\.)]\s+/, '').trim(),
+                              content: []
+                            };
+                          } else if (trimmed.length > 0) {
+                            currentSection.content.push(trimmed);
+                          }
+                        });
+                        
+                        if (currentSection.content.length > 0) {
+                          sections.push(currentSection);
+                        }
+
+                        // If no sections detected, treat as single block
+                        if (sections.length === 0) {
+                          sections.push({ title: 'Investment Analysis', content: insights.split('\n').filter(l => l.trim()) });
+                        }
+
+                        return (
+                          <div style={{ display: 'grid', gap: '16px' }}>
+                            {sections.map((section, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                                style={{
+                                  background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, rgba(255, 193, 7, 0.03) 100%)',
+                                  border: '2px solid rgba(212, 175, 55, 0.15)',
+                                  borderLeft: '6px solid var(--accentGold)',
+                                  borderRadius: '12px',
+                                  padding: '20px',
+                                  transition: 'all 0.3s',
+                                  cursor: 'default'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.transform = 'translateX(4px)';
+                                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(212, 175, 55, 0.15)';
+                                  e.currentTarget.style.borderLeftColor = 'var(--accentAmber)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.transform = 'translateX(0)';
+                                  e.currentTarget.style.boxShadow = 'none';
+                                  e.currentTarget.style.borderLeftColor = 'var(--accentGold)';
+                                }}
+                              >
+                                {section.title && (
+                                  <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '12px',
+                                    marginBottom: '16px',
+                                    paddingBottom: '12px',
+                                    borderBottom: '2px solid rgba(212, 175, 55, 0.1)'
+                                  }}>
+                                    <div style={{
+                                      width: '36px',
+                                      height: '36px',
+                                      borderRadius: '8px',
+                                      background: 'linear-gradient(135deg, var(--accentGold) 0%, var(--accentAmber) 100%)',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      color: 'var(--ink)',
+                                      fontWeight: '700',
+                                      fontSize: '18px',
+                                      boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)'
+                                    }}>
+                                      {idx + 1}
+                                    </div>
+                                    <h4 style={{
+                                      margin: 0,
+                                      fontSize: '18px',
+                                      fontWeight: '700',
+                                      color: 'var(--textPrimary)',
+                                      flex: 1
+                                    }}>
+                                      {section.title}
+                                    </h4>
+                                  </div>
+                                )}
+                                
+                                <div style={{
+                                  fontSize: '15px',
+                                  lineHeight: '1.8',
+                                  color: 'var(--textPrimary)'
+                                }}>
+                                  {section.content.map((text, textIdx) => {
+                                    // Check if it's a bullet point
+                                    if (text.startsWith('•') || text.startsWith('-') || text.startsWith('*')) {
+                                      return (
+                                        <div key={textIdx} style={{
+                                          display: 'flex',
+                                          gap: '12px',
+                                          marginBottom: '10px',
+                                          paddingLeft: '8px'
+                                        }}>
+                                          <span style={{ color: 'var(--accentGold)', fontWeight: '700', fontSize: '18px' }}>•</span>
+                                          <span style={{ flex: 1 }}>{text.replace(/^[•\-\*]\s*/, '')}</span>
+                                        </div>
+                                      );
+                                    }
+                                    
+                                    // Regular paragraph
+                                    return (
+                                      <p key={textIdx} style={{
+                                        margin: '0 0 12px 0',
+                                        lineHeight: '1.8'
+                                      }}>
+                                        {text}
+                                      </p>
+                                    );
+                                  })}
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        );
+                      })()}
+
+                      <div style={{
+                        marginTop: '20px',
+                        padding: '16px 24px',
+                        background: 'rgba(212, 175, 55, 0.08)',
+                        borderRadius: '12px',
+                        border: '2px dashed rgba(212, 175, 55, 0.3)',
+                        textAlign: 'center'
+                      }}>
+                        <p style={{
+                          margin: 0,
+                          fontSize: '13px',
+                          color: 'var(--textSecondary)',
+                          lineHeight: '1.6'
+                        }}>
+                          <strong style={{ color: 'var(--textPrimary)' }}>⚠️ Disclaimer:</strong> AI-generated insights for informational purposes only. 
+                          Not financial advice. Please conduct your own research and consult a SEBI-registered advisor before investing.
+                        </p>
+                      </div>
+                    </motion.div>
                   ) : (
                     <div style={{ padding: '40px', textAlign: 'center', color: 'var(--textSecondary)' }}>
                       Click "Get AI Insights" to receive personalized investment analysis for this stock

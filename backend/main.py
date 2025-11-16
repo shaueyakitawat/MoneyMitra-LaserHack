@@ -516,6 +516,7 @@ def sebi_content_stream():
     """
     TRUE progressive loading - returns each article immediately as processed
     Client calls this with article_index to get next article
+    Supports filtering by news_type: 'general' for market news, 'stock' for stock-specific
     """
     if request.method == 'OPTIONS':
         response = jsonify()
@@ -529,6 +530,7 @@ def sebi_content_stream():
         language = data.get('language', 'en')
         article_index = data.get('article_index', 0)
         session_id = data.get('session_id', 'default')
+        news_type_filter = data.get('news_type', None)  # 'general' or 'stock' or None (all)
         
         from progressive_fetcher import get_all_news_articles, process_article_progressive
         
@@ -536,6 +538,12 @@ def sebi_content_stream():
         if article_index == 0 or session_id not in _article_cache:
             # First request - fetch all news
             all_articles = get_all_news_articles()
+            
+            # Filter by news type if specified
+            if news_type_filter:
+                all_articles = [a for a in all_articles if a.get('news_type') == news_type_filter]
+                print(f"\n🔍 Filtered to {len(all_articles)} '{news_type_filter}' news articles")
+            
             _article_cache[session_id] = all_articles
             total = len(all_articles)
             print(f"\n🆕 New session {session_id}: {total} articles cached")

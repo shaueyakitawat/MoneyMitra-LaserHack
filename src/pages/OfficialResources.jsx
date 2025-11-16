@@ -78,7 +78,8 @@ const OfficialResources = () => {
             language: language,
             article_index: articleIndex,
             session_id: sessionId,
-            include_ai_analysis: false  // Don't fetch AI by default
+            include_ai_analysis: false,  // Don't fetch AI by default
+            news_type: 'general'  // Filter for general market news only
           })
         });
 
@@ -211,10 +212,10 @@ const OfficialResources = () => {
           {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <h1 style={{ marginBottom: '16px', fontSize: '36px', fontWeight: '700' }}>
-              📰 Latest Financial News & AI Analysis
+              📊 General Market News & Updates
             </h1>
             <p style={{ color: 'var(--textSecondary)', fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
-              Real-time news from BSE, SEBI, RBI, Moneycontrol & Economic Times with AI-powered actionable insights
+              Real-time market updates on NIFTY, SENSEX, sectors, policy changes & economic trends with AI-powered analysis
             </p>
             <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
               <span style={{ background: 'var(--primaryCobalt)', color: 'white', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: '600' }}>

@@ -1029,47 +1029,183 @@ const RiskAssessment = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Card style={{ 
-                  marginBottom: '24px',
-                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
-                  border: '2px solid rgba(102, 126, 234, 0.2)'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                <div style={{ marginBottom: '24px' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '24px' }}>
                     <div style={{
-                      width: '48px',
-                      height: '48px',
+                      width: '64px',
+                      height: '64px',
                       borderRadius: '50%',
                       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
+                      margin: '0 auto 16px',
+                      boxShadow: '0 8px 24px rgba(102, 126, 234, 0.3)'
                     }}>
-                      <Sparkles size={24} color="white" />
+                      <Sparkles size={32} color="white" />
                     </div>
-                    <div>
-                      <h3 style={{ margin: 0, fontSize: '22px' }}>AI-Powered Investment Insights</h3>
-                      <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: 'var(--textSecondary)' }}>
-                        Personalized for your ₹{corpus.toLocaleString('en-IN')} corpus
-                      </p>
-                    </div>
+                    <h2 style={{ margin: '0 0 8px 0', fontSize: '28px', fontWeight: '700' }}>
+                      AI-Powered Investment Insights
+                    </h2>
+                    <p style={{ margin: 0, fontSize: '16px', color: 'var(--textSecondary)' }}>
+                      Personalized strategy for your ₹{corpus.toLocaleString('en-IN')} corpus
+                    </p>
                   </div>
-                  
-                  <div style={{ 
-                    background: 'white', 
-                    padding: '24px', 
+
+                  {(() => {
+                    // Parse AI insights into sections
+                    const insights = aiInsights.raw_insights;
+                    const sections = [];
+                    
+                    // Split by numbered sections or headers
+                    const lines = insights.split('\n');
+                    let currentSection = { title: '', content: [] };
+                    
+                    lines.forEach((line) => {
+                      const trimmed = line.trim();
+                      
+                      // Detect section headers (lines with ** or numbered like 1., 2., etc.)
+                      if (trimmed.match(/^\*\*.*\*\*$/) || trimmed.match(/^\d+\.\s+\*\*/)) {
+                        if (currentSection.content.length > 0) {
+                          sections.push({ ...currentSection });
+                        }
+                        currentSection = {
+                          title: trimmed.replace(/\*\*/g, '').replace(/^\d+\.\s+/, '').trim(),
+                          content: []
+                        };
+                      } else if (trimmed.length > 0) {
+                        currentSection.content.push(trimmed);
+                      }
+                    });
+                    
+                    if (currentSection.content.length > 0) {
+                      sections.push(currentSection);
+                    }
+
+                    // If no sections detected, treat as single block
+                    if (sections.length === 0) {
+                      sections.push({ title: 'Investment Strategy', content: insights.split('\n').filter(l => l.trim()) });
+                    }
+
+                    return (
+                      <div style={{ display: 'grid', gap: '16px' }}>
+                        {sections.map((section, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          >
+                            <Card style={{
+                              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%)',
+                              border: '2px solid rgba(102, 126, 234, 0.15)',
+                              borderLeft: '6px solid #667eea',
+                              transition: 'all 0.3s',
+                              cursor: 'default'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'translateY(-4px)';
+                              e.currentTarget.style.boxShadow = '0 12px 24px rgba(102, 126, 234, 0.15)';
+                              e.currentTarget.style.borderLeftColor = '#764ba2';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'translateY(0)';
+                              e.currentTarget.style.boxShadow = 'none';
+                              e.currentTarget.style.borderLeftColor = '#667eea';
+                            }}>
+                              {section.title && (
+                                <div style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '12px',
+                                  marginBottom: '16px',
+                                  paddingBottom: '12px',
+                                  borderBottom: '2px solid rgba(102, 126, 234, 0.1)'
+                                }}>
+                                  <div style={{
+                                    width: '36px',
+                                    height: '36px',
+                                    borderRadius: '8px',
+                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'white',
+                                    fontWeight: '700',
+                                    fontSize: '18px'
+                                  }}>
+                                    {idx + 1}
+                                  </div>
+                                  <h3 style={{
+                                    margin: 0,
+                                    fontSize: '20px',
+                                    fontWeight: '700',
+                                    color: 'var(--textPrimary)',
+                                    flex: 1
+                                  }}>
+                                    {section.title}
+                                  </h3>
+                                </div>
+                              )}
+                              
+                              <div style={{
+                                fontSize: '15px',
+                                lineHeight: '1.8',
+                                color: 'var(--textPrimary)'
+                              }}>
+                                {section.content.map((text, textIdx) => {
+                                  // Check if it's a bullet point
+                                  if (text.startsWith('•') || text.startsWith('-') || text.startsWith('*')) {
+                                    return (
+                                      <div key={textIdx} style={{
+                                        display: 'flex',
+                                        gap: '12px',
+                                        marginBottom: '10px',
+                                        paddingLeft: '8px'
+                                      }}>
+                                        <span style={{ color: '#667eea', fontWeight: '700', fontSize: '18px' }}>•</span>
+                                        <span style={{ flex: 1 }}>{text.replace(/^[•\-\*]\s*/, '')}</span>
+                                      </div>
+                                    );
+                                  }
+                                  
+                                  // Regular paragraph
+                                  return (
+                                    <p key={textIdx} style={{
+                                      margin: '0 0 12px 0',
+                                      lineHeight: '1.8'
+                                    }}>
+                                      {text}
+                                    </p>
+                                  );
+                                })}
+                              </div>
+                            </Card>
+                          </motion.div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+
+                  <div style={{
+                    marginTop: '24px',
+                    padding: '16px 24px',
+                    background: 'rgba(102, 126, 234, 0.08)',
                     borderRadius: '12px',
-                    whiteSpace: 'pre-wrap',
-                    lineHeight: '1.8',
-                    fontSize: '15px',
-                    border: '1px solid var(--border)'
+                    border: '2px dashed rgba(102, 126, 234, 0.3)',
+                    textAlign: 'center'
                   }}>
-                    {aiInsights.raw_insights}
+                    <p style={{
+                      margin: 0,
+                      fontSize: '14px',
+                      color: 'var(--textSecondary)',
+                      lineHeight: '1.6'
+                    }}>
+                      <strong style={{ color: 'var(--textPrimary)' }}>⚠️ Disclaimer:</strong> These insights are AI-generated recommendations based on your risk profile. 
+                      Please consult a certified financial advisor (CFP/RIA) before making any investment decisions.
+                    </p>
                   </div>
-                  
-                  <div style={{ marginTop: '16px', fontSize: '12px', color: 'var(--textSecondary)', textAlign: 'center' }}>
-                    💡 These insights are AI-generated. Please consult a certified financial advisor before making investment decisions.
-                  </div>
-                </Card>
+                </div>
               </motion.div>
             )}
 
