@@ -1,0 +1,357 @@
+{
+  "id": "module-9-taxation-regulations",
+  "title": "Taxation & Investment Regulations",
+  "difficulty": "intermediate",
+  "duration": "3-4 hours",
+  "description": "Master taxation on investments, understand regulatory framework, learn tax-saving strategies, and ensure compliance.",
+  "objectives": [
+    "Understand LTCG and STCG taxation on different asset classes",
+    "Learn tax-saving investment options (80C, 80D, etc.)",
+    "Master tax-loss harvesting and optimization strategies",
+    "Understand SEBI regulations and investor protection",
+    "Learn KYC, PAN requirements, and compliance essentials"
+  ],
+  "prerequisites": ["module-1-basics", "module-5-mutual-funds-etfs"],
+  "icon": "📋",
+  "lessons": [
+    {
+      "id": "lesson-9-1",
+      "title": "Capital Gains Tax on Investments",
+      "videoTopic": "LTCG, STCG, and Tax Rates Explained",
+      "videoId": "PLACEHOLDER",
+      "duration": "24 min",
+      "content": {
+        "original": "Capital gains = Profit from selling capital assets. STCG (Short-Term Capital Gains) = Holding period <12 months (equity), <36 months (debt). LTCG (Long-Term Capital Gains) = Beyond these periods. Equity STCG: 20% tax. Equity LTCG: 12.5% tax on gains above ₹1.25 lakh/year. Debt STCG: Added to income, taxed at slab rate. Debt LTCG: 12.5% without indexation. Listed bonds/debentures now treated like debt funds. Cost of acquisition, brokerage, STT included in cost base. Advance tax applicable if tax liability >₹10,000. Maintain records of all transactions for ITR filing.",
+        "simplified": "When you sell investments and make profit, you pay tax. Two types: Short-term (held <1 year for stocks) = 20% tax. Long-term (held >1 year for stocks) = 12.5% tax, but first ₹1.25 lakh profit every year is tax-free. Example: You invest ₹1L in stock, sell after 2 years for ₹3L. Profit = ₹2L. First ₹1.25L tax-free, remaining ₹0.75L taxed at 12.5% = ₹9,375 tax. If you sold in 10 months (short-term), entire ₹2L taxed at 20% = ₹40,000 tax. Big difference! Lesson: Hold >1 year when possible. For debt mutual funds, different rules apply - usually added to your income.",
+        "hindi": "जब आप investments बेचकर profit कमाते हैं, तो tax देना होता है। दो types: Short-term (stocks के लिए <1 साल रखा) = 20% tax। Long-term (stocks के लिए >1 साल रखा) = 12.5% tax, लेकिन हर साल पहले ₹1.25 लाख profit tax-free। Example: आपने ₹1L stock में invest किया, 2 साल बाद ₹3L में बेचा। Profit = ₹2L। पहले ₹1.25L tax-free, बाकी ₹0.75L पर 12.5% tax = ₹9,375। अगर 10 महीने में बेचा (short-term), तो पूरे ₹2L पर 20% tax = ₹40,000। बड़ा difference! Lesson: जब possible हो >1 साल hold करें।"
+      },
+      "aiSummary": "Capital gains tax: Equity STCG (<1yr) = 20%, LTCG (>1yr) = 12.5% above ₹1.25L exemption. Debt STCG = Slab rate, LTCG = 12.5% without indexation. Holding period crucial for tax efficiency.",
+      "keyTakeaways": [
+        "₹1.25 lakh equity LTCG exemption per year (use strategically)",
+        "Holding >1 year reduces tax from 20% to 12.5% (equity)",
+        "STT (Securities Transaction Tax) paid automatically during trades",
+        "Keep transaction statements for ITR filing proof"
+      ],
+      "commonMistakes": [
+        "Selling winners before 1 year (unnecessary high tax)",
+        "Not utilizing ₹1.25L exemption annually (sell some holdings strategically)",
+        "Not maintaining purchase records (can't prove cost basis)",
+        "Forgetting to include dividend income in ITR (taxable at slab rate)"
+      ]
+    },
+    {
+      "id": "lesson-9-2",
+      "title": "Tax-Saving Investment Options",
+      "videoTopic": "Section 80C, 80D, NPS, ELSS Explained",
+      "videoId": "PLACEHOLDER",
+      "duration": "22 min",
+      "content": {
+        "original": "Section 80C: ₹1.5 lakh deduction. Options: PPF (7.1%, 15yr lock-in, tax-free returns), ELSS mutual funds (equity exposure, 3yr lock-in, market-linked), EPF (employer contribution), NSC, Tax-saver FD, Life insurance premium, Home loan principal, Sukanya Samriddhi (for girl child). Section 80D: ₹25,000 for health insurance (₹50,000 if senior citizen), additional ₹25,000 for parents. NPS (National Pension System): Additional ₹50,000 deduction under 80CCD(1B). New tax regime: No deductions available, lower rates. Choose regime based on deductions available. Old regime beneficial if deductions >₹2.5L.",
+        "simplified": "Government gives tax benefits for certain investments: Section 80C (₹1.5L limit): Best options - (1) ELSS funds: 3-year lock-in, equity returns, better than FD. (2) PPF: Safe, 7% return, 15-year lock-in, completely tax-free. (3) EPF: Auto-deducted from salary. Section 80D: Health insurance premium - save ₹25,000 for yourself, ₹25,000 for parents. Tax saved = ₹15,000-20,000 depending on slab. NPS: Extra ₹50,000 deduction (above 80C limit). Important: New tax regime gives NO deductions but lower rates. Calculate which regime better for you. If you have home loan, medical insurance, investments - old regime usually better.",
+        "hindi": "सरकार कुछ investments पर tax benefits देती है: Section 80C (₹1.5L limit): Best options - (1) ELSS funds: 3-साल lock-in, equity returns, FD से बेहतर। (2) PPF: Safe, 7% return, 15-साल lock-in, पूरी तरह tax-free। (3) EPF: Salary से auto-deduct। Section 80D: Health insurance premium - ₹25,000 अपने लिए, ₹25,000 parents के लिए save करें। Tax saved = ₹15,000-20,000 slab के हिसाब से। NPS: Extra ₹50,000 deduction (80C limit के ऊपर)। Important: New tax regime में कोई deductions नहीं लेकिन lower rates। Calculate करें कौन सा regime बेहतर। अगर home loan, medical insurance, investments हैं - तो old regime usually बेहतर।"
+      },
+      "aiSummary": "Tax-saving: Section 80C (₹1.5L - PPF, ELSS, EPF, insurance), 80D (₹25K health insurance, ₹50K if senior), 80CCD(1B) (₹50K NPS). Old regime = deductions, New regime = lower rates, no deductions. Choose wisely.",
+      "keyTakeaways": [
+        "ELSS has shortest lock-in (3yr) among 80C options, equity exposure",
+        "PPF is safest 80C option, completely tax-free (EEE status)",
+        "Health insurance deduction separate from 80C (stack benefits)",
+        "NPS gives additional ₹50K deduction beyond 80C limit"
+      ],
+      "commonMistakes": [
+        "Buying insurance just for tax saving (insurance need and tax separate)",
+        "Choosing tax-saver FD over ELSS (lower returns, same lock-in)",
+        "Not opting for new regime when beneficial (no deductions available)",
+        "Last-minute 80C investment in March (poor planning)"
+      ]
+    },
+    {
+      "id": "lesson-9-3",
+      "title": "Tax-Loss Harvesting & Optimization",
+      "videoTopic": "Strategies to Minimize Tax Liability",
+      "videoId": "PLACEHOLDER",
+      "duration": "20 min",
+      "content": {
+        "original": "Tax-loss harvesting = Selling losing positions to offset gains and reduce tax liability. LTCG losses can offset LTCG gains, STCG losses offset both LTCG and STCG. Strategy: Sell losers in year with big gains to neutralize tax. Can buyback same stock immediately (no wash-sale rule in India). Use ₹1.25L LTCG exemption optimally - book gains annually to use exemption. Dividend income taxable at slab rate - consider growth option over dividend option in MFs. Gift to spouse/children to utilize their lower tax bracket (clubbing provisions apply for minors). Offset gains across asset classes strategically. Maintain detailed records. Tax filing by 31st July mandatory for capital gains.",
+        "simplified": "Tax-loss harvesting = Smart way to reduce tax. Example: You made ₹3L profit on Stock A (will pay tax). Stock B is showing ₹1L loss (on paper). Sell Stock B before March 31 - your taxable profit becomes ₹2L instead of ₹3L. You can buyback Stock B immediately next day if you still like it (allowed in India). Another trick: Every year, book some profits to use ₹1.25L tax-free limit. If you don't sell anything, you waste this exemption. Example: Stocks worth ₹10L grown to ₹12L. Sell ₹1.25L profit worth stocks before March, buy back immediately. Now your cost base increased (saves future tax). Smart investors do this annually. Also: Mutual funds - choose Growth option, not Dividend (dividends taxed every year, growth taxed only when you sell).",
+        "hindi": "Tax-loss harvesting = Tax कम करने का smart तरीका। Example: आपने Stock A पर ₹3L profit किया (tax देना होगा)। Stock B पर ₹1L loss दिख रहा है (on paper)। March 31 से पहले Stock B बेच दें - आपका taxable profit ₹2L हो जाता है ₹3L की जगह। आप Stock B को अगले दिन तुरंत वापस खरीद सकते हैं अगर still पसंद है (India में allowed)। दूसरी trick: हर साल, कुछ profits book करें ₹1.25L tax-free limit use करने के लिए। अगर कुछ नहीं बेचते, तो यह exemption waste होता है। Smart निवेशक यह हर साल करते हैं। Also: Mutual funds - Growth option चुनें, Dividend नहीं (dividends हर साल taxed, growth सिर्फ जब sell करें)।"
+      },
+      "aiSummary": "Tax-loss harvesting = Offset gains with losses to reduce tax. STCG losses offset both types, LTCG losses offset LTCG only. Use ₹1.25L exemption annually. No wash-sale rule (can buyback immediately). Growth > Dividend option in MFs. File ITR by July 31.",
+      "keyTakeaways": [
+        "Harvest losses before March 31 to offset gains in same financial year",
+        "Can repurchase sold stocks immediately (no waiting period)",
+        "Book ₹1.25L LTCG annually to avoid wasting exemption",
+        "Growth option in MFs more tax-efficient than dividend option"
+      ],
+      "commonMistakes": [
+        "Not harvesting losses (paying unnecessary tax)",
+        "Wasting ₹1.25L annual exemption by not booking any gains",
+        "Choosing dividend option (unnecessary tax every year)",
+        "Not planning tax moves before financial year end (March 31)"
+      ]
+    },
+    {
+      "id": "lesson-9-4",
+      "title": "SEBI Regulations & Investor Protection",
+      "videoTopic": "Understanding Regulatory Framework",
+      "videoId": "PLACEHOLDER",
+      "duration": "21 min",
+      "content": {
+        "original": "SEBI (Securities and Exchange Board of India) = Market regulator. Functions: (1) Protect investor interests, (2) Regulate intermediaries (brokers, advisors), (3) Prevent market manipulation and insider trading. Key regulations: Broker must be SEBI-registered. Investment advisors need RIA (Registered Investment Advisor) license. SEBI SCORES platform for investor complaints. Insider trading = Trading on unpublished price-sensitive information (criminal offense, ₹25Cr fine + jail). Front-running illegal. Pump-and-dump schemes prohibited. Circuit breakers halt trading during extreme volatility. Investor Grievance Redressal: SCORES → Exchange → Ombudsman → SAT (Securities Appellate Tribunal). Check SEBI registration before trusting anyone.",
+        "simplified": "SEBI = Stock market police. Protects you from frauds and ensures fair trading. Key points: (1) Only use SEBI-registered brokers (Zerodha, Groww, etc. are registered). Check on SEBI website before opening account. (2) If someone gives paid investment advice, they MUST have RIA license. Many telegram/YouTube channels illegal. (3) Got cheated? File complaint on SEBI SCORES website (sebi.gov.in/scores). SEBI will investigate and help recover money. (4) Insider trading = Buying stocks because you know company news before public (like CEO buying before good results announcement). This is crime - 10 year jail possible. (5) If someone promises guaranteed returns or asks you to invest in 'sure-shot' tips - report to SEBI. Remember: If it sounds too good to be true, it is.",
+        "hindi": "SEBI = Stock market की पुलिस। आपको frauds से protect करता है और fair trading सुनिश्चित करता है। मुख्य points: (1) सिर्फ SEBI-registered brokers use करें (Zerodha, Groww, आदि registered हैं)। Account खोलने से पहले SEBI website पर check करें। (2) अगर कोई paid investment advice देता है, तो उनके पास RIA license होना चाहिए। कई telegram/YouTube channels illegal हैं। (3) Cheat हो गए? SEBI SCORES website (sebi.gov.in/scores) पर complaint file करें। SEBI investigate करेगा और पैसे recover करने में help करेगा। (4) Insider trading = Company news public होने से पहले stocks खरीदना। यह crime है - 10 साल jail possible। (5) अगर कोई guaranteed returns promise करे या 'sure-shot' tips में invest करने को कहे - SEBI को report करें।"
+      },
+      "aiSummary": "SEBI = Market regulator. Protects investors, regulates intermediaries, prevents manipulation. Check SEBI registration of brokers/advisors. SCORES for complaints. Insider trading = Criminal offense. Circuit breakers for volatility. Investor grievance redressal available.",
+      "keyTakeaways": [
+        "Always verify SEBI registration of broker/advisor before trusting",
+        "SCORES platform is free and effective for investor complaints",
+        "Insider trading carries severe penalties (₹25Cr + jail)",
+        "Circuit breakers protect market during extreme movements"
+      ],
+      "commonMistakes": [
+        "Using unregistered brokers (money safety risk)",
+        "Following unlicensed advisors on social media",
+        "Not filing complaints when cheated (letting fraudsters continue)",
+        "Sharing trading tips based on company insider knowledge (crime)"
+      ]
+    },
+    {
+      "id": "lesson-9-5",
+      "title": "KYC, PAN, and Compliance Essentials",
+      "videoTopic": "Documentation and Regulatory Compliance",
+      "videoId": "PLACEHOLDER",
+      "duration": "18 min",
+      "content": {
+        "original": "KYC (Know Your Customer) = Mandatory for all financial transactions. Types: (1) Aadhaar-based e-KYC (instant, paperless), (2) In-person verification (IPV). Documents needed: PAN card (mandatory for investments), Aadhaar, Address proof, Bank details, Photo. PAN mandatory for: Stock trading, MF investments above ₹50,000, opening demat account. Linking Aadhaar with PAN mandatory (penalty if not done). One KYC valid across all segments (mutual funds, stocks, insurance). FATCA declaration for foreign tax residency. Nominee addition important for succession. Annual ITR filing mandatory if: Total income >₹2.5L, Capital gains from investments, Foreign assets. Advance tax payment required if tax liability >₹10,000. TDS on interest, dividends auto-deducted. Form 26AS shows all tax deductions - verify before filing ITR.",
+        "simplified": "Documents and rules you must know: (1) PAN card: Must have for investing. Links all your investments. Without PAN, can't buy stocks or mutual funds. (2) Aadhaar: Link with PAN (deadline extended multiple times but do it now). (3) KYC: One-time process using PAN + Aadhaar. Do e-KYC online in 10 minutes. Once done, valid everywhere (Zerodha, Groww, all MF companies). (4) Must file Income Tax Return (ITR) if: Your income >₹2.5L/year OR you sold any investment and made profit (even ₹1). Don't skip - penalty ₹5,000. (5) Add nominee: If something happens to you, nominee gets your investments. Without nominee, family faces problems. (6) Form 26AS: Shows all taxes deducted from your salary, interest, dividends. Download from IT portal before filing ITR (ensures you get credit for all TDS).",
+        "hindi": "Documents और rules जो आपको पता होने चाहिए: (1) PAN card: Invest करने के लिए must have। आपके सभी investments को link करता है। PAN के बिना, stocks या mutual funds नहीं खरीद सकते। (2) Aadhaar: PAN से link करें (deadline कई बार extend हुई लेकिन अभी कर लें)। (3) KYC: One-time process PAN + Aadhaar use करके। 10 मिनट में online e-KYC करें। एक बार हो गया, तो everywhere valid (Zerodha, Groww, सभी MF companies)। (4) Income Tax Return (ITR) file करना must अगर: आपकी income >₹2.5L/साल OR आपने कोई investment बेचकर profit कमाया (₹1 भी)। Skip मत करें - penalty ₹5,000। (5) Nominee add करें: अगर आपको कुछ हो जाए, तो nominee को investments मिलते हैं। Nominee के बिना, family को problems।"
+      },
+      "aiSummary": "Compliance essentials: KYC mandatory (PAN + Aadhaar + address), Link Aadhaar-PAN (penalty if not), One KYC for all segments, Nominee addition important, ITR filing mandatory if income >₹2.5L or capital gains, Form 26AS verification before filing.",
+      "keyTakeaways": [
+        "PAN is foundation - needed for all investments",
+        "Aadhaar-PAN linking mandatory (hefty penalty for non-compliance)",
+        "e-KYC takes 10 minutes, valid for all financial products",
+        "Adding nominee prevents legal hassles for family"
+      ],
+      "commonMistakes": [
+        "Not linking Aadhaar with PAN (PAN becomes inoperative)",
+        "Not adding nominee in demat/MF accounts",
+        "Not filing ITR despite capital gains (notices and penalties)",
+        "Not verifying Form 26AS before ITR (miss TDS credit)"
+      ]
+    }
+  ],
+  "preQuiz": [
+    {
+      "id": "pre-q1",
+      "question": "Equity LTCG holding period is:",
+      "options": [">6 months", ">1 year", ">2 years", ">3 years"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q2",
+      "question": "Equity LTCG tax rate above ₹1.25L exemption:",
+      "options": ["10%", "12.5%", "15%", "20%"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q3",
+      "question": "Section 80C deduction limit:",
+      "options": ["₹1 lakh", "₹1.5 lakh", "₹2 lakh", "₹2.5 lakh"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q4",
+      "question": "ELSS lock-in period:",
+      "options": ["1 year", "3 years", "5 years", "15 years"],
+      "correct": 1
+    },
+    {
+      "id": "pre-q5",
+      "question": "SEBI stands for:",
+      "options": [
+        "Securities Exchange Board of India",
+        "Securities and Exchange Board of India",
+        "Stock Exchange Board of India",
+        "Stock and Exchange Board of India"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q6",
+      "question": "PAN card is mandatory for:",
+      "options": [
+        "All investments",
+        "Investments above ₹50,000",
+        "Only stock trading",
+        "Not mandatory"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "pre-q7",
+      "question": "Tax-loss harvesting involves:",
+      "options": [
+        "Avoiding taxes completely",
+        "Selling losers to offset gains",
+        "Hiding losses",
+        "Not paying taxes"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q8",
+      "question": "Insider trading is:",
+      "options": [
+        "Legal strategy",
+        "Criminal offense",
+        "Tax saving method",
+        "Investment technique"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "pre-q9",
+      "question": "ITR filing deadline:",
+      "options": ["31st March", "30th June", "31st July", "31st December"],
+      "correct": 2
+    },
+    {
+      "id": "pre-q10",
+      "question": "Health insurance deduction under:",
+      "options": ["Section 80C", "Section 80D", "Section 80E", "Section 80G"],
+      "correct": 1
+    }
+  ],
+  "postQuiz": [
+    {
+      "id": "post-q1",
+      "question": "Bought stock for ₹1L, sold after 15 months for ₹2L. LTCG tax:",
+      "options": [
+        "Zero (within ₹1.25L exemption)",
+        "₹9,375 (₹75K × 12.5%)",
+        "₹12,500 (₹1L × 12.5%)",
+        "₹20,000 (₹1L × 20%)"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "post-q2",
+      "question": "You're in 30% tax bracket. ₹1.5L invested in PPF saves tax:",
+      "options": ["₹15,000", "₹30,000", "₹45,000", "₹50,000"],
+      "correct": 2
+    },
+    {
+      "id": "post-q3",
+      "question": "Stock A: ₹2L gain. Stock B: ₹80K loss. Both LTCG. Taxable gain:",
+      "options": ["₹2L", "₹1.2L", "Zero (₹1.2L < ₹1.25L)", "₹80K"],
+      "correct": 2
+    },
+    {
+      "id": "post-q4",
+      "question": "Which 80C option has shortest lock-in?",
+      "options": ["PPF (15yr)", "ELSS (3yr)", "NSC (5yr)", "Tax-saver FD (5yr)"],
+      "correct": 1
+    },
+    {
+      "id": "post-q5",
+      "question": "NPS deduction under 80CCD(1B) is:",
+      "options": [
+        "Within 80C limit",
+        "Additional ₹50K above 80C",
+        "₹1.5L",
+        "No deduction"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q6",
+      "question": "Selling losing stock and buying back next day in India:",
+      "options": [
+        "Not allowed (wash-sale rule)",
+        "Allowed (no wash-sale rule)",
+        "Allowed after 30 days",
+        "Illegal"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q7",
+      "question": "SEBI complaint platform name:",
+      "options": ["SCORES", "GRADES", "MARKS", "POINTS"],
+      "correct": 0
+    },
+    {
+      "id": "post-q8",
+      "question": "Insider trading maximum penalty:",
+      "options": ["₹1 Cr", "₹10 Cr", "₹25 Cr + jail", "₹5 Cr"],
+      "correct": 2
+    },
+    {
+      "id": "post-q9",
+      "question": "Not linking Aadhaar with PAN results in:",
+      "options": [
+        "₹1,000 fine",
+        "PAN becomes inoperative",
+        "No consequence",
+        "₹10,000 fine"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q10",
+      "question": "Form 26AS shows:",
+      "options": [
+        "Your investments",
+        "Tax deducted on your behalf (TDS)",
+        "Stock prices",
+        "Mutual fund NAV"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "post-q11",
+      "question": "New tax regime vs old regime:",
+      "options": [
+        "New has deductions",
+        "Old has lower rates",
+        "New has lower rates, no deductions",
+        "Both identical"
+      ],
+      "correct": 2
+    },
+    {
+      "id": "post-q12",
+      "question": "Best tax-efficient MF option:",
+      "options": [
+        "Dividend (regular income)",
+        "Growth (tax only on redemption)",
+        "Both equal",
+        "Bonus"
+      ],
+      "correct": 1
+    }
+  ],
+  "documentation": {
+    "title": "Taxation & Regulations Comprehensive Guide",
+    "summary": "Complete guide to capital gains taxation, tax-saving investments (80C, 80D, NPS), tax-loss harvesting strategies, SEBI regulations, investor protection mechanisms, and compliance essentials including KYC, PAN, and ITR filing.",
+    "sections": [
+      "Capital Gains Tax: LTCG vs STCG Across Asset Classes",
+      "Equity Taxation: Holding Period and Tax Rates",
+      "Debt Mutual Funds and Bond Taxation",
+      "Section 80C: PPF, ELSS, EPF, NSC Comparison",
+      "Section 80D: Health Insurance Tax Benefits",
+      "NPS and Additional Deductions (80CCD)",
+      "Old vs New Tax Regime: Which to Choose",
+      "Tax-Loss Harvesting: Strategies and Timing",
+      "Utilizing ₹1.25L Annual LTCG Exemption",
+      "SEBI Regulations and Investor Protection",
+      "SCORES Platform: Filing Complaints",
+      "Insider Trading: Definition and Penalties",
+      "KYC Process: Documents and Procedures",
+      "PAN-Aadhaar Linking: Requirements and Penalties",
+      "ITR Filing: Deadlines and Mandatory Scenarios",
+      "Form 26AS: Verification and Importance",
+      "Nominee Addition: Process and Benefits"
+    ]
+  }
+}
