@@ -7,6 +7,10 @@ from risk_assessment import (
     suggest_asset_allocation, get_risk_profiles, calculate_corpus_investment_plan
 )
 from algo_backtest import backtest_strategy, get_indian_stocks
+from market_data import (
+    get_market_overview, get_historical_data, get_intraday_data,
+    get_stock_info, INDIAN_INDICES
+)
 
 app = Flask(__name__)
 
@@ -33,12 +37,23 @@ def get_response():
         query = data.get('query')
         
         if not query:
-            return jsonify({"error": "Query is required"}), 400
-            
-        response = get_agent_response(query)
-        return jsonify({"response": response})
+            response = jsonify({"error": "Query is required"})
+            response.headers.add("Access-Control-Allow-Origin", "*")
+            return response, 400
+        
+        print(f"Received query: {query[:100]}...")  # Debug log
+        response_text = get_agent_response(query)
+        print(f"Response generated successfully")  # Debug log
+        response = jsonify({"response": response_text})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        print(f"Error in get_response: {str(e)}")  # Debug log
+        import traceback
+        traceback.print_exc()
+        response = jsonify({"error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
 
 @app.route('/financial_report', methods=['POST'])
 def financial_report():
@@ -1085,6 +1100,84 @@ def algo_backtest():
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response, 500
 
+
+@app.route('/market_overview', methods=['GET'])
+def market_overview():
+    """Get complete market overview - indices, gainers, losers"""
+    try:
+        data = get_market_overview()
+        response = jsonify(data)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        response = jsonify({'success': False, 'error': str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+
+@app.route('/market_historical/<ticker>', methods=['GET'])
+def market_historical(ticker):
+    """Get historical data for a specific ticker"""
+    try:
+        period = request.args.get('period', '1mo')
+        interval = request.args.get('interval', '1d')
+        
+        # If it's an index name, convert to ticker
+        if ticker in INDIAN_INDICES:
+            ticker = INDIAN_INDICES[ticker]
+        
+        data = get_historical_data(ticker, period, interval)
+        response = jsonify({
+            'success': True,
+            'ticker': ticker,
+            'period': period,
+            'interval': interval,
+            'data': data
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        response = jsonify({'success': False, 'error': str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+
+@app.route('/market_intraday/<ticker>', methods=['GET'])
+def market_intraday(ticker):
+    """Get intraday data (5-min intervals) for a specific ticker"""
+    try:
+        # If it's an index name, convert to ticker
+        if ticker in INDIAN_INDICES:
+            ticker = INDIAN_INDICES[ticker]
+        
+        data = get_intraday_data(ticker)
+        response = jsonify({
+            'success': True,
+            'ticker': ticker,
+            'data': data
+        })
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        response = jsonify({'success': False, 'error': str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+
+@app.route('/stock_info/<ticker>', methods=['GET'])
+def stock_info_endpoint(ticker):
+    """Get detailed information about a specific stock"""
+    try:
+        data = get_stock_info(ticker)
+        response = jsonify(data)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        response = jsonify({'success': False, 'error': str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 500
+
+
 if __name__ == "__main__":
     print("🚀 Starting JainVest Financial Analysis API...")
     print("🌐 Server will be available at: http://localhost:5001")
@@ -1102,4 +1195,8 @@ if __name__ == "__main__":
     print("  - POST /calculate_risk_profile (Calculate investor risk profile)")
     print("  - POST /analyze_portfolio_risk (Portfolio risk analysis)")
     print("  - GET  /risk_profiles (Risk profile definitions)")
+    print("  - GET  /market_overview (Real-time market data)")
+    print("  - GET  /market_historical/<ticker> (Historical OHLC data)")
+    print("  - GET  /market_intraday/<ticker> (Intraday 5-min data)")
+    print("  - GET  /stock_info/<ticker> (Detailed stock information)")
     app.run(debug=True, host='0.0.0.0', port=5001)
