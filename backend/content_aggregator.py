@@ -1,6 +1,7 @@
 """
-SEBI/NISM/NSE Content Aggregator and Summarizer
-Scrapes official content, summarizes using AI, and translates to vernacular languages
+Financial News Aggregator and AI Analyzer
+Scrapes latest Indian stock market news from trusted sources
+Provides AI-powered actionable insights (Buy/Sell/Hold recommendations)
 """
 
 import requests
@@ -8,39 +9,49 @@ from bs4 import BeautifulSoup
 from deep_translator import GoogleTranslator
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, List, Any
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
+import feedparser
+import re
 
 load_dotenv()
 
-# Initialize Groq LLM for summarization
+# Initialize Groq LLM for analysis
 groq_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.3)
 
-# Official sources
+# Trusted Indian Financial News Sources focused on STOCK MARKET NEWS
 OFFICIAL_SOURCES = {
-    "sebi": {
-        "name": "SEBI Investor Awareness",
-        "urls": [
-            "https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=4&ssid=41&smid=0",
-            "https://investor.sebi.gov.in/"
-        ],
-        "category": "Regulatory"
+    "bse": {
+        "name": "BSE India",
+        "rss_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/rssfeed_news.xml",
+        "category": "Market News"
     },
-    "nism": {
-        "name": "NISM Financial Education",
-        "urls": [
-            "https://www.nism.ac.in/",
-        ],
-        "category": "Education"
+    "moneycontrol_stocks": {
+        "name": "Moneycontrol Stocks",
+        "rss_url": "https://www.moneycontrol.com/rss/marketoutlook.xml",
+        "category": "Stock Analysis"
     },
-    "nse": {
-        "name": "NSE Investor Education",
-        "urls": [
-            "https://www.nseindia.com/education/content/ig_homepage.htm"
-        ],
-        "category": "Market"
+    "moneycontrol_market": {
+        "name": "Moneycontrol Markets",
+        "rss_url": "https://www.moneycontrol.com/rss/business.xml",
+        "category": "Market News"
+    },
+    "economic_times_stocks": {
+        "name": "ET Stocks",
+        "rss_url": "https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms",
+        "category": "Stock News"
+    },
+    "livemint": {
+        "name": "Mint Market",
+        "rss_url": "https://www.livemint.com/rss/markets",
+        "category": "Market Updates"
+    },
+    "business_standard": {
+        "name": "Business Standard Markets",
+        "rss_url": "https://www.business-standard.com/rss/markets-106.rss",
+        "category": "Market Analysis"
     }
 }
 
@@ -57,47 +68,97 @@ LANGUAGES = {
 }
 
 
+def scrape_rss_feed(rss_url: str, source_name: str, max_articles: int = 10) -> List[Dict[str, Any]]:
+    """
+    Scrape content from RSS feeds (most reliable for news)
+    """
+    try:
+        feed = feedparser.parse(rss_url)
+        articles = []
+        
+        for entry in feed.entries[:max_articles]:
+            title = entry.get('title', 'No Title')
+            
+            # Get description/summary
+            description = entry.get('description', entry.get('summary', ''))
+            # Clean HTML tags from description
+            description = re.sub(r'<[^>]+>', '', description)
+            
+            # Get link
+            link = entry.get('link', rss_url)
+            
+            # Get published date - FIX: Handle timezone-aware datetimes
+            published = entry.get('published', entry.get('updated', ''))
+            if published:
+                try:
+                    from dateutil import parser as date_parser
+                    pub_date = date_parser.parse(published)
+                    # Convert to timezone-naive datetime for comparison
+                    if pub_date.tzinfo is not None:
+                        pub_date = pub_date.replace(tzinfo=None)
+                except:
+                    pub_date = datetime.now()
+            else:
+                pub_date = datetime.now()
+            
+            # Only include articles with substantial content
+            if len(description.strip()) < 50:
+                continue
+            
+            articles.append({
+                "title": title,
+                "content": description[:2000],  # Limit content length
+                "url": link,
+                "source": source_name,
+                "published": pub_date.isoformat(),
+                "is_recent": (datetime.now() - pub_date).days <= 7
+            })
+        
+        return articles
+        
+    except Exception as e:
+        print(f"Error scraping RSS {rss_url}: {str(e)}")
+        return []
+
+
 def scrape_sebi_content(url: str, max_articles: int = 5) -> List[Dict[str, Any]]:
     """
-    Scrape content from SEBI website
+    Scrape content from SEBI website (fallback method)
     """
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, timeout=15)
         response.raise_for_status()
         
         soup = BeautifulSoup(response.content, 'html.parser')
         articles = []
         
-        # Find content sections (this is generic - adjust based on actual SEBI site structure)
-        content_divs = soup.find_all(['div', 'article', 'section'], class_=['content', 'article', 'post'], limit=max_articles)
+        # Try to find press release items or news items
+        news_items = soup.find_all(['tr', 'div'], class_=['tableblue', 'news-item', 'press-release'], limit=max_articles)
         
-        if not content_divs:
-            # Fallback: get all paragraphs
-            paragraphs = soup.find_all('p', limit=20)
-            if paragraphs:
-                content = ' '.join([p.get_text().strip() for p in paragraphs if len(p.get_text().strip()) > 50])
-                articles.append({
-                    "title": "SEBI Guidelines",
-                    "content": content[:1500],  # Limit content length
-                    "url": url,
-                    "source": "SEBI"
-                })
-        else:
-            for div in content_divs:
-                title = div.find(['h1', 'h2', 'h3', 'h4'])
-                content_tags = div.find_all('p')
-                
-                if title and content_tags:
-                    content = ' '.join([p.get_text().strip() for p in content_tags])
-                    if len(content) > 100:  # Only include substantial content
+        if news_items:
+            for item in news_items:
+                # Try to find title and link
+                link_tag = item.find('a')
+                if link_tag:
+                    title = link_tag.get_text().strip()
+                    href = link_tag.get('href', '')
+                    if href and not href.startswith('http'):
+                        href = 'https://www.sebi.gov.in' + href
+                    
+                    # Get any description text
+                    description = ' '.join([p.get_text().strip() for p in item.find_all('p')])
+                    
+                    if title and len(title) > 10:
                         articles.append({
-                            "title": title.get_text().strip(),
-                            "content": content[:1500],
-                            "url": url,
-                            "source": "SEBI"
+                            "title": title,
+                            "content": description[:1500] if description else title,
+                            "url": href if href else url,
+                            "source": "SEBI",
+                            "published": datetime.now().isoformat(),
+                            "is_recent": True
                         })
         
         return articles
@@ -223,23 +284,104 @@ def get_demo_sebi_content() -> List[Dict[str, Any]]:
     ]
 
 
+def get_ai_analysis_and_action(title: str, content: str, retry_count: int = 0) -> Dict[str, Any]:
+    """
+    Get AI-powered analysis with actionable recommendations (Buy/Sell/Hold)
+    Includes retry logic for rate limiting
+    """
+    import time
+    
+    # If too many retries, return None to skip AI analysis
+    if retry_count >= 3:
+        print(f"    ❌ Max retries reached, skipping AI analysis")
+        return None
+    
+    try:
+        prompt = f"""You are an expert stock market analyst for Indian markets (BSE/NSE). Analyze this news and provide ACTIONABLE trading insights:
+
+**IMPORTANT**: 
+- If the news mentions specific company/stock names, ALWAYS list them in "affected_stocks" (use proper NSE ticker format like "RELIANCE", "TCS", "INFY")
+- Identify which sectors are impacted (Banking, IT, Pharma, Auto, FMCG, etc.)
+- Give clear BUY/SELL/HOLD/WATCH recommendation
+- Focus on what retail investors should DO
+
+News Title: {title}
+News Content: {content[:1200]}
+
+Return your analysis in this exact JSON format:
+{{
+    "summary": "Clear 2-3 sentence summary focusing on impact to investors",
+    "sentiment": "Bullish/Bearish/Neutral",
+    "action": "BUY/SELL/HOLD/WATCH",
+    "reasoning": "Why this action? What should investors do?",
+    "affected_sectors": ["sector1", "sector2"],
+    "affected_stocks": ["TICKER1", "TICKER2"],
+    "risk_level": "Low/Medium/High",
+    "time_horizon": "Short-term/Medium-term/Long-term",
+    "key_points": ["Actionable point 1", "Actionable point 2", "Actionable point 3"]
+}}
+
+**Example for stock news**: If news is about Reliance profits, include "RELIANCE" in affected_stocks.
+If no specific stocks mentioned, focus on sector impact."""
+        
+        response = groq_llm.invoke(prompt)
+        
+        # Try to parse JSON from response
+        response_text = response.content.strip()
+        
+        # Extract JSON if wrapped in markdown code blocks
+        if '```json' in response_text:
+            response_text = response_text.split('```json')[1].split('```')[0].strip()
+        elif '```' in response_text:
+            response_text = response_text.split('```')[1].split('```')[0].strip()
+        
+        # Clean control characters that might break JSON parsing
+        response_text = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', response_text)
+        
+        analysis = json.loads(response_text)
+        return analysis
+        
+    except Exception as e:
+        error_msg = str(e)
+        
+        # Handle rate limiting with exponential backoff
+        if "rate_limit" in error_msg.lower() or "429" in error_msg:
+            wait_time = 2 ** retry_count  # 1s, 2s, 4s
+            print(f"    ⏳ Rate limited (attempt {retry_count + 1}), waiting {wait_time}s...")
+            time.sleep(wait_time)
+            return get_ai_analysis_and_action(title, content, retry_count + 1)
+        
+        print(f"    ⚠️ AI Analysis error: {error_msg[:100]}...")
+        # Fallback analysis
+        return {
+            "summary": content[:200] + "...",
+            "sentiment": "Neutral",
+            "action": "WATCH",
+            "reasoning": "Unable to generate detailed analysis",
+            "affected_sectors": [],
+            "affected_stocks": [],
+            "risk_level": "Medium",
+            "time_horizon": "Medium-term",
+            "key_points": ["Monitor for updates"]
+        }
+
+
 def summarize_content(text: str, max_length: int = 100) -> str:
     """
-    Summarize content using Groq LLM
+    Simple summarization (fallback for translation content)
     """
     try:
-        prompt = f"""Create a concise, actionable 2-3 sentence summary of this financial education content for retail investors in India. Focus on the most important takeaways and practical steps. Use simple language and avoid jargon.
+        prompt = f"""Create a concise 2-3 sentence summary for retail investors in India. Use simple language.
 
 Content: {text}
 
-Summary (max {max_length} words):"""
+Summary:"""
         
         response = groq_llm.invoke(prompt)
         return response.content.strip()
         
     except Exception as e:
         print(f"Summarization error: {str(e)}")
-        # Fallback: simple truncation
         words = text.split()
         return ' '.join(words[:max_length]) + "..."
 
@@ -268,58 +410,108 @@ def translate_content(text: str, target_language: str) -> str:
         return text
 
 
-def get_aggregated_content(language: str = "en", include_summary: bool = True) -> Dict[str, Any]:
+def get_aggregated_content(language: str = "en", include_summary: bool = True, include_ai_analysis: bool = True) -> Dict[str, Any]:
     """
-    Main function to get aggregated, summarized, and translated content
+    Main function to get latest financial news with AI-powered actionable insights
     """
     all_content = []
     
-    # Try to scrape live content
-    print("Attempting to fetch live SEBI/NISM content...")
+    # Fetch live news from multiple sources
+    print("🔄 Fetching latest Indian financial news...")
+    
     for source_key, source_info in OFFICIAL_SOURCES.items():
-        for url in source_info["urls"][:1]:  # Limit to first URL per source
-            articles = scrape_sebi_content(url, max_articles=2)
-            for article in articles:
-                article["category"] = source_info["category"]
-                article["verified"] = True
-                all_content.append(article)
+        print(f"  → Scraping {source_info['name']}...")
+        
+        if "rss_url" in source_info:
+            # RSS feed scraping (most reliable)
+            articles = scrape_rss_feed(
+                source_info["rss_url"], 
+                source_info["name"], 
+                max_articles=5
+            )
+        elif "url" in source_info:
+            # Direct website scraping (fallback)
+            articles = scrape_sebi_content(source_info["url"], max_articles=3)
+        else:
+            articles = []
+        
+        for article in articles:
+            article["category"] = source_info["category"]
+            article["verified"] = True
+            all_content.append(article)
     
-    # If scraping failed or returned no content, use demo content
+    # Check if we got real news
     if not all_content:
-        print("Using demo content for presentation...")
-        all_content = get_demo_sebi_content()
+        print("❌ Failed to fetch any news articles")
+        return {
+            "success": False,
+            "error": "Unable to fetch news from any source. Please check your internet connection.",
+            "count": 0,
+            "content": []
+        }
+    else:
+        print(f"✅ Successfully fetched {len(all_content)} news articles")
     
-    # Process each article
+    # Sort by date (most recent first)
+    all_content.sort(key=lambda x: x.get('published', ''), reverse=True)
+    
+    # Process articles - First pass: Get all articles with AI analysis (no translation yet)
     processed_content = []
-    for article in all_content:
+    max_articles = min(10, len(all_content))  # Reduced to 10 to avoid rate limits
+    print(f"\n📊 Phase 1: AI Analysis for {max_articles} articles...")
+    
+    import time
+    for idx, article in enumerate(all_content[:max_articles]):
+        print(f"  🤖 Analyzing article {idx+1}/{max_articles}...")
+        
         processed_article = {
-            "id": f"{article['source'].lower()}_{len(processed_content)}",
+            "id": f"{article['source'].lower().replace(' ', '_')}_{idx}_{int(time.time())}",
             "title": article["title"],
             "content": article["content"],
             "source": article["source"],
             "category": article.get("category", "General"),
             "url": article["url"],
             "verified": article.get("verified", True),
+            "published": article.get("published", datetime.now().isoformat()),
+            "is_recent": article.get("is_recent", True),
             "timestamp": datetime.now().isoformat()
         }
         
-        # Add summary if requested
-        if include_summary:
-            # Use pre-written summary if available, otherwise generate with AI
-            if "summary" in article and article["summary"]:
-                processed_article["summary"] = article["summary"]
-            else:
-                processed_article["summary"] = summarize_content(article["content"])
-        
-        # Translate if not English
-        if language != "en":
-            processed_article["title_translated"] = translate_content(article["title"], language)
-            processed_article["content_translated"] = translate_content(article["content"], language)
-            if include_summary:
-                processed_article["summary_translated"] = translate_content(processed_article["summary"], language)
-            processed_article["language"] = LANGUAGES.get(language, language)
+        # Add AI-powered analysis and action for ALL articles
+        if include_ai_analysis:
+            try:
+                ai_analysis = get_ai_analysis_and_action(article["title"], article["content"])
+                processed_article["ai_analysis"] = ai_analysis
+                processed_article["summary"] = ai_analysis["summary"]
+                processed_article["action"] = ai_analysis["action"]
+                processed_article["sentiment"] = ai_analysis["sentiment"]
+                
+                # Small delay between API calls to avoid rate limiting
+                time.sleep(0.5)
+            except Exception as e:
+                print(f"    ⚠️  AI analysis failed: {str(e)}")
+                processed_article["summary"] = article["content"][:200] + "..."
+                processed_article["action"] = "WATCH"
+                processed_article["sentiment"] = "Neutral"
+        else:
+            processed_article["summary"] = article["content"][:200] + "..."
         
         processed_content.append(processed_article)
+    
+    # Phase 2: Translation (if needed) - Done separately to avoid blocking
+    if language != "en":
+        print(f"\n🌐 Phase 2: Translating to {LANGUAGES.get(language, language)}...")
+        for idx, processed_article in enumerate(processed_content):
+            print(f"  🔄 Translating article {idx+1}/{len(processed_content)}...")
+            try:
+                # Translate in smaller chunks for faster processing
+                processed_article["title_translated"] = translate_content(processed_article["title"], language)
+                processed_article["content_translated"] = translate_content(processed_article["content"][:1000], language)
+                if "summary" in processed_article and processed_article["summary"]:
+                    processed_article["summary_translated"] = translate_content(processed_article["summary"], language)
+                processed_article["language"] = LANGUAGES.get(language, language)
+            except Exception as e:
+                print(f"    ⚠️  Translation failed: {str(e)}")
     
     return {
         "success": True,
@@ -327,8 +519,9 @@ def get_aggregated_content(language: str = "en", include_summary: bool = True) -
         "language": language,
         "language_name": LANGUAGES.get(language, "English"),
         "content": processed_content,
-        "sources": list(OFFICIAL_SOURCES.keys()),
-        "last_updated": datetime.now().isoformat()
+        "sources": [s["name"] for s in OFFICIAL_SOURCES.values()],
+        "last_updated": datetime.now().isoformat(),
+        "has_ai_analysis": include_ai_analysis
     }
 
 
