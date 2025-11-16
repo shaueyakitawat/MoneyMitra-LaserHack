@@ -1363,6 +1363,10 @@ def quiz_recommendations():
         post_quiz = data.get('postQuizScore', {})
         weak_topics = data.get('weakTopics', [])
         strong_topics = data.get('strongTopics', [])
+        improved_topics = data.get('improvedTopics', [])
+        declined_topics = data.get('declinedTopics', [])
+        consistently_wrong_topics = data.get('consistentlyWrongTopics', [])
+        performance_trend = data.get('performanceTrend', 'stable')
         
         if not module_title or not pre_quiz or not post_quiz:
             response = jsonify({
@@ -1372,7 +1376,7 @@ def quiz_recommendations():
             response.headers.add("Access-Control-Allow-Origin", "*")
             return response, 400
         
-        print(f"Generating quiz recommendations for {module_title}")
+        print(f"Generating quiz recommendations for {module_title} - Trend: {performance_trend}")
         
         # Initialize Groq LLM
         groq_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
@@ -1383,75 +1387,110 @@ def quiz_recommendations():
         improvement_pct = improvement
         total_questions = post_quiz.get('total', 0)
         correct_in_post = post_quiz.get('score', 0)
+        correct_in_pre = pre_quiz.get('score', 0)
         
-        prompt = f"""As an expert AI learning advisor for financial education, analyze this Indian student's quiz performance and provide highly personalized, actionable recommendations.
+        prompt = f"""As an expert AI learning advisor for financial education, analyze this Indian student's quiz performance with DETAILED topic-level tracking and provide highly personalized, actionable recommendations.
 
 **Module**: {module_title}
-**Pre-Quiz Performance**: {pre_quiz.get('score', 0)}/{pre_quiz.get('total', 0)} ({pre_quiz.get('percentage', 0)}%) - Baseline knowledge before learning
-**Post-Quiz Performance**: {post_quiz.get('score', 0)}/{post_quiz.get('total', 0)} ({post_quiz.get('percentage', 0)}%) - Knowledge after completing module
-**Improvement**: {improvement_pct:+.0f}% ({correct_in_post - pre_quiz.get('score', 0):+d} more questions correct)
 
-**Questions Answered INCORRECTLY in Post-Quiz** (Weak Areas - Need Focus):
-{chr(10).join([f"{i+1}. {t}" for i, t in enumerate(weak_topics[:6])]) if weak_topics else "✓ All questions answered correctly! Excellent mastery."}
+**📊 PERFORMANCE TRACKING**:
+- **Pre-Quiz**: {correct_in_pre}/{total_questions} ({pre_quiz.get('percentage', 0)}%) - Baseline before learning
+- **Post-Quiz**: {correct_in_post}/{total_questions} ({post_quiz.get('percentage', 0)}%) - After completing module
+- **Net Change**: {improvement_pct:+.0f}% ({correct_in_post - correct_in_pre:+d} questions)
+- **Performance Trend**: {performance_trend.upper()} {"📈" if performance_trend == "improving" else "📉" if performance_trend == "declining" else "➡️"}
 
-**Questions Answered CORRECTLY in Post-Quiz** (Strong Areas - Well Understood):
-{chr(10).join([f"{i+1}. {t}" for i, t in enumerate(strong_topics[:6])]) if strong_topics else "No topics mastered yet - requires comprehensive review."}
+**🎯 DETAILED TOPIC ANALYSIS**:
 
-**Analysis Context**:
-- If improvement is positive: Student learned during the module
-- If improvement is negative/zero: Student may need different learning approach or more practice
-- Weak topics require immediate attention with specific action steps
-- Strong topics show effective learning - reinforce with advanced concepts
+**Topics IMPROVED** (Wrong → Correct) ✅ [{len(improved_topics)} topics]:
+{chr(10).join([f"  ✓ {t}" for t in improved_topics]) if improved_topics else "  None - No improvement shown"}
 
-**Your Task**: Create detailed, actionable recommendations following this exact structure:
+**Topics DECLINED** (Correct → Wrong) ⚠️ [{len(declined_topics)} topics] **CRITICAL**:
+{chr(10).join([f"  ⚠️ {t}" for t in declined_topics]) if declined_topics else "  None - No decline"}
+
+**Topics CONSISTENTLY WRONG** (Wrong in both) 🔴 [{len(consistently_wrong_topics)} topics] **HIGH PRIORITY**:
+{chr(10).join([f"  🔴 {t}" for t in consistently_wrong_topics]) if consistently_wrong_topics else "  None"}
+
+**All Weak Topics in Post-Quiz** [{len(weak_topics)} total]:
+{chr(10).join([f"{i+1}. {t}" for i, t in enumerate(weak_topics[:8])]) if weak_topics else "✓ Perfect score! All topics mastered."}
+
+**All Strong Topics in Post-Quiz** [{len(strong_topics)} total]:
+{chr(10).join([f"{i+1}. {t}" for i, t in enumerate(strong_topics[:8])]) if strong_topics else "Need comprehensive review of all concepts."}
+
+**CRITICAL INSIGHTS**:
+- Performance is {performance_trend} ({improvement_pct:+.0f}%)
+- {len(declined_topics)} topics REGRESSED (knew before, forgot now) - URGENT attention needed
+- {len(consistently_wrong_topics)} topics NEVER mastered (wrong in both quizzes) - Fundamental gaps
+- {len(improved_topics)} topics LEARNED successfully - Reinforcement needed
+- Focus areas: {"DECLINED topics first, then CONSISTENTLY WRONG topics" if declined_topics or consistently_wrong_topics else "Maintain and expand knowledge"}
+
+**YOUR TASK**: Create HIGHLY detailed, topic-specific recommendations following this structure:
 
 # Learning Recommendations for {module_title}
 
 ## 📊 Performance Summary
 
-Write 2-3 sentences analyzing:
-1. Their learning journey (pre → post quiz)
-2. What the {improvement_pct:+.0f}% improvement means
-3. Current mastery level assessment
+Write 3-4 sentences:
+- Overall trend: {"Improving" if performance_trend == "improving" else "Declining" if performance_trend == "declining" else "Stable"} performance
+- Specific numbers: {correct_in_pre} → {correct_in_post} correct ({improvement_pct:+.0f}%)
+- What this means for their learning effectiveness
+- Current mastery level and readiness
 
-## ✅ Key Strengths
+## ⚠️ CRITICAL ATTENTION AREAS (Priority Order)
 
-List 3-4 bullet points:
-- **[Topic Name]**: Specific praise + why this matters in real investing
-- Focus on strong topics that were answered correctly
-- Connect to practical Indian market scenarios (NSE, BSE, mutual funds, etc.)
+**FIRST** - Address DECLINED topics (if any):
+- List each declined topic with specific reason why they might have forgotten
+- Provide immediate action steps to reclaim this knowledge
 
-## 📈 Areas for Improvement
+**SECOND** - Address CONSISTENTLY WRONG topics (if any):
+- List each topic with specific conceptual gap identified
+- Explain the fundamental misunderstanding
+- Provide step-by-step learning path
 
-List 3-4 bullet points:
-- **[Topic Name]**: Specific gap identified + exact steps to improve
-- Focus on weak topics that were answered incorrectly
-- Suggest specific resources: videos, practice problems, real examples
+## ✅ Strengths & Achievements
 
-## 🎯 Personalized Action Plan
+List IMPROVED topics first (celebration!):
+- **[Topic]**: "You learned this! Was wrong, now correct. Great progress!"
 
-Provide 5-6 highly specific, numbered action items:
-1. **[Action]**: [Detailed steps] - Time estimate: [X minutes]
-2. Focus on weak topics first, then reinforcement
-3. Include practical exercises (e.g., "Calculate SIP returns for ₹5000/month")
-4. Suggest Indian finance resources/tools
-5. Include revision strategies
-6. Set measurable goals for improvement
+Then list consistently correct topics:
+- **[Topic]**: "Strong foundation. Build on this with [advanced concept]"
 
-## 🧠 Study Strategy Recommendations
+## 🎯 Detailed Action Plan (Prioritized)
 
-Provide 2-3 specific study techniques:
-- Active recall methods
-- Spaced repetition schedule
-- Real-world application exercises
-- Resources for weak areas (YouTube channels, articles, calculators)
+Provide 6-8 SPECIFIC action items in priority order:
 
-## 💪 Motivational Message
+**Immediate Actions** (Next 24 hours):
+1. **Topic X**: [Exact resource] - Watch [specific video/section] - 15 min
+2. **Topic Y**: [Practical exercise] - Do [calculation/example] - 10 min
 
-Write 2-3 encouraging sentences:
-- Acknowledge their effort and progress
-- Build confidence based on their strengths
-- Inspire continued learning with specific next milestone
+**This Week**:
+3. **Revision**: Review [declined topics] using [method] - 30 min
+4. **Practice**: Solve [X] problems on [consistently wrong topics] - 20 min
+
+**Ongoing**:
+5. **Real-world**: Track [Indian market example] for [topic]
+6. **Reinforce**: Use [tool/app] for [strong topic] - 10 min daily
+
+## 🧠 Customized Study Strategy
+
+Based on {performance_trend} trend, recommend:
+- For DECLINING: [Specific intervention strategies]
+- For IMPROVING: [Momentum building techniques]
+- For STABLE: [Breakthrough strategies]
+
+Include:
+- Best study time and method for weak topics
+- Spaced repetition schedule for declined topics
+- Active recall techniques for consistently wrong topics
+- Indian finance YouTube channels/resources for specific gaps
+
+## 💪 Personalized Motivation
+
+Address their specific situation:
+- If declining: Encouraging but honest about need for course correction
+- If improving: Celebrate wins, push for next level
+- If stable: Motivate to break through plateau
+
+Connect to their financial goals and real-world impact
 
 **Tone**: Supportive, specific, actionable. Like a personal mentor who knows Indian markets.
 **Language**: Use Indian financial terms (₹, Crore, Lakh, SIP, NSE, BSE, SEBI)
