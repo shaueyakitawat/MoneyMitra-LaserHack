@@ -13,25 +13,47 @@ const Recommendations = ({ moduleTitle, preQuizResult, postQuizResult, quiz, onC
   const generateRecommendations = async () => {
     setLoading(true);
     
-    // Analyze quiz answers to find weak and strong topics
+    // Deep analysis: Compare pre and post quiz performance
     const weakTopics = [];
     const strongTopics = [];
+    const improvedTopics = [];
+    const declinedTopics = [];
+    const consistentlyWrongTopics = [];
     
     if (postQuizResult && quiz) {
       quiz.forEach((question) => {
-        const userAnswer = postQuizResult.answers[question.id];
-        // Support both 'correct' and 'correctAnswer' field names
+        const postAnswer = postQuizResult.answers[question.id];
+        const preAnswer = preQuizResult?.answers?.[question.id];
         const correctIndex = question.correct !== undefined ? question.correct : question.correctAnswer;
         
-        if (userAnswer === correctIndex) {
+        const postCorrect = postAnswer === correctIndex;
+        const preCorrect = preAnswer === correctIndex;
+        
+        // Categorize questions based on performance change
+        if (postCorrect && !preCorrect) {
+          // Improved: Was wrong, now correct
+          improvedTopics.push(question.question);
           strongTopics.push(question.question);
-        } else if (userAnswer !== undefined) {
-          // Only add to weak topics if user actually answered (not skipped)
+        } else if (postCorrect && preCorrect) {
+          // Consistently correct: Mastered
+          strongTopics.push(question.question);
+        } else if (!postCorrect && preCorrect) {
+          // Declined: Was correct, now wrong (needs attention!)
+          declinedTopics.push(question.question);
+          weakTopics.push(question.question);
+        } else if (!postCorrect && !preCorrect) {
+          // Consistently wrong: Critical gap
+          consistentlyWrongTopics.push(question.question);
+          weakTopics.push(question.question);
+        } else if (!postCorrect && postAnswer !== undefined) {
+          // Wrong in post quiz
           weakTopics.push(question.question);
         }
       });
     }
 
+    const improvement = (postQuizResult?.percentage || 0) - (preQuizResult?.percentage || 0);
+    
     const quizData = {
       moduleTitle,
       preQuizScore: {
@@ -44,8 +66,13 @@ const Recommendations = ({ moduleTitle, preQuizResult, postQuizResult, quiz, onC
         total: postQuizResult?.total || 0,
         percentage: postQuizResult?.percentage || 0
       },
-      weakTopics: weakTopics.length > 0 ? weakTopics : ['Review all concepts'],
-      strongTopics: strongTopics.length > 0 ? strongTopics : ['Continue learning']
+      improvement: improvement,
+      weakTopics: weakTopics.length > 0 ? weakTopics : ['All topics mastered!'],
+      strongTopics: strongTopics.length > 0 ? strongTopics : ['Need to build foundation'],
+      improvedTopics: improvedTopics,
+      declinedTopics: declinedTopics,
+      consistentlyWrongTopics: consistentlyWrongTopics,
+      performanceTrend: improvement > 0 ? 'improving' : improvement < 0 ? 'declining' : 'stable'
     };
 
     try {
@@ -73,36 +100,69 @@ const Recommendations = ({ moduleTitle, preQuizResult, postQuizResult, quiz, onC
       const performanceLevel = quizData.postQuizScore.percentage >= 80 ? 'excellent' : 
                                quizData.postQuizScore.percentage >= 60 ? 'good' : 'needs improvement';
       
+      const performanceDescription = improvement > 0 
+        ? `significant improvement with a ${improvement.toFixed(0)}% increase` 
+        : improvement < 0 
+          ? `a decline with a ${Math.abs(improvement).toFixed(0)}% decrease` 
+          : 'consistent performance with no change';
+      
+      const trendEmoji = improvement > 0 ? '📈' : improvement < 0 ? '⚠️' : '➡️';
+      
       setRecommendations(`
 # Learning Recommendations for ${quizData.moduleTitle}
 
 ## 📊 Performance Summary
-You've shown ${improvement > 0 ? 'significant improvement' : 'consistent performance'} with a ${Math.abs(improvement).toFixed(0)}% ${improvement > 0 ? 'increase' : 'change'} from pre-quiz to post-quiz. Your ${performanceLevel} post-quiz score of ${quizData.postQuizScore.percentage}% demonstrates ${performanceLevel === 'excellent' ? 'strong mastery' : performanceLevel === 'good' ? 'good understanding' : 'room for growth'} of the module content.
+${trendEmoji} **Performance Trend**: You've shown ${performanceDescription} from pre-quiz to post-quiz.
 
-## ✅ Key Strengths
-${quizData.strongTopics.slice(0, 3).map(topic => `- **${topic}**: You've demonstrated solid understanding of this concept`).join('\n')}
+- **Pre-Quiz Score**: ${quizData.preQuizScore.percentage}%
+- **Post-Quiz Score**: ${quizData.postQuizScore.percentage}%
+- **Net Change**: ${improvement > 0 ? '+' : ''}${improvement.toFixed(0)}%
 
-## 📈 Areas for Improvement
-${quizData.weakTopics.slice(0, 3).map(topic => `- **${topic}**: Review this topic with additional practice and examples`).join('\n')}
+Your ${performanceLevel} post-quiz score demonstrates ${performanceLevel === 'excellent' ? 'strong mastery' : performanceLevel === 'good' ? 'good understanding' : 'room for significant growth'} of the module content.
 
-## 🎯 Personalized Recommendations
+${improvement < 0 ? `\n⚠️ **Important Notice**: Your score decreased from pre to post quiz. This suggests the material may need deeper review or a different learning approach. Don't worry - this is a valuable learning opportunity!\n` : ''}
 
-1. **Revisit Challenging Concepts**: Focus on ${quizData.weakTopics.slice(0, 2).join(' and ')}. Spend 15-20 minutes reviewing these topics with practical examples.
+${quizData.declinedTopics.length > 0 ? `## ⚠️ Critical Attention Areas (Topics You Forgot)
+${quizData.declinedTopics.slice(0, 3).map(topic => `- **${topic}**: You answered this correctly in the pre-quiz but got it wrong in the post-quiz. This indicates you may have forgotten key concepts or gotten confused. PRIORITY: Review this immediately!`).join('\n')}
+` : ''}
 
-2. **Practice with Real Scenarios**: Apply your knowledge by analyzing real market data or case studies related to weak areas.
+${quizData.consistentlyWrongTopics.length > 0 ? `## 🔴 High Priority Topics (Consistently Wrong)
+${quizData.consistentlyWrongTopics.slice(0, 3).map(topic => `- **${topic}**: You got this wrong in both quizzes, indicating a fundamental gap in understanding. Focus on building a strong foundation here.`).join('\n')}
+` : ''}
 
-3. **Use Multiple Learning Resources**: Watch the recommended videos again, especially sections covering topics you found challenging.
+${quizData.improvedTopics.length > 0 ? `## ✅ Topics You Improved
+${quizData.improvedTopics.slice(0, 3).map(topic => `- **${topic}**: Great job! You learned this successfully (wrong → correct). Keep reinforcing this knowledge.`).join('\n')}
+` : ''}
 
-4. **Take Notes**: Create summary notes for weak areas to reinforce learning through active recall.
+${quizData.strongTopics.length > 0 ? `## 💪 Your Strengths
+${quizData.strongTopics.slice(0, 3).map(topic => `- **${topic}**: Consistently correct - solid understanding!`).join('\n')}
+` : ''}
 
-5. **Retake the Quiz**: After reviewing, attempt the post-quiz again to track your progress and build confidence.
+## 🎯 Personalized Action Plan
+
+${improvement < 0 ? `### Immediate Actions (Next 24 Hours)
+1. **Review Declined Topics**: Focus on ${quizData.declinedTopics.slice(0, 2).join(' and ')}. These are concepts you knew but forgot - quick review can restore your understanding.
+2. **Identify Confusion Points**: Note where you changed from correct to incorrect answers. What caused the confusion?
+3. **Rest and Reset**: Sometimes a fresh perspective helps. Take a short break and come back with a clear mind.
+
+### This Week
+` : '### This Week - Priority Actions\n'}4. **Deep Dive on Weak Areas**: Spend 20-30 minutes daily on ${quizData.weakTopics.slice(0, 2).join(' and ')}.
+5. **Use Multiple Resources**: Watch videos, read articles, and try practice problems on challenging topics.
+6. **Create Summary Notes**: Write key points in your own words to reinforce learning.
+
+### Ongoing Strategy
+7. **Spaced Repetition**: Review topics multiple times over several days to build long-term memory.
+8. **Real-World Practice**: Apply concepts to actual market scenarios or case studies.
+9. **Test Yourself**: Attempt the quiz again after review to measure improvement.
 
 ## 💪 Motivational Message
 ${improvement > 0 
-  ? `Great progress! Your ${improvement.toFixed(0)}% improvement shows dedication to learning. Keep building on this momentum!` 
-  : `You're on the right track! Consistency in learning is key. Focus on the improvement areas and you'll see great results.`}
+  ? `🎉 Excellent progress! Your ${improvement.toFixed(0)}% improvement shows real dedication. You're building strong financial knowledge - keep this momentum going!` 
+  : improvement < 0
+    ? `💪 A decline in score is actually a valuable learning opportunity! It shows which areas need more attention. Many successful investors faced setbacks while learning. The fact that you're identifying these gaps now means you're on the path to true mastery. Don't give up - refocus and come back stronger!`
+    : `📚 Consistent performance shows stability. Now it's time to push forward and break through to the next level. Focus on converting your weak areas into strengths!`}
 
-Remember: Every expert was once a beginner. Keep learning, stay curious, and don't hesitate to revisit topics as many times as needed! 🚀
+Remember: Financial literacy is a journey, not a destination. Every challenge you overcome makes you a smarter investor. Stay curious and keep learning! 🚀
 `);
     }
     
